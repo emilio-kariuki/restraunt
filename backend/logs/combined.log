@@ -1,0 +1,7 @@
+{"level":"info","message":"SIGTERM received, shutting down gracefully","timestamp":"2025-05-26T17:49:35.370Z"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","timestamp":"2025-05-26T17:49:35.698Z"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","timestamp":"2025-05-26T17:49:39.997Z"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","timestamp":"2025-05-26T17:49:55.205Z"}
+{"level":"info","message":"Server running on port 6000","timestamp":"2025-05-26T17:50:11.130Z"}
+{"level":"info","message":"Environment: development","timestamp":"2025-05-26T17:50:11.132Z"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","timestamp":"2025-05-26T17:50:13.930Z"}
