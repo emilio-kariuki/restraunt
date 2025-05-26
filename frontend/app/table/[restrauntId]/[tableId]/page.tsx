@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ShoppingCart, Plus, Minus, CreditCard, CheckCircle, Clock, ChefHat, Phone, MapPin } from 'lucide-react';
+import { apiService } from '../../../../lib/api';
 
 interface MenuItem {
   _id: string;
@@ -34,7 +35,7 @@ interface Table {
 }
 
 interface Order {
-  id: string;
+  _id: string;
   status: string;
   total: number;
   items: any[];
@@ -42,11 +43,9 @@ interface Order {
   estimatedReadyTime?: string;
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:6000/api';
-
 export default function TablePage() {
   const params = useParams();
-  const restaurantId = params.restaurantId as string;
+  const restaurantId = params.restrauntId as string;
   const tableId = params.tableId as string;
 
   // State management
@@ -68,12 +67,8 @@ export default function TablePage() {
     try {
       setError(null);
       
-      // Get table info
-      const tableResponse = await fetch(`${API_BASE}/tables/${restaurantId}/${tableId}`);
-      if (!tableResponse.ok) {
-        throw new Error('Table not found');
-      }
-      const tableData = await tableResponse.json();
+      // Get table info using axios
+      const tableData = await apiService.tables.getTableInfo(restaurantId, tableId);
       setRestaurant(tableData.restaurant);
       setTable(tableData.table);
 
@@ -88,12 +83,8 @@ export default function TablePage() {
         return;
       }
 
-      // Get menu
-      const menuResponse = await fetch(`${API_BASE}/tables/${restaurantId}/${tableId}/menu`);
-      if (!menuResponse.ok) {
-        throw new Error('Menu not available');
-      }
-      const menuData = await menuResponse.json();
+      // Get menu using axios
+      const menuData = await apiService.tables.getTableMenu(restaurantId, tableId);
       setMenu(menuData.menu);
       
       setCurrentView('menu');
@@ -149,6 +140,7 @@ export default function TablePage() {
       setIsProcessing(true);
       
       const orderData = {
+        tableId: tableId,
         items: cart.map(item => ({
           menuItemId: item._id,
           quantity: item.quantity,
@@ -158,19 +150,7 @@ export default function TablePage() {
         customerPhone
       };
 
-      const response = await fetch(`${API_BASE}/orders/${restaurantId}/table/${tableId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create order');
-      }
-
-      const result = await response.json();
+      const result = await apiService.orders.createOrder(restaurantId, orderData);
       setOrder(result.order);
       return result.order;
     } catch (err) {
@@ -188,33 +168,20 @@ export default function TablePage() {
       const newOrder = await createOrder();
       
       // Create payment intent
-      const paymentResponse = await fetch(`${API_BASE}/orders/${newOrder.id}/payment-intent`, {
-        method: 'POST',
-      });
-      
-      if (!paymentResponse.ok) {
-        throw new Error('Failed to create payment');
-      }
+      await apiService.orders.createPaymentIntent(newOrder._id);
       
       // Simulate successful payment (in real app, integrate with Stripe Elements)
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Confirm payment
-      const confirmResponse = await fetch(`${API_BASE}/orders/${newOrder.id}/confirm-payment`, {
-        method: 'POST',
-      });
+      const result = await apiService.orders.confirmPayment(newOrder._id);
       
-      if (!confirmResponse.ok) {
-        throw new Error('Payment confirmation failed');
-      }
-      
-      const result = await confirmResponse.json();
       setOrder(result.order);
       setCart([]);
       setCurrentView('order-status');
       
       // Start polling for order updates
-      startOrderPolling(result.order.id);
+      startOrderPolling(result.order._id);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Payment failed');
     } finally {
@@ -225,15 +192,12 @@ export default function TablePage() {
   const startOrderPolling = (orderId: string) => {
     const pollInterval = setInterval(async () => {
       try {
-        const response = await fetch(`${API_BASE}/orders/${orderId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setOrder(data.order);
-          
-          // Stop polling when order is ready or served
-          if (data.order.status === 'ready' || data.order.status === 'served') {
-            clearInterval(pollInterval);
-          }
+        const data = await apiService.orders.getOrder(orderId);
+        setOrder(data.order);
+        
+        // Stop polling when order is ready or served
+        if (data.order.status === 'ready' || data.order.status === 'served') {
+          clearInterval(pollInterval);
         }
       } catch (err) {
         console.error('Error polling order status:', err);
@@ -259,11 +223,11 @@ export default function TablePage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="max-w-md mx-auto text-center p-6">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Oops!</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h1>
           <p className="text-gray-600 mb-4">{error}</p>
           <button 
             onClick={loadTableData}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Try Again
           </button>
@@ -360,7 +324,7 @@ export default function TablePage() {
           <div className="bg-blue-600 text-white p-4 sticky top-0 z-10">
             <button 
               onClick={() => setCurrentView('menu')}
-              className="text-blue-100 hover:text-white mb-2 flex items-center"
+              className="text-blue-100 hover:text-white mb-2 flex items-center transition-colors"
             >
               ← Back to Menu
             </button>
@@ -375,7 +339,7 @@ export default function TablePage() {
                 <p className="text-gray-500 text-lg">Your cart is empty</p>
                 <button
                   onClick={() => setCurrentView('menu')}
-                  className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg"
+                  className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Browse Menu
                 </button>
@@ -394,14 +358,14 @@ export default function TablePage() {
                         <div className="flex items-center">
                           <button
                             onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                            className="bg-gray-200 hover:bg-gray-300 p-2 rounded-full"
+                            className="bg-gray-200 hover:bg-gray-300 p-2 rounded-full transition-colors"
                           >
                             <Minus className="w-4 h-4" />
                           </button>
                           <span className="mx-4 font-medium min-w-[2rem] text-center">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                            className="bg-gray-200 hover:bg-gray-300 p-2 rounded-full"
+                            className="bg-gray-200 hover:bg-gray-300 p-2 rounded-full transition-colors"
                           >
                             <Plus className="w-4 h-4" />
                           </button>
@@ -458,7 +422,7 @@ export default function TablePage() {
           <div className="bg-blue-600 text-white p-4 sticky top-0 z-10">
             <button 
               onClick={() => setCurrentView('cart')}
-              className="text-blue-100 hover:text-white mb-2 flex items-center"
+              className="text-blue-100 hover:text-white mb-2 flex items-center transition-colors"
             >
               ← Back to Cart
             </button>
@@ -489,7 +453,7 @@ export default function TablePage() {
                 <input 
                   type="text" 
                   placeholder="1234 5678 9012 3456"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   disabled={isProcessing}
                 />
               </div>
@@ -499,7 +463,7 @@ export default function TablePage() {
                   <input 
                     type="text" 
                     placeholder="MM/YY"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     disabled={isProcessing}
                   />
                 </div>
@@ -508,7 +472,7 @@ export default function TablePage() {
                   <input 
                     type="text" 
                     placeholder="123"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     disabled={isProcessing}
                   />
                 </div>
@@ -524,7 +488,7 @@ export default function TablePage() {
               {isProcessing ? (
                 <>
                   <Clock className="w-5 h-5 mr-2 animate-spin" />
-                  Processing...
+                  Processing Payment...
                 </>
               ) : (
                 <>
@@ -536,7 +500,7 @@ export default function TablePage() {
 
             {error && (
               <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-                {error}
+                <strong>Payment Error:</strong> {error}
               </div>
             )}
           </div>
@@ -592,7 +556,7 @@ export default function TablePage() {
           {/* Header */}
           <div className="bg-blue-600 text-white p-4 sticky top-0 z-10">
             <h1 className="text-xl font-bold">{restaurant?.name}</h1>
-            <p className="text-blue-100">Table {table?.number} • Order #{order.id.slice(-6)}</p>
+            <p className="text-blue-100">Table {table?.number} • Order #{order._id.slice(-6)}</p>
           </div>
 
           <div className="p-6 text-center">
