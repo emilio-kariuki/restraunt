@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, QrCode, Users, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
+import { Plus, Edit, Trash2, QrCode, Users, RefreshCw, AlertCircle, CheckCircle, X, Download } from 'lucide-react';
 import { apiService } from '../../lib/api';
 
 interface MenuItem {
@@ -11,6 +11,7 @@ interface MenuItem {
   price: number;
   category: string;
   available: boolean;
+  allergens?: string[];
 }
 
 interface Order {
@@ -30,7 +31,21 @@ interface Restaurant {
     tableNumber: string;
     capacity: number;
     status: string;
+    qrCode?: string;
   }>;
+}
+
+interface MenuItemForm {
+  name: string;
+  description: string;
+  price: string;
+  category: string;
+  allergens: string;
+}
+
+interface TableForm {
+  tableNumber: string;
+  capacity: string;
 }
 
 export default function AdminPage() {
@@ -44,6 +59,27 @@ export default function AdminPage() {
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [error, setError] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  
+  // Modal states
+  const [showMenuItemModal, setShowMenuItemModal] = useState(false);
+  const [showTableModal, setShowTableModal] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
+  const [selectedTable, setSelectedTable] = useState<string | null>(null);
+  const [editingMenuItem, setEditingMenuItem] = useState<MenuItem | null>(null);
+  
+  // Form states
+  const [menuItemForm, setMenuItemForm] = useState<MenuItemForm>({
+    name: '',
+    description: '',
+    price: '',
+    category: '',
+    allergens: ''
+  });
+  
+  const [tableForm, setTableForm] = useState<TableForm>({
+    tableNumber: '',
+    capacity: ''
+  });
 
   // Auto-clear notifications
   useEffect(() => {
@@ -154,6 +190,171 @@ export default function AdminPage() {
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to update order';
+      setNotification({ type: 'error', message });
+    }
+  };
+
+  // Menu Item CRUD Operations
+  const handleCreateMenuItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const allergenArray = menuItemForm.allergens
+        .split(',')
+        .map(a => a.trim())
+        .filter(a => a.length > 0);
+
+      await apiService.menu.createMenuItem({
+        name: menuItemForm.name,
+        description: menuItemForm.description,
+        price: parseFloat(menuItemForm.price),
+        category: menuItemForm.category,
+        allergens: allergenArray
+      });
+
+      setNotification({ type: 'success', message: 'Menu item created successfully!' });
+      setShowMenuItemModal(false);
+      resetMenuItemForm();
+      await loadMenu();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to create menu item';
+      setNotification({ type: 'error', message });
+    }
+  };
+
+  const handleUpdateMenuItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingMenuItem) return;
+
+    try {
+      const allergenArray = menuItemForm.allergens
+        .split(',')
+        .map(a => a.trim())
+        .filter(a => a.length > 0);
+
+      await apiService.menu.updateMenuItem(editingMenuItem._id, {
+        name: menuItemForm.name,
+        description: menuItemForm.description,
+        price: parseFloat(menuItemForm.price),
+        category: menuItemForm.category,
+        allergens: allergenArray
+      });
+
+      setNotification({ type: 'success', message: 'Menu item updated successfully!' });
+      setShowMenuItemModal(false);
+      setEditingMenuItem(null);
+      resetMenuItemForm();
+      await loadMenu();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update menu item';
+      setNotification({ type: 'error', message });
+    }
+  };
+
+  const handleDeleteMenuItem = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this menu item?')) return;
+
+    try {
+      await apiService.menu.deleteMenuItem(id);
+      setNotification({ type: 'success', message: 'Menu item deleted successfully!' });
+      await loadMenu();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to delete menu item';
+      setNotification({ type: 'error', message });
+    }
+  };
+
+  const openEditMenuItem = (item: MenuItem) => {
+    setEditingMenuItem(item);
+    setMenuItemForm({
+      name: item.name,
+      description: item.description,
+      price: item.price.toString(),
+      category: item.category,
+      allergens: item.allergens?.join(', ') || ''
+    });
+    setShowMenuItemModal(true);
+  };
+
+  const resetMenuItemForm = () => {
+    setMenuItemForm({
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      allergens: ''
+    });
+  };
+
+  // Table CRUD Operations
+  const handleCreateTable = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await apiService.restaurants.addTable({
+        tableNumber: tableForm.tableNumber,
+        capacity: parseInt(tableForm.capacity)
+      });
+
+      setNotification({ type: 'success', message: 'Table added successfully!' });
+      setShowTableModal(false);
+      resetTableForm();
+      await loadRestaurant();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to add table';
+      setNotification({ type: 'error', message });
+    }
+  };
+
+  const resetTableForm = () => {
+    setTableForm({
+      tableNumber: '',
+      capacity: ''
+    });
+  };
+
+  // QR Code Operations
+  const generateQRCode = async (tableNumber: string) => {
+    if (!restaurant) return;
+    
+    try {
+      const data = await apiService.restaurants.getTableQR(tableNumber, restaurant._id);
+      setSelectedTable(tableNumber);
+      setShowQRModal(true);
+      
+      // Update the restaurant state with the new QR code
+      setRestaurant(prev => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          tables: prev.tables.map(table => 
+            table.tableNumber === tableNumber 
+              ? { ...table, qrCode: data.qrCode }
+              : table
+          )
+        };
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to generate QR code';
+      setNotification({ type: 'error', message });
+    }
+  };
+
+  const downloadQRCode = async (tableNumber: string) => {
+    if (!restaurant) return;
+
+    try {
+      const data = await apiService.restaurants.getTableQR(tableNumber, restaurant._id);
+      
+      // Create a download link
+      const link = document.createElement('a');
+      link.href = data.qrCode;
+      link.download = `table-${tableNumber}-qr.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      setNotification({ type: 'success', message: 'QR Code downloaded successfully!' });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to download QR code';
       setNotification({ type: 'error', message });
     }
   };
@@ -419,7 +620,7 @@ export default function AdminPage() {
                       <h4 className="font-medium mb-2 text-gray-900">Order Items:</h4>
                       <div className="space-y-1">
                         {order.items.map((item, index) => (
-                          <div key={index} className="flex justify-between text-sm bg-gray-50 p-2 rounded">
+                          <div key={index} className="flex justify-between text-sm bg-gray-50 p-2 rounded text-black">
                             <span>{item.quantity}x {item.name}</span>
                             <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
                           </div>
@@ -452,7 +653,14 @@ export default function AdminPage() {
                 <h2 className="text-xl font-semibold text-gray-900">Menu Management</h2>
                 <p className="text-gray-600">Manage your restaurant menu items</p>
               </div>
-              <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+              <button 
+                onClick={() => {
+                  resetMenuItemForm();
+                  setEditingMenuItem(null);
+                  setShowMenuItemModal(true);
+                }}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+              >
                 <Plus className="w-4 h-4 inline mr-2" />
                 Add Item
               </button>
@@ -481,14 +689,25 @@ export default function AdminPage() {
                             {item.available ? 'Available' : 'Unavailable'}
                           </span>
                         </div>
+                        {item.allergens && item.allergens.length > 0 && (
+                          <p className="text-xs text-orange-600 mt-1">
+                            Allergens: {item.allergens.join(', ')}
+                          </p>
+                        )}
                       </div>
                       <div className="text-right ml-4">
                         <p className="font-bold text-lg text-gray-900">${item.price.toFixed(2)}</p>
                         <div className="flex space-x-2 mt-2">
-                          <button className="text-blue-600 hover:text-blue-800 transition-colors">
+                          <button 
+                            onClick={() => openEditMenuItem(item)}
+                            className="text-blue-600 hover:text-blue-800 transition-colors"
+                          >
                             <Edit className="w-4 h-4" />
                           </button>
-                          <button className="text-red-600 hover:text-red-800 transition-colors">
+                          <button 
+                            onClick={() => handleDeleteMenuItem(item._id)}
+                            className="text-red-600 hover:text-red-800 transition-colors"
+                          >
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
@@ -509,7 +728,13 @@ export default function AdminPage() {
                 <h2 className="text-xl font-semibold text-gray-900">Table Management</h2>
                 <p className="text-gray-600">Manage tables and QR codes</p>
               </div>
-              <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+              <button 
+                onClick={() => {
+                  resetTableForm();
+                  setShowTableModal(true);
+                }}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+              >
                 <Plus className="w-4 h-4 inline mr-2" />
                 Add Table
               </button>
@@ -527,7 +752,15 @@ export default function AdminPage() {
                     <div className="text-center">
                       <h3 className="font-semibold text-lg mb-2 text-gray-900">Table {table.tableNumber}</h3>
                       <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                        <QrCode className="w-16 h-16 mx-auto text-gray-400" />
+                        {table.qrCode ? (
+                          <img 
+                            src={table.qrCode} 
+                            alt={`QR Code for Table ${table.tableNumber}`}
+                            className="w-24 h-24 mx-auto"
+                          />
+                        ) : (
+                          <QrCode className="w-16 h-16 mx-auto text-gray-400" />
+                        )}
                         <p className="text-sm text-gray-600 mt-2">QR Code</p>
                       </div>
                       <div className="space-y-2">
@@ -541,9 +774,21 @@ export default function AdminPage() {
                           </span>
                         </p>
                       </div>
-                      <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        Download QR Code
-                      </button>
+                      <div className="mt-4 space-y-2">
+                        <button 
+                          onClick={() => generateQRCode(table.tableNumber)}
+                          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                          Generate QR Code
+                        </button>
+                        <button 
+                          onClick={() => downloadQRCode(table.tableNumber)}
+                          className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+                        >
+                          <Download className="w-4 h-4 inline mr-2" />
+                          Download QR
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -552,6 +797,227 @@ export default function AdminPage() {
           </div>
         )}
       </div>
+
+      {/* Menu Item Modal */}
+      {showMenuItemModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">
+                {editingMenuItem ? 'Edit Menu Item' : 'Add Menu Item'}
+              </h3>
+              <button 
+                onClick={() => {
+                  setShowMenuItemModal(false);
+                  setEditingMenuItem(null);
+                  resetMenuItemForm();
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <form onSubmit={editingMenuItem ? handleUpdateMenuItem : handleCreateMenuItem}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Name</label>
+                  <input
+                    type="text"
+                    value={menuItemForm.name}
+                    onChange={(e) => setMenuItemForm({...menuItemForm, name: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Description</label>
+                  <textarea
+                    value={menuItemForm.description}
+                    onChange={(e) => setMenuItemForm({...menuItemForm, description: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    rows={3}
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Price ($)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={menuItemForm.price}
+                    onChange={(e) => setMenuItemForm({...menuItemForm, price: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Category</label>
+                  <select
+                    value={menuItemForm.category}
+                    onChange={(e) => setMenuItemForm({...menuItemForm, category: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    <option value="appetizers">Appetizers</option>
+                    <option value="mains">Main Courses</option>
+                    <option value="desserts">Desserts</option>
+                    <option value="beverages">Beverages</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Allergens (comma-separated)</label>
+                  <input
+                    type="text"
+                    value={menuItemForm.allergens}
+                    onChange={(e) => setMenuItemForm({...menuItemForm, allergens: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g., dairy, gluten, nuts"
+                  />
+                </div>
+              </div>
+              
+              <div className="flex space-x-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowMenuItemModal(false);
+                    setEditingMenuItem(null);
+                    resetMenuItemForm();
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  {editingMenuItem ? 'Update' : 'Create'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Table Modal */}
+      {showTableModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">Add Table</h3>
+              <button 
+                onClick={() => {
+                  setShowTableModal(false);
+                  resetTableForm();
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <form onSubmit={handleCreateTable}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Table Number</label>
+                  <input
+                    type="text"
+                    value={tableForm.tableNumber}
+                    onChange={(e) => setTableForm({...tableForm, tableNumber: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g., T007"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-1">Capacity</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="20"
+                    value={tableForm.capacity}
+                    onChange={(e) => setTableForm({...tableForm, capacity: e.target.value})}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="flex space-x-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowTableModal(false);
+                    resetTableForm();
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Add Table
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* QR Code Modal */}
+      {showQRModal && selectedTable && restaurant && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">QR Code - Table {selectedTable}</h3>
+              <button 
+                onClick={() => {
+                  setShowQRModal(false);
+                  setSelectedTable(null);
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="text-center">
+              {restaurant.tables.find(t => t.tableNumber === selectedTable)?.qrCode && (
+                <div className="mb-4">
+                  <img 
+                    src={restaurant.tables.find(t => t.tableNumber === selectedTable)?.qrCode} 
+                    alt={`QR Code for Table ${selectedTable}`}
+                    className="w-64 h-64 mx-auto border rounded-lg"
+                  />
+                </div>
+              )}
+              
+              <p className="text-sm text-gray-600 mb-4">
+                Customers can scan this QR code to view the menu and place orders for Table {selectedTable}
+              </p>
+              
+              <button 
+                onClick={() => downloadQRCode(selectedTable)}
+                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <Download className="w-4 h-4 inline mr-2" />
+                Download QR Code
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

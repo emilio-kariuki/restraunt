@@ -15,11 +15,21 @@ export class OrderController {
       const { tableId, items, customerName, customerPhone, specialInstructions } = req.body;
       const { restaurantId } = req.params;
 
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        res.status(400).json({ error: 'Items are required' });
+        return;
+      }
+
       // Validate menu items and calculate total
       let total = 0;
       const orderItems = [];
 
       for (const item of items) {
+        if (!item.menuItemId || !item.quantity || item.quantity <= 0) {
+          res.status(400).json({ error: 'Invalid item data' });
+          return;
+        }
+
         const menuItem = await MenuItem.findById(item.menuItemId);
         if (!menuItem || !menuItem.available) {
           res.status(400).json({ error: `Menu item ${item.menuItemId} not available` });
@@ -65,6 +75,11 @@ export class OrderController {
     try {
       const { orderId } = req.params;
 
+      if (!orderId) {
+        res.status(400).json({ error: 'Order ID is required' });
+        return;
+      }
+
       const order = await Order.findById(orderId);
       if (!order) {
         res.status(404).json({ error: 'Order not found' });
@@ -97,6 +112,11 @@ export class OrderController {
   static async confirmPayment(req: Request, res: Response): Promise<void> {
     try {
       const { orderId } = req.params;
+
+      if (!orderId) {
+        res.status(400).json({ error: 'Order ID is required' });
+        return;
+      }
 
       const order = await Order.findById(orderId);
       if (!order) {
@@ -134,6 +154,29 @@ export class OrderController {
       const { orderId } = req.params;
       const { status } = req.body;
 
+      if (!orderId) {
+        res.status(400).json({ error: 'Order ID is required' });
+        return;
+      }
+
+      if (!status) {
+        res.status(400).json({ error: 'Status is required' });
+        return;
+      }
+
+      // Validate status values
+      const validStatuses = ['pending', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
+      if (!validStatuses.includes(status)) {
+        res.status(400).json({ error: 'Invalid status value' });
+        return;
+      }
+
+      // Check if user is authenticated and has restaurantId
+      if (!req.user || !req.user.restaurantId) {
+        res.status(401).json({ error: 'Authentication required with restaurant access' });
+        return;
+      }
+
       const order = await Order.findOneAndUpdate(
         { _id: orderId, restaurantId: req.user.restaurantId },
         { status, updatedAt: new Date() },
@@ -141,16 +184,21 @@ export class OrderController {
       );
 
       if (!order) {
-        res.status(404).json({ error: 'Order not found' });
+        res.status(404).json({ error: 'Order not found or access denied' });
         return;
       }
 
       // Send SMS notification when order is ready
       if (status === 'ready' && order.customerPhone) {
-        await TwilioService.notifyOrderReady(
-          order.customerPhone,
-          order._id.toString().slice(-6)
-        );
+        try {
+          await TwilioService.notifyOrderReady(
+            order.customerPhone,
+            order._id.toString().slice(-6)
+          );
+        } catch (smsError) {
+          logger.error('SMS notification error:', smsError);
+          // Don't fail the request if SMS fails
+        }
       }
 
       res.json({ order });
@@ -162,6 +210,11 @@ export class OrderController {
 
   static async getOrders(req: AuthRequest, res: Response): Promise<void> {
     try {
+      if (!req.user || !req.user.restaurantId) {
+        res.status(401).json({ error: 'Authentication required with restaurant access' });
+        return;
+      }
+
       const { status, tableId } = req.query;
       const filter: any = { restaurantId: req.user.restaurantId };
 
@@ -182,6 +235,11 @@ export class OrderController {
   static async getOrderById(req: Request, res: Response): Promise<void> {
     try {
       const { orderId } = req.params;
+
+      if (!orderId) {
+        res.status(400).json({ error: 'Order ID is required' });
+        return;
+      }
 
       const order = await Order.findById(orderId);
       if (!order) {

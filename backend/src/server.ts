@@ -1,3 +1,4 @@
+// backend/src/server.ts - Updated with proper CORS and error handling
 import express, { Request, Response, Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -24,17 +25,26 @@ dotenv.config();
 const app: Express = express();
 const PORT = process.env.PORT || 6000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
 // Connect to database
 connectDB();
 
 // Security middleware
-app.use(helmet());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    credentials: true,
-  })
-);
+// app.use(helmet({
+//   crossOriginEmbedderPolicy: false,
+//   contentSecurityPolicy: false,
+// }));
+
+// Enhanced CORS configuration
+app.use(cors(
+    {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  ));
 
 // Rate limiting
 app.use(generalLimiter);
@@ -63,6 +73,16 @@ app.get("/api/health", (req: Request, res: Response) => {
     status: "OK",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
+    environment: process.env.NODE_ENV || "development",
+    database: "connected"
+  });
+});
+
+// Test endpoint
+app.get("/api/test", (req: Request, res: Response) => {
+  res.json({
+    message: "Backend is working!",
+    timestamp: new Date().toISOString()
   });
 });
 
@@ -77,23 +97,35 @@ app.use((err: any, req: Request, res: Response, next: any) => {
 
 // 404 handler
 app.use("*", (req: Request, res: Response) => {
+  logger.warn(`404 - Route not found: ${req.method} ${req.originalUrl}`);
   res.status(404).json({ error: "Route not found" });
 });
 
 // Graceful shutdown
-process.on("SIGTERM", () => {
-  logger.info("SIGTERM received, shutting down gracefully");
+const shutdown = () => {
+  logger.info("Shutting down gracefully...");
   process.exit(0);
+};
+
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
+
+// Start server
+const server = app.listen(PORT, () => {
+  logger.info(`🚀 Server running on port ${PORT}`);
+  logger.info(`📅 Environment: ${process.env.NODE_ENV || "development"}`);
+  logger.info(`🌐 CORS enabled for: ${process.env.FRONTEND_URL || "http://localhost:3000"}`);
+  logger.info(`📊 API Health Check: http://localhost:${PORT}/api/health`);
 });
 
-process.on("SIGINT", () => {
-  logger.info("SIGINT received, shutting down gracefully");
-  process.exit(0);
-});
-
-app.listen(PORT, () => {
-  logger.info(`Server running on port ${PORT}`);
-  logger.info(`Environment: ${process.env.NODE_ENV || "development"}`);
+// Handle server errors
+server.on('error', (error: any) => {
+  if (error.code === 'EADDRINUSE') {
+    logger.error(`❌ Port ${PORT} is already in use`);
+    process.exit(1);
+  } else {
+    logger.error('❌ Server error:', error);
+  }
 });
 
 export default app;

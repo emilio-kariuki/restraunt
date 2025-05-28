@@ -1,7 +1,7 @@
-// frontend/lib/api.ts - Centralized API client
+// frontend/lib/api.ts - Updated API client with proper axios implementation
 import axios, { AxiosInstance, AxiosError } from 'axios';
 
-const API_BASE =  'https://hgn8hf4t-6000.uks1.devtunnels.ms/api';
+const API_BASE = 'https://hgn8hf4t-6000.uks1.devtunnels.ms/api';
 
 // Create axios instance with default config
 const apiClient: AxiosInstance = axios.create({
