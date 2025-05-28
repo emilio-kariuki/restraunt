@@ -4,6 +4,7 @@ import MenuItem from '../models/menuitem';
 import { StripeService } from '../services/stripeService';
 import { TwilioService } from '../services/twilioService';
 import logger from '../utils/logger';
+import mongoose from 'mongoose';
 
 interface AuthRequest extends Request {
   user?: any;
@@ -12,23 +13,36 @@ interface AuthRequest extends Request {
 export class OrderController {
   static async createOrder(req: Request, res: Response): Promise<void> {
     try {
-      const { tableId, items, customerName, customerPhone, specialInstructions } = req.body;
+      const { tableId, items, customerName, customerPhone, customerEmail, specialInstructions } = req.body;
       const { restaurantId } = req.params;
 
+      // Validate required fields
       if (!items || !Array.isArray(items) || items.length === 0) {
         res.status(400).json({ error: 'Items are required' });
         return;
       }
 
-      // Validate menu items and calculate total
-      let total = 0;
+      if (!customerName || !customerPhone) {
+        res.status(400).json({ error: 'Customer name and phone are required' });
+        return;
+      }
+
+      // Validate phone number format
+      const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+      if (!phoneRegex.test(customerPhone)) {
+        res.status(400).json({ error: 'Invalid phone number format' });
+        return;
+      }
+
+      // Validate menu items and calculate totals
+      let subtotal = 0;
       const orderItems = [];
 
       for (const item of items) {
-        if (!item.menuItemId || !item.quantity || item.quantity <= 0) {
-          res.status(400).json({ error: 'Invalid item data' });
-          return;
-        }
+        // if (!item.menuItemId || !item.quantity || item.quantity <= 0) {
+        //   res.status(400).json({ error: `"items[${items.indexOf(item)}].menuItemId" is required` });
+        //   return;
+        // }
 
         const menuItem = await MenuItem.findById(item.menuItemId);
         if (!menuItem || !menuItem.available) {
@@ -45,21 +59,42 @@ export class OrderController {
         };
 
         orderItems.push(orderItem);
-        total += menuItem.price * item.quantity;
+        subtotal += menuItem.price * item.quantity;
       }
+
+      // Calculate tax and total
+      const taxRate = 0.08; // 8% tax
+      const tax = subtotal * taxRate;
+      const total = subtotal + tax;
 
       const order = new Order({
         restaurantId,
         tableId,
         items: orderItems,
+        subtotal,
+        tax,
         total,
         customerName,
         customerPhone,
+        customerEmail,
         specialInstructions,
-        status: 'pending'
+        status: 'pending',
+        paymentStatus: 'pending'
       });
 
       await order.save();
+
+      // Send order confirmation SMS
+      try {
+        await TwilioService.sendOrderConfirmation(
+          customerPhone,
+          order._id.toString().slice(-6),
+          customerName
+        );
+      } catch (smsError) {
+        logger.error('SMS notification error:', smsError);
+        // Don't fail the order creation if SMS fails
+      }
 
       res.status(201).json({
         message: 'Order created successfully',
@@ -93,7 +128,13 @@ export class OrderController {
 
       const paymentIntent = await StripeService.createPaymentIntent(
         order.total,
-        order._id.toString()
+        order._id.toString(),
+        {
+          customerName: order.customerName,
+          customerEmail: order.customerEmail,
+          customerPhone: order.customerPhone,
+          tableId: order.tableId
+        }
       );
 
       order.paymentIntentId = paymentIntent.id;
@@ -101,7 +142,8 @@ export class OrderController {
 
       res.json({
         clientSecret: paymentIntent.client_secret,
-        amount: order.total
+        amount: order.total,
+        orderId: order._id
       });
     } catch (error) {
       logger.error('Create payment intent error:', error);
@@ -136,6 +178,17 @@ export class OrderController {
         order.status = 'confirmed';
         await order.save();
 
+        // Send payment confirmation SMS
+        try {
+          await TwilioService.sendPaymentConfirmation(
+            order.customerPhone,
+            order._id.toString().slice(-6),
+            order.total
+          );
+        } catch (smsError) {
+          logger.error('SMS notification error:', smsError);
+        }
+
         res.json({
           message: 'Payment confirmed',
           order
@@ -150,6 +203,9 @@ export class OrderController {
   }
 
   static async updateOrderStatus(req: AuthRequest, res: Response): Promise<void> {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
       const { orderId } = req.params;
       const { status } = req.body;
@@ -165,7 +221,7 @@ export class OrderController {
       }
 
       // Validate status values
-      const validStatuses = ['pending', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
+      const validStatuses = ['pending', 'confirmed', 'preparing', 'ready', 'served', 'completed', 'cancelled'];
       if (!validStatuses.includes(status)) {
         res.status(400).json({ error: 'Invalid status value' });
         return;
@@ -180,31 +236,57 @@ export class OrderController {
       const order = await Order.findOneAndUpdate(
         { _id: orderId, restaurantId: req.user.restaurantId },
         { status, updatedAt: new Date() },
-        { new: true }
+        { new: true, session }
       );
 
       if (!order) {
+        await session.abortTransaction();
         res.status(404).json({ error: 'Order not found or access denied' });
         return;
       }
 
-      // Send SMS notification when order is ready
-      if (status === 'ready' && order.customerPhone) {
-        try {
-          await TwilioService.notifyOrderReady(
-            order.customerPhone,
-            order._id.toString().slice(-6)
-          );
-        } catch (smsError) {
-          logger.error('SMS notification error:', smsError);
-          // Don't fail the request if SMS fails
+      // Send SMS notifications based on status
+      try {
+        switch (status) {
+          case 'confirmed':
+            await TwilioService.sendOrderConfirmed(
+              order.customerPhone,
+              order._id.toString().slice(-6)
+            );
+            break;
+          case 'preparing':
+            await TwilioService.sendOrderPreparing(
+              order.customerPhone,
+              order._id.toString().slice(-6)
+            );
+            break;
+          case 'ready':
+            await TwilioService.sendOrderReady(
+              order.customerPhone,
+              order._id.toString().slice(-6),
+              order.tableId
+            );
+            break;
+          case 'cancelled':
+            await TwilioService.sendOrderCancelled(
+              order.customerPhone,
+              order._id.toString().slice(-6)
+            );
+            break;
         }
+      } catch (smsError) {
+        logger.error('SMS notification error:', smsError);
+        // Don't fail the status update if SMS fails
       }
 
+      await session.commitTransaction();
       res.json({ order });
     } catch (error) {
+      await session.abortTransaction();
       logger.error('Update order status error:', error);
       res.status(500).json({ error: 'Internal server error' });
+    } finally {
+      session.endSession();
     }
   }
 
@@ -215,15 +297,21 @@ export class OrderController {
         return;
       }
 
-      const { status, tableId } = req.query;
+      const { status, tableId, date } = req.query;
       const filter: any = { restaurantId: req.user.restaurantId };
 
       if (status) filter.status = status;
       if (tableId) filter.tableId = tableId;
+      if (date) {
+        const startDate = new Date(date as string);
+        const endDate = new Date(date as string);
+        endDate.setDate(endDate.getDate() + 1);
+        filter.createdAt = { $gte: startDate, $lt: endDate };
+      }
 
       const orders = await Order.find(filter)
         .sort({ createdAt: -1 })
-        .limit(50);
+        .limit(100);
 
       res.json({ orders });
     } catch (error) {
@@ -250,6 +338,46 @@ export class OrderController {
       res.json({ order });
     } catch (error) {
       logger.error('Get order error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  static async getOrderStats(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      if (!req.user || !req.user.restaurantId) {
+        res.status(401).json({ error: 'Authentication required with restaurant access' });
+        return;
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const stats = await Order.aggregate([
+        {
+          $match: {
+            restaurantId: req.user.restaurantId,
+            createdAt: { $gte: today }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            totalOrders: { $sum: 1 },
+            totalRevenue: { $sum: '$total' },
+            averageOrderValue: { $avg: '$total' },
+            ordersByStatus: {
+              $push: {
+                status: '$status',
+                count: 1
+              }
+            }
+          }
+        }
+      ]);
+
+      res.json({ stats: stats[0] || {} });
+    } catch (error) {
+      logger.error('Get order stats error:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   }
