@@ -1,4 +1,4 @@
-// backend/src/server.ts - Updated with proper CORS and error handling
+// backend/src/server.ts - Fixed CORS and API configuration
 import express, { Request, Response, Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -25,40 +25,35 @@ dotenv.config();
 const app: Express = express();
 const PORT = process.env.PORT || 6000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
 // Connect to database
 connectDB();
 
 // Security middleware
-// app.use(helmet({
-//   crossOriginEmbedderPolicy: false,
-//   contentSecurityPolicy: false,
-// }));
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: false,
+}));
 
-// Enhanced CORS configuration
-app.use(cors(
-    {
-      origin: "*",
-      methods: ["GET", "POST"],
-    },
-  ));
+// CORS configuration - Fixed to allow frontend
+app.use(cors({
+    origin: '*',
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"],
+    allowedHeaders: "*",
+    credentials: true
+}));
 
 // Rate limiting
 app.use(generalLimiter);
 
-// Webhook routes (before express.json middleware for raw body)
-app.use(
-  "/api/webhooks",
-  express.raw({ type: "application/json" }),
-  webhookRoutes
-);
+// Raw body for webhooks (BEFORE express.json)
+app.use("/api/webhooks", express.raw({ type: "application/json" }), webhookRoutes);
 
 // Body parsing middleware
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
+
+// Static files
+app.use(express.static("public"));
 
 // API routes
 app.use("/api/auth", authLimiter, authRoutes);
