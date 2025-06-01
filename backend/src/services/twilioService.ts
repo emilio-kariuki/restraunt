@@ -1,9 +1,13 @@
 import twilio from 'twilio';
 import logger from '../utils/logger';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const accountSid = "AC1f0449fd0737581fcd528cd142b31d2b";
-const authToken = "bf60effde1c0e5e1e7a29dcd49ff1290";
-const fromNumber = "+12055288564"; // Your Twilio phone number
+// const accountSid = "AC1f0449fd0737581fcd528cd142b31d2b";
+const accountSid = "ACc2c10abcbb31d13066538e4b84470502";
+// const authToken = "bf60effde1c0e5e1e7a29dcd49ff1290";
+const authToken = "38e6beeecfc342a9c9b64f09b8c9c330";
+const fromNumber = "+254790923758"; // Your Twilio phone number
 
 const client = twilio(accountSid, authToken);
 

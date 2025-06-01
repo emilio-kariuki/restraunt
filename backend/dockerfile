@@ -1,0 +1,26 @@
+FROM node:20-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Set environment variables
+ENV MONGO_INITDB_ROOT_USERNAME=root
+ENV MONGO_INITDB_ROOT_PASSWORD=ecoville
+
+# Copy package.json and package-lock.json
+COPY package*.json pnpm-lock.yaml ./
+
+RUN npm install -g pnpm
+
+RUN pnpm install
+
+RUN pnpm build
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose port
+EXPOSE 8000
+
+# Command to run the application
+CMD ["pnpm", "start"]

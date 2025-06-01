@@ -203,8 +203,14 @@ export class OrderController {
   }
 
   static async updateOrderStatus(req: AuthRequest, res: Response): Promise<void> {
-    const session = await mongoose.startSession();
-    session.startTransaction();
+    // Only use transactions in production or when replica set is available
+    const useTransactions = process.env.NODE_ENV === 'production' || process.env.MONGODB_REPLICA_SET === 'true';
+    
+    let session = null;
+    if (useTransactions) {
+      session = await mongoose.startSession();
+      session.startTransaction();
+    }
 
     try {
       const { orderId } = req.params;
@@ -233,14 +239,17 @@ export class OrderController {
         return;
       }
 
+      const updateOptions: any = { new: true };
+      if (session) updateOptions.session = session;
+
       const order = await Order.findOneAndUpdate(
         { _id: orderId, restaurantId: req.user.restaurantId },
         { status, updatedAt: new Date() },
-        { new: true, session }
+        updateOptions
       );
 
       if (!order) {
-        await session.abortTransaction();
+        if (session) await session.abortTransaction();
         res.status(404).json({ error: 'Order not found or access denied' });
         return;
       }
@@ -279,14 +288,14 @@ export class OrderController {
         // Don't fail the status update if SMS fails
       }
 
-      await session.commitTransaction();
+      if (session) await session.commitTransaction();
       res.json({ order });
     } catch (error) {
-      await session.abortTransaction();
+      if (session) await session.abortTransaction();
       logger.error('Update order status error:', error);
       res.status(500).json({ error: 'Internal server error' });
     } finally {
-      session.endSession();
+      if (session) session.endSession();
     }
   }
 

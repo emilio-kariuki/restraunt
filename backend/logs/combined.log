@@ -184,3 +184,232 @@
 {"level":"info","message":"📊 API Health Check: http://localhost:6000/api/health","timestamp":"2025-05-29T22:13:52.902Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-05-29T22:13:53.826Z"}
 {"code":20,"codeName":"IllegalOperation","level":"error","message":"Update order status error: Transaction numbers are only allowed on a replica set member or mongos","ok":0,"stack":"MongoServerError: Transaction numbers are only allowed on a replica set member or mongos\n    at Connection.onMessage (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/connection.ts:413:18)\n    at MessageStream.<anonymous> (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/connection.ts:243:56)\n    at MessageStream.emit (node:events:524:28)\n    at processIncomingData (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/message_stream.ts:193:12)\n    at MessageStream._write (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/message_stream.ts:74:5)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:510:10)\n    at Socket.ondata (node:internal/streams/readable:1009:22)\n    at Socket.emit (node:events:524:28)","timestamp":"2025-05-29T22:14:17.623Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T16:18:40.201Z"}
+{"level":"info","message":"🚀 Server running on port 6000","timestamp":"2025-06-01T16:18:42.580Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T16:18:42.583Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T16:18:42.583Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:6000/api/health","timestamp":"2025-06-01T16:18:42.583Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T16:18:43.938Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T16:58:28.622Z"}
+{"level":"info","message":"🚀 Server running on port 6000","timestamp":"2025-06-01T16:58:30.822Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T16:58:30.825Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T16:58:30.825Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:6000/api/health","timestamp":"2025-06-01T16:58:30.826Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T16:58:32.074Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/a","timestamp":"2025-06-01T17:01:52.776Z"}
+{"level":"warn","message":"404 - Route not found: GET /","timestamp":"2025-06-01T17:01:55.619Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:03:22.878Z"}
+{"level":"info","message":"🚀 Server running on port 6000","timestamp":"2025-06-01T17:03:31.187Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:03:31.272Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:03:31.273Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:6000/api/health","timestamp":"2025-06-01T17:03:31.273Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:03:31.557Z"}
+{"level":"info","message":"🚀 Server running on port 6000","timestamp":"2025-06-01T17:03:38.003Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:03:38.004Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:03:38.004Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:6000/api/health","timestamp":"2025-06-01T17:03:38.004Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:03:39.403Z"}
+{"level":"warn","message":"404 - Route not found: GET /","timestamp":"2025-06-01T17:06:10.699Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:09:19.016Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:09:20.992Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:09:20.995Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:09:20.995Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:09:20.995Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:09:22.359Z"}
+{"code":20003,"level":"error","message":"Failed to send SMS: Authenticate","moreInfo":"https://www.twilio.com/docs/errors/20003","stack":"Error: Authenticate\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:16:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:36:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":401,"timestamp":"2025-06-01T17:13:48.540Z"}
+{"headers":{"access-control-allow-credentials":"true","access-control-allow-methods":"GET, HEAD, PUT, PATCH, POST, DELETE","access-control-allow-origin":"*","access-control-expose-headers":"Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required","access-control-max-age":"300","cache-control":"no-cache, no-store","connection":"keep-alive","content-length":"342","content-security-policy":"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=aFVBCgpKF15O26x8QMwTGxCrGRFthetyql8YH7XURmvRGaIJwrbbtkh8Db36tJQfqhnUGyVdzOnup6iI","content-type":"application/json","date":"Sun, 01 Jun 2025 17:13:49 GMT","server":"nginx","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Origin","www-authenticate":"Basic realm=\"Stripe\"","x-robots-tag":"none","x-wc":"ABHI"},"level":"error","message":"Stripe payment intent creation error: You did not provide an API key. You need to provide your API key in the Authorization header, using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.","raw":{"headers":{"access-control-allow-credentials":"true","access-control-allow-methods":"GET, HEAD, PUT, PATCH, POST, DELETE","access-control-allow-origin":"*","access-control-expose-headers":"Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required","access-control-max-age":"300","cache-control":"no-cache, no-store","connection":"keep-alive","content-length":"342","content-security-policy":"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=aFVBCgpKF15O26x8QMwTGxCrGRFthetyql8YH7XURmvRGaIJwrbbtkh8Db36tJQfqhnUGyVdzOnup6iI","content-type":"application/json","date":"Sun, 01 Jun 2025 17:13:49 GMT","server":"nginx","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Origin","www-authenticate":"Basic realm=\"Stripe\"","x-robots-tag":"none","x-wc":"ABHI"},"message":"You did not provide an API key. You need to provide your API key in the Authorization header, using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.","statusCode":401,"type":"invalid_request_error"},"rawType":"invalid_request_error","stack":"Error: You did not provide an API key. You need to provide your API key in the Authorization header, using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.\n    at res.toJSON.then.Error_js_1.StripeAPIError.message (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/stripe@12.18.0/node_modules/stripe/cjs/RequestSender.js:96:31)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","statusCode":401,"timestamp":"2025-06-01T17:13:49.316Z","type":"StripeAuthenticationError"}
+{"headers":{"access-control-allow-credentials":"true","access-control-allow-methods":"GET, HEAD, PUT, PATCH, POST, DELETE","access-control-allow-origin":"*","access-control-expose-headers":"Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required","access-control-max-age":"300","cache-control":"no-cache, no-store","connection":"keep-alive","content-length":"342","content-security-policy":"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=aFVBCgpKF15O26x8QMwTGxCrGRFthetyql8YH7XURmvRGaIJwrbbtkh8Db36tJQfqhnUGyVdzOnup6iI","content-type":"application/json","date":"Sun, 01 Jun 2025 17:13:49 GMT","server":"nginx","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Origin","www-authenticate":"Basic realm=\"Stripe\"","x-robots-tag":"none","x-wc":"ABHI"},"level":"error","message":"Create payment intent error: You did not provide an API key. You need to provide your API key in the Authorization header, using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.","raw":{"headers":{"access-control-allow-credentials":"true","access-control-allow-methods":"GET, HEAD, PUT, PATCH, POST, DELETE","access-control-allow-origin":"*","access-control-expose-headers":"Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required","access-control-max-age":"300","cache-control":"no-cache, no-store","connection":"keep-alive","content-length":"342","content-security-policy":"base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src 'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=aFVBCgpKF15O26x8QMwTGxCrGRFthetyql8YH7XURmvRGaIJwrbbtkh8Db36tJQfqhnUGyVdzOnup6iI","content-type":"application/json","date":"Sun, 01 Jun 2025 17:13:49 GMT","server":"nginx","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Origin","www-authenticate":"Basic realm=\"Stripe\"","x-robots-tag":"none","x-wc":"ABHI"},"message":"You did not provide an API key. You need to provide your API key in the Authorization header, using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.","statusCode":401,"type":"invalid_request_error"},"rawType":"invalid_request_error","stack":"Error: You did not provide an API key. You need to provide your API key in the Authorization header, using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.\n    at res.toJSON.then.Error_js_1.StripeAPIError.message (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/stripe@12.18.0/node_modules/stripe/cjs/RequestSender.js:96:31)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","statusCode":401,"timestamp":"2025-06-01T17:13:49.319Z","type":"StripeAuthenticationError"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:17:04.051Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:17:07.236Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:17:07.240Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:17:07.240Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:17:07.240Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:17:08.214Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:17:08.547Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:17:08.548Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:17:08.548Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:17:08.548Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:17:08.785Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:17:09.066Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:17:09.067Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:17:09.067Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:17:09.068Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:17:09.081Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:17:09.353Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:17:09.355Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:17:09.355Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:17:09.355Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:17:10.681Z"}
+{"code":20003,"level":"error","message":"Failed to send SMS: Authenticate","moreInfo":"https://www.twilio.com/docs/errors/20003","stack":"Error: Authenticate\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:16:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:36:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":401,"timestamp":"2025-06-01T17:17:18.665Z"}
+{"level":"info","message":"Payment intent created: pi_3RVFVbPlqsDxHLJB031svI1e for order: 683c8b1d533ae969145b7c51","timestamp":"2025-06-01T17:17:19.814Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:27:01.635Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:27:02.925Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:27:02.932Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:27:02.932Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:27:02.932Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:27:04.150Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:29:57.679Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:29:58.346Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:29:58.349Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:29:58.349Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:29:58.349Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:29:59.591Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:30:00.052Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:30:00.346Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:30:00.347Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:30:00.347Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:30:00.347Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:30:01.070Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:30:01.357Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:30:01.359Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:30:01.359Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:30:01.359Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:30:02.119Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:30:02.487Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:30:02.489Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:30:02.489Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:30:02.489Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:30:03.709Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:30:03.794Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:30:04.140Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:30:04.141Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:30:04.141Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:30:04.141Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:30:05.564Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:37:55.211Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:38:31.069Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:38:31.074Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:38:31.074Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:38:31.074Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:38:32.365Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:40:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T17:38:42.958Z"}
+{"level":"info","message":"Payment intent created: pi_3RVFqKPlqsDxHLJB1WEuc0hh for order: 683c9022623e446af3e6fa06","timestamp":"2025-06-01T17:38:44.122Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:40:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T17:39:22.748Z"}
+{"level":"info","message":"Payment intent created: pi_3RVFqxPlqsDxHLJB1P6QVwyy for order: 683c9049623e446af3e6fa10","timestamp":"2025-06-01T17:39:23.460Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:40:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T17:39:45.695Z"}
+{"level":"info","message":"Payment intent created: pi_3RVFrKPlqsDxHLJB1fxRYNVR for order: 683c9060623e446af3e6fa1a","timestamp":"2025-06-01T17:39:46.467Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVFrKPlqsDxHLJB1fxRYNVR","timestamp":"2025-06-01T17:39:49.579Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendPaymentConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:49:12)\n    at confirmPayment (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:183:11)","status":400,"timestamp":"2025-06-01T17:39:50.825Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:49:09.831Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:49:12.835Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:49:12.838Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:49:12.838Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:49:12.838Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:49:14.122Z"}
+{"code":20,"codeName":"IllegalOperation","level":"error","message":"Update order status error: Transaction numbers are only allowed on a replica set member or mongos","ok":0,"stack":"MongoServerError: Transaction numbers are only allowed on a replica set member or mongos\n    at Connection.onMessage (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/connection.ts:413:18)\n    at MessageStream.<anonymous> (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/connection.ts:243:56)\n    at MessageStream.emit (node:events:524:28)\n    at processIncomingData (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/message_stream.ts:193:12)\n    at MessageStream._write (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/cmap/message_stream.ts:74:5)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:510:10)\n    at Socket.ondata (node:internal/streams/readable:1009:22)\n    at Socket.emit (node:events:524:28)","timestamp":"2025-06-01T17:50:24.255Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:52:08.428Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:52:09.175Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:52:09.178Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:52:09.178Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:52:09.179Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T17:52:09.798Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T17:52:10.073Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T17:52:10.074Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T17:52:10.074Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T17:52:10.074Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T17:52:11.307Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:65:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-01T17:52:20.030Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:74:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T17:52:26.938Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderConfirmed (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:57:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:261:13)","status":400,"timestamp":"2025-06-01T18:04:26.035Z"}
+{"code":21211,"level":"error","message":"Failed to send SMS: Invalid 'To' Phone Number: +123456XXXX","moreInfo":"https://www.twilio.com/docs/errors/21211","stack":"Error: Invalid 'To' Phone Number: +123456XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:74:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T18:07:03.021Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:40:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T18:53:05.321Z"}
+{"level":"info","message":"Payment intent created: pi_3RVH0IPlqsDxHLJB0cnFwAtF for order: 683ca18f8616e2d4f1f51843","timestamp":"2025-06-01T18:53:06.543Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVH0IPlqsDxHLJB0cnFwAtF","timestamp":"2025-06-01T18:53:09.057Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendPaymentConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:49:12)\n    at confirmPayment (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:183:11)","status":400,"timestamp":"2025-06-01T18:53:10.088Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +12768776329 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:65:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-01T18:53:52.397Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:13.563Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:14.244Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:14.247Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:14.247Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:14.247Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:14.877Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:15.221Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:15.222Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:15.223Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:15.223Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:15.380Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:15.693Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:15.695Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:15.695Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:15.695Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:15.943Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:16.236Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:16.237Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:16.237Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:16.237Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:16.442Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:16.874Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:16.875Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:16.875Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:16.876Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:17.150Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:17.427Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:17.428Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:17.428Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:17.428Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:17.459Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:17.731Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:17.732Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:17.732Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:17.732Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:17.942Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:18.217Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:18.218Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:18.218Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:18.218Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:18.375Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:18.673Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:18.674Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:18.674Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:18.674Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:18.700Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:18.981Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:18.982Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:18.982Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:18.982Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T18:54:20.197Z"}
+{"code":21266,"level":"error","message":"Failed to send SMS: 'To' and 'From' number cannot be the same: +25479625XXXX","moreInfo":"https://www.twilio.com/docs/errors/21266","stack":"Error: 'To' and 'From' number cannot be the same: +25479625XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:65:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-01T18:54:24.922Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:35.744Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:36.823Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:36.824Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:36.824Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:36.824Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:37.027Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:37.432Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:37.433Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:37.433Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:37.434Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:37.826Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:38.161Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:38.162Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:38.162Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:38.162Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:39.344Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:39.670Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:39.671Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:39.672Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:39.672Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:39.790Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:40.092Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:40.095Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:40.095Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:40.096Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:40.577Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:40.860Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:40.861Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:40.861Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:40.862Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T18:54:41.184Z"}
+{"level":"info","message":"🚀 Server running on port 9000","timestamp":"2025-06-01T18:54:41.521Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T18:54:41.523Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T18:54:41.523Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9000/api/health","timestamp":"2025-06-01T18:54:41.523Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T18:54:42.837Z"}
+{"code":21659,"level":"error","message":"Failed to send SMS: 'From' +254790923758 is not a Twilio phone number or Short Code country mismatch","moreInfo":"https://www.twilio.com/docs/errors/21659","stack":"Error: 'From' +254790923758 is not a Twilio phone number or Short Code country mismatch\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:74:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T18:54:45.282Z"}
+{"code":21211,"level":"error","message":"Failed to send SMS: Invalid 'To' Phone Number: +198765XXXX","moreInfo":"https://www.twilio.com/docs/errors/21211","stack":"Error: Invalid 'To' Phone Number: +198765XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:20:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:65:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-01T19:05:52.400Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:08:39.997Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:08:39.998Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:08:39.999Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:08:39.999Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:08:41.335Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:08:43.556Z"}

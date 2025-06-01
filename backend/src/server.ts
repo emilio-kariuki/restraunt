@@ -39,11 +39,11 @@ app.use(cors({
     origin: '*',
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"],
     allowedHeaders: "*",
-    credentials: true
+    // credentials: true
 }));
 
 // Rate limiting
-app.use(generalLimiter);
+// app.use(generalLimiter);
 
 // Raw body for webhooks (BEFORE express.json)
 app.use("/api/webhooks", express.raw({ type: "application/json" }), webhookRoutes);
