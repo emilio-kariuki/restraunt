@@ -14,7 +14,7 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
-RUN pnpm build
+# RUN pnpm build
 
 # Copy the rest of the application code
 COPY . .
