@@ -413,3 +413,33 @@
 {"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:08:39.999Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:08:41.335Z"}
 {"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:08:43.556Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:12:28.278Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:12:31.275Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:12:31.288Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:12:31.288Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:12:31.288Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:12:32.545Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:12:33.183Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:12:33.459Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:12:33.460Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:12:33.461Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:12:33.461Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:12:34.652Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:12:35.221Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:12:36.817Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:12:36.818Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:12:36.819Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:12:36.819Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:12:38.144Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:12:39.168Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:12:40.437Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:12:40.438Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:12:40.439Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:12:40.439Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:12:41.643Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:12:52.231Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:12:52.731Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:12:52.732Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:12:52.732Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:12:52.732Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:12:54.012Z"}

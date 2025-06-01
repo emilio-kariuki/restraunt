@@ -4,10 +4,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // const accountSid = "AC1f0449fd0737581fcd528cd142b31d2b";
-const accountSid = "ACc2c10abcbb31d13066538e4b84470502";
+const accountSid = process.env.TWILIO_ACCOUNT_SID 
 // const authToken = "bf60effde1c0e5e1e7a29dcd49ff1290";
-const authToken = "38e6beeecfc342a9c9b64f09b8c9c330";
-const fromNumber = "+254790923758"; // Your Twilio phone number
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const fromNumber = process.env.TWILIO_FROM_NUMBER || '+1234567890'; // Default number if not set
 
 const client = twilio(accountSid, authToken);
 
