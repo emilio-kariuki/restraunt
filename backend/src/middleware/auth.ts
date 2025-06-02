@@ -1,44 +1,47 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import logger from '../utils/logger';
 
-interface AuthRequest extends Request {
+export interface AuthRequest extends Request {
   user?: any;
 }
 
-export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
-    
+
     if (!token) {
-      return res.status(401).json({ error: 'Access denied. No token provided.' });
+      res.status(401).json({ error: 'Access denied. No token provided.' });
+      return;
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any;
     const user = await User.findById(decoded.userId).select('-password');
-    
-    if (!user || user.status !== 'active') {
-      return res.status(401).json({ error: 'Invalid token or user inactive.' });
+
+    if (!user) {
+      res.status(401).json({ error: 'Invalid token.' });
+      return;
     }
 
-    // Update last login
-    await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
-    
     req.user = user;
     next();
   } catch (error) {
+    logger.error('Authentication error:', error);
     res.status(401).json({ error: 'Invalid token.' });
   }
 };
 
 export const authorize = (...roles: string[]) => {
-  return (req: AuthRequest, res: Response, next: NextFunction) => {
+  return (req: AuthRequest, res: Response, next: NextFunction): void => {
     if (!req.user) {
-      return res.status(401).json({ error: 'Access denied. User not authenticated.' });
+      res.status(401).json({ error: 'Access denied. User not authenticated.' });
+      return;
     }
 
     if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ error: 'Access denied. Insufficient permissions.' });
+      res.status(403).json({ error: 'Access denied. Insufficient permissions.' });
+      return;
     }
 
     next();

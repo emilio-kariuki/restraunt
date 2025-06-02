@@ -1,10 +1,15 @@
 import { Router } from 'express';
 import { AuthController } from '../controllers/authController';
-import { validate, schemas } from '../middleware/validation';
+import { authenticate, authorize } from '../middleware/auth';
 
 const router: Router = Router();
 
-router.post('/register', validate(schemas.register), AuthController.register);
-router.post('/login', validate(schemas.login), AuthController.login);
+// Public routes
+router.post('/register', AuthController.register);
+router.post('/login', AuthController.login);
+
+// Protected routes
+router.get('/me', authenticate, AuthController.getProfile);
+router.put('/me', authenticate, AuthController.updateProfile);
 
 export default router;
