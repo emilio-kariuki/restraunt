@@ -47,9 +47,6 @@ importers:
       stripe:
         specifier: ^12.17.0
         version: 12.18.0
-      ts-node:
-        specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.17.50)(typescript@5.8.3)
       twilio:
         specifier: ^4.15.0
         version: 4.23.0
@@ -87,6 +84,9 @@ importers:
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@20.17.50)(typescript@5.8.3)
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@20.17.50)(typescript@5.8.3)
