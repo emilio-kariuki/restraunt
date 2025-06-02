@@ -4,8 +4,24 @@ export interface MenuItem {
   description: string;
   price: number;
   category: string;
+  allergens: string[] | string;
+  allergenNotes?: string;
+  dietaryInfo: string[];
   available: boolean;
-  allergens?: string[];
+  customizations?: Array<{
+    id: string;
+    name: string;
+    type: 'radio' | 'checkbox' | 'select';
+    options: Array<{
+      name: string;
+      price: number;
+    }>;
+    required: boolean;
+    maxSelections?: number;
+  }>;
+  restaurantId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Order {
@@ -36,7 +52,21 @@ export interface MenuItemForm {
   description: string;
   price: string;
   category: string;
-  allergens: string;
+  allergens?: string;
+  allergenNotes?: string;
+  dietaryInfo?: string[];
+  available?: boolean;
+  customizations?: Array<{
+    id: string;
+    name: string;
+    type: 'radio' | 'checkbox' | 'select';
+    options: Array<{
+      name: string;
+      price: number;
+    }>;
+    required: boolean;
+    maxSelections?: number;
+  }>;
 }
 
 export interface TableForm {
@@ -146,4 +176,10 @@ export interface RestaurantForm {
   facebook: string;
   instagram: string;
   twitter: string;
+}
+
+export interface MenuCategory {
+  name: string;
+  itemCount: number;
+  averagePrice: number;
 }

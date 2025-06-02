@@ -74,6 +74,20 @@ export interface IRestaurant extends Document {
   createdAt: Date;
 }
 
+export interface ICustomizationOption {
+  name: string;
+  price: number;
+}
+
+export interface ICustomization {
+  id: string;
+  name: string;
+  type: 'radio' | 'checkbox' | 'select';
+  options: ICustomizationOption[];
+  required: boolean;
+  maxSelections?: number;
+}
+
 export interface IMenuItem extends Document {
   restaurantId: string;
   name: string;
@@ -81,13 +95,23 @@ export interface IMenuItem extends Document {
   price: number;
   category: string;
   image?: string;
+  available: boolean;
+  
+  // Enhanced allergen and dietary information
   allergens?: string[];
+  allergenNotes?: string;
+  dietaryInfo?: string[];
+  
+  // Enhanced customization support
+  customizations?: ICustomization[];
+  
+  // Legacy fields for backward compatibility
   isVegetarian?: boolean;
   isSpicy?: boolean;
   isPopular?: boolean;
   preparationTime?: number;
   calories?: number;
-  available: boolean;
+  
   createdAt: Date;
   updatedAt: Date;
 }

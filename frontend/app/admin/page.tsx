@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { AlertCircle, CheckCircle, X } from 'lucide-react';
 import { apiService } from '../../lib/api';
-import { MenuItemForm, Restaurant, RestaurantProfile, TableForm } from '../../types/admin';
+import { Restaurant, MenuItemForm, MenuItem, TableForm, RestaurantProfile } from '../../types/admin';
+import MenuItemModal from '../../components/admin/MenuItemModal';
 
 // Components
 import LoginForm from '../../components/admin/LoginForm';
@@ -15,11 +15,11 @@ import MenuManagement from '../../components/admin/MenuManagement';
 import TableManagement from '../../components/admin/TableManagement';
 import ReportsSection from '../../components/admin/ReportsSection';
 import RestaurantSettings from '../../components/admin/RestaurantSettings';
-import MenuItemModal from '../../components/admin/MenuItemModal';
-import TableModal from '../../components/admin/TableModal';
 import QRModal from '../../components/admin/QRModal';
 import ServiceRequests from '../../components/admin/ServiceRequests';
 import { useAdminData } from '@/hooks/useAdminData';
+import TableModal from '@/components/admin/TableModal';
+import { CheckCircle, AlertCircle, X } from 'lucide-react';
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'orders' | 'menu' | 'tables' | 'services' | 'reports' | 'settings'>('dashboard');
@@ -32,15 +32,20 @@ export default function AdminPage() {
   const [showMenuItemModal, setShowMenuItemModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
-  const [editingMenuItem, setEditingMenuItem] = useState<any>(null);
+  const [editingMenuItem, setEditingMenuItem] = useState<MenuItem | null>(null);
   
   // Form states
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [menuItemForm, setMenuItemForm] = useState<MenuItemForm>({
     name: '',
     description: '',
     price: '',
     category: '',
-    allergens: ''
+    allergens: '',
+    allergenNotes: '',
+    dietaryInfo: [],
+    available: true,
+    customizations: []
   });
   
   const [tableForm, setTableForm] = useState<TableForm>({
@@ -53,15 +58,28 @@ export default function AdminPage() {
   // Use custom hook for data management
   const {
     orders,
-    menuItems,
     restaurant,
     isLoading: isDataLoading,
     error,
     loadOrders,
-    loadMenu,
     loadRestaurant,
     setError
   } = useAdminData(activeTab, authToken, isAuthenticated);
+
+   const loadMenuItems = async () => {
+    try {
+      if (restaurant?._id) {
+        const response = await apiService.menu.getMenu(restaurant._id);
+        setMenuItems(response.items || []);
+      }
+    } catch (error) {
+      console.error('Error loading menu items:', error);
+      setNotification({
+        type: 'error',
+        message: 'Failed to load menu items'
+      });
+    }
+  };
 
   // Auto-clear notifications
   useEffect(() => {
@@ -107,57 +125,151 @@ export default function AdminPage() {
     }
   };
 
-  // Menu Item handlers
-  const handleAddMenuItem = () => {
-    resetMenuItemForm();
-    setEditingMenuItem(null);
-    setShowMenuItemModal(true);
+  const showNotification = (type: 'success' | 'error', message: string) => {
+    setNotification({ type, message });
   };
 
-  const handleEditMenuItem = (item: any) => {
+  // Menu Item handlers
+  const handleAddMenuItem = async () => {
+    try {
+      setIsSubmitting(true);
+      
+      // Validate required fields
+      if (!menuItemForm.name.trim()) {
+        setNotification({
+          type: 'error',
+          message: 'Item name is required'
+        });
+        return;
+      }
+
+      if (!menuItemForm.description.trim()) {
+        setNotification({
+          type: 'error',
+          message: 'Description is required'
+        });
+        return;
+      }
+
+      if (!menuItemForm.price || parseFloat(menuItemForm.price) <= 0) {
+        setNotification({
+          type: 'error',
+          message: 'Valid price is required'
+        });
+        return;
+      }
+
+      if (!menuItemForm.category) {
+        setNotification({
+          type: 'error',
+          message: 'Category is required'
+        });
+        return;
+      }
+
+      // Check if restaurant exists
+      if (!restaurant?._id) {
+        setNotification({
+          type: 'error',
+          message: 'Restaurant data not available'
+        });
+        return;
+      }
+
+      // Prepare menu item data
+      const menuItemData = {
+        name: menuItemForm.name.trim(),
+        description: menuItemForm.description.trim(),
+        price: parseFloat(menuItemForm.price),
+        category: menuItemForm.category,
+        allergens: menuItemForm.allergens?.split(',').map(a => a.trim()).filter(Boolean) || [],
+        allergenNotes: menuItemForm.allergenNotes?.trim() || '',
+        dietaryInfo: menuItemForm.dietaryInfo || [],
+        available: menuItemForm.available !== false,
+        customizations: menuItemForm.customizations || [],
+        restaurantId: restaurant._id
+      };
+
+      if (editingMenuItem) {
+        // Update existing item
+        await apiService.menu.updateMenuItem(editingMenuItem._id, menuItemData);
+        setNotification({
+          type: 'success',
+          message: `${menuItemData.name} updated successfully`
+        });
+      } else {
+        // Create new item
+        await apiService.menu.createMenuItem(menuItemData);
+        setNotification({
+          type: 'success',
+          message: `${menuItemData.name} added successfully`
+        });
+      }
+
+      // Reset form and close modal
+      setMenuItemForm({
+        name: '',
+        description: '',
+        price: '',
+        category: '',
+        allergens: '',
+        allergenNotes: '',
+        dietaryInfo: [],
+        available: true,
+        customizations: []
+      });
+      setEditingMenuItem(null);
+      setShowMenuItemModal(false);
+      
+      // Refresh menu items
+      await loadMenuItems();
+
+    } catch (error: any) {
+      console.error('Error saving menu item:', error);
+      setNotification({
+        type: 'error',
+        message: error.message || 'Failed to save menu item'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleEditMenuItem = (item: MenuItem) => {
     setEditingMenuItem(item);
     setMenuItemForm({
       name: item.name,
       description: item.description,
       price: item.price.toString(),
       category: item.category,
-      allergens: item.allergens?.join(', ') || ''
+      allergens: Array.isArray(item.allergens) ? item.allergens.join(', ') : item.allergens || '',
+      allergenNotes: item.allergenNotes || '',
+      dietaryInfo: item.dietaryInfo || [],
+      available: item.available !== false,
+      customizations: item.customizations || []
     });
     setShowMenuItemModal(true);
   };
 
-  const handleDeleteMenuItem = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this menu item?')) return;
+  const handleDeleteMenuItem = async (itemId: string) => {
+    if (!confirm('Are you sure you want to delete this menu item?')) {
+      return;
+    }
 
     try {
-      await apiService.menu.deleteMenuItem(id);
-      setNotification({ type: 'success', message: 'Menu item deleted successfully!' });
-      await loadMenu();
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to delete menu item';
-      setNotification({ type: 'error', message });
+      await apiService.menu.deleteMenuItem(itemId);
+      setNotification({
+        type: 'success',
+        message: 'Menu item deleted successfully'
+      });
+      await loadMenuItems();
+    } catch (error: any) {
+      console.error('Error deleting menu item:', error);
+      setNotification({
+        type: 'error',
+        message: error.message || 'Failed to delete menu item'
+      });
     }
-  };
-
-  const resetMenuItemForm = () => {
-    setMenuItemForm({
-      name: '',
-      description: '',
-      price: '',
-      category: '',
-      allergens: ''
-    });
-  };
-
-  const resetTableForm = () => {
-    setTableForm({
-      tableNumber: '',
-      capacity: ''
-    });
-  };
-
-  const showNotification = (type: 'success' | 'error', message: string) => {
-    setNotification({ type, message });
   };
 
   // Table management functions
@@ -389,10 +501,10 @@ export default function AdminPage() {
         )}
 
         {activeTab === 'menu' && (
-          <MenuManagement 
+          <MenuManagement
             menuItems={menuItems}
             isLoading={isLoading}
-            onAddItem={handleAddMenuItem}
+            onAddItem={() => setShowMenuItemModal(true)}
             onEditItem={handleEditMenuItem}
             onDeleteItem={handleDeleteMenuItem}
           />
@@ -436,12 +548,23 @@ export default function AdminPage() {
           editingMenuItem={editingMenuItem}
           menuItemForm={menuItemForm}
           setMenuItemForm={setMenuItemForm}
-          onSubmit={editingMenuItem ? () => {} : () => {}}
+          onSubmit={handleAddMenuItem}
           onClose={() => {
             setShowMenuItemModal(false);
             setEditingMenuItem(null);
-            resetMenuItemForm();
+            setMenuItemForm({
+              name: '',
+              description: '',
+              price: '',
+              category: '',
+              allergens: '',
+              allergenNotes: '',
+              dietaryInfo: [],
+              available: true,
+              customizations: []
+            });
           }}
+          isSubmitting={isSubmitting}
         />
       )}
 

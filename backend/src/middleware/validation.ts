@@ -11,6 +11,19 @@ export const validate = (schema: Joi.ObjectSchema) => {
   };
 };
 
+const customizationOptionSchema = Joi.object({
+  name: Joi.string().trim().required(),
+  price: Joi.number().min(0).required()
+});
+
+const customizationSchema = Joi.object({
+  id: Joi.string().required(),
+  name: Joi.string().trim().required(),
+  type: Joi.string().valid('radio', 'checkbox', 'select').required(),
+  options: Joi.array().items(customizationOptionSchema).min(1).required(),
+  required: Joi.boolean().default(false),
+  maxSelections: Joi.number().integer().min(1).max(10).optional()
+});
 
 export const schemas = {
     register: Joi.object({
@@ -39,12 +52,38 @@ export const schemas = {
     }),
   
     createMenuItem: Joi.object({
-      name: Joi.string().required(),
-      description: Joi.string().required(),
+      name: Joi.string().trim().required(),
+      description: Joi.string().trim().required(),
       price: Joi.number().min(0).required(),
-      category: Joi.string().required(),
-      image: Joi.string().optional(),
-      allergens: Joi.array().items(Joi.string()).optional()
+      category: Joi.string().trim().required(),
+      image: Joi.string().trim().allow('').optional(),
+      available: Joi.boolean().default(true),
+      allergens: Joi.array().items(Joi.string().trim()).default([]),
+      allergenNotes: Joi.string().trim().allow('').optional(),
+      dietaryInfo: Joi.array().items(Joi.string().trim()).default([]),
+      customizations: Joi.array().items(customizationSchema).default([]),
+      isVegetarian: Joi.boolean().optional(),
+      isSpicy: Joi.boolean().optional(),
+      preparationTime: Joi.number().integer().min(0).optional(),
+      calories: Joi.number().integer().min(0).optional(),
+      restaurantId: Joi.string().optional()
+    }),
+  
+    updateMenuItem: Joi.object({
+      name: Joi.string().trim().optional(),
+      description: Joi.string().trim().optional(),
+      price: Joi.number().min(0).optional(),
+      category: Joi.string().trim().optional(),
+      image: Joi.string().trim().allow('').optional(),
+      available: Joi.boolean().optional(),
+      allergens: Joi.array().items(Joi.string().trim()).optional(),
+      allergenNotes: Joi.string().trim().allow('').optional(),
+      dietaryInfo: Joi.array().items(Joi.string().trim()).optional(),
+      customizations: Joi.array().items(customizationSchema).optional(),
+      isVegetarian: Joi.boolean().optional(),
+      isSpicy: Joi.boolean().optional(),
+      preparationTime: Joi.number().integer().min(0).optional(),
+      calories: Joi.number().integer().min(0).optional()
     }),
   
     createReview: Joi.object({

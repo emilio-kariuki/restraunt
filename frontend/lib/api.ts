@@ -168,22 +168,48 @@ export const apiService = {
       const response = await apiClient.get(`/menu/${restaurantId}`);
       return response.data;
     },
-    createMenuItem: async (menuItem: any) => {
+    
+    createMenuItem: async (menuItem: {
+      name: string;
+      description: string;
+      price: number;
+      category: string;
+      allergens?: string[];
+      allergenNotes?: string;
+      dietaryInfo?: string[];
+      available?: boolean;
+      customizations?: Array<{
+        id: string;
+        name: string;
+        type: 'radio' | 'checkbox' | 'select';
+        options: Array<{
+          name: string;
+          price: number;
+        }>;
+        required: boolean;
+        maxSelections?: number;
+      }>;
+      restaurantId: string;
+    }) => {
       const response = await apiClient.post('/menu', menuItem);
       return response.data;
     },
+    
     updateMenuItem: async (id: string, updates: any) => {
       const response = await apiClient.put(`/menu/${id}`, updates);
       return response.data;
     },
+    
     deleteMenuItem: async (id: string) => {
       const response = await apiClient.delete(`/menu/${id}`);
       return response.data;
     },
+    
     getMenuCategories: async (restaurantId: string) => {
       const response = await apiClient.get(`/menu/${restaurantId}/categories`);
       return response.data;
     },
+    
     uploadMenuImage: async (file: File) => {
       const formData = new FormData();
       formData.append('image', file);
@@ -194,6 +220,21 @@ export const apiService = {
       });
       return response.data;
     },
+
+    toggleAvailability: async (id: string, available: boolean) => {
+      const response = await apiClient.put(`/menu/${id}/availability`, { available });
+      return response.data;
+    },
+
+    bulkUpdatePrices: async (updates: Array<{id: string, price: number}>) => {
+      const response = await apiClient.put('/menu/bulk-price-update', { updates });
+      return response.data;
+    },
+
+    getMenuStats: async (restaurantId: string) => {
+      const response = await apiClient.get(`/menu/${restaurantId}/stats`);
+      return response.data;
+    }
   },
 
   // Restaurant endpoints
