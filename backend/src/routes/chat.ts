@@ -8,12 +8,12 @@ import { v4 as uuidv4 } from 'uuid';
 const router: Router = Router();
 
 // POST /api/chat/send - Send message and get AI response
-router.post('/send', async (req: Request, res: Response) => {
+router.post('/send', async (req: Request, res: Response): Promise<void> => {
   try {
     const { restaurantId, tableId, message, sessionId } = req.body;
 
     if (!restaurantId || !tableId || !message) {
-      return res.status(400).json({
+       res.status(400).json({
         success: false,
         message: 'Restaurant ID, table ID, and message are required'
       });
@@ -22,7 +22,7 @@ router.post('/send', async (req: Request, res: Response) => {
     // Get restaurant info
     const restaurant = await Restaurant.findById(restaurantId);
     if (!restaurant) {
-      return res.status(404).json({
+       res.status(404).json({
         success: false,
         message: 'Restaurant not found'
       });
@@ -48,7 +48,7 @@ router.post('/send', async (req: Request, res: Response) => {
     const context = {
       restaurantId,
       tableId,
-      restaurantName: restaurant.name,
+      restaurantName: restaurant?.name,
       menuItems
     };
 
@@ -103,7 +103,7 @@ router.get('/history/:sessionId', async (req: Request, res: Response) => {
 
     const chatSession = await ChatMessage.findOne({ sessionId });
     if (!chatSession) {
-      return res.status(404).json({
+       res.status(404).json({
         success: false,
         message: 'Chat session not found'
       });
@@ -111,12 +111,12 @@ router.get('/history/:sessionId', async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      messages: chatSession.messages,
+      messages: chatSession?.messages,
       sessionInfo: {
-        restaurantId: chatSession.restaurantId,
-        tableId: chatSession.tableId,
-        isActive: chatSession.isActive,
-        createdAt: chatSession.createdAt
+        restaurantId: chatSession?.restaurantId,
+        tableId: chatSession?.tableId,
+        isActive: chatSession?.isActive,
+        createdAt: chatSession?.createdAt
       }
     });
 
@@ -135,7 +135,7 @@ router.post('/recommendations', async (req: Request, res: Response) => {
     const { restaurantId, preferences, tableId } = req.body;
 
     if (!restaurantId || !preferences) {
-      return res.status(400).json({
+       res.status(400).json({
         success: false,
         message: 'Restaurant ID and preferences are required'
       });
@@ -146,7 +146,7 @@ router.post('/recommendations', async (req: Request, res: Response) => {
     const menuItems = await Menu.find({ restaurantId }).select('name description price category');
 
     if (!restaurant || !menuItems.length) {
-      return res.status(404).json({
+       res.status(404).json({
         success: false,
         message: 'Restaurant or menu not found'
       });
@@ -155,7 +155,7 @@ router.post('/recommendations', async (req: Request, res: Response) => {
     const context = {
       restaurantId,
       tableId: tableId || 'unknown',
-      restaurantName: restaurant.name,
+      restaurantName: restaurant?.name,
       menuItems
     };
 

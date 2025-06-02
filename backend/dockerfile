@@ -21,7 +21,7 @@ RUN pnpm install
 COPY . .
 
 # Build TypeScript
-RUN pnpm build
+RUN npm run build
 
 # Expose port
 EXPOSE 9001
