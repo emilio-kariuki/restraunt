@@ -27,4 +27,4 @@ RUN npm run build
 EXPOSE 9001
 
 # Command to run the compiled application
-CMD ["npm",'run', "start"]
+CMD ["pnpm", "start"]
