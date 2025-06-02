@@ -1163,3 +1163,10 @@
 {"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:54:50.288Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:54:51.497Z"}
 {"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:54:54.489Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T22:08:03.365Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T22:08:03.746Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T22:08:03.746Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T22:08:03.746Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T22:08:03.746Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T22:08:04.929Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T22:08:47.759Z"}
