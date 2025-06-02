@@ -105,7 +105,7 @@ export class AuthController {
         { 
           userId: user._id, 
           role: user.role,
-          restaurantId: restaurant?._id 
+          restaurantId: (restaurant as any)?._id 
         },
         process.env.JWT_SECRET || 'fallback-secret',
         { expiresIn: '24h' }
@@ -121,11 +121,11 @@ export class AuthController {
           name: user.name,
           email: user.email,
           role: user.role,
-          restaurantId: restaurant?._id
+          restaurantId: (restaurant as any)._id
         },
         restaurant: restaurant ? {
-          id: restaurant._id,
-          name: restaurant.name,
+          id: (restaurant as any)._id,
+          name: (restaurant as any).name,
           hasRestaurant: true
         } : null
       });
@@ -158,11 +158,11 @@ export class AuthController {
           name: user.name,
           email: user.email,
           role: user.role,
-          restaurantId: restaurant?._id
+          restaurantId: (restaurant as any)?._id
         },
         restaurant: restaurant ? {
-          id: restaurant._id,
-          name: restaurant.name,
+          id: (restaurant as any)._id,
+          name: (restaurant as any).name,
           hasRestaurant: true
         } : null
       });

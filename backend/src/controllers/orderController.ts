@@ -37,7 +37,13 @@ export class OrderController {
 
       // Validate menu items and calculate totals
       let subtotal = 0;
-      const orderItems = [];
+      const orderItems: Array<{
+        menuItemId: any;
+        name: string;
+        price: number;
+        quantity: any;
+        customizations: any;
+      }> = [];
 
       for (const item of items) {
         // if (!item.menuItemId || !item.quantity || item.quantity <= 0) {
@@ -207,7 +213,7 @@ export class OrderController {
     // Only use transactions in production or when replica set is available
     const useTransactions = process.env.NODE_ENV === 'production' || process.env.MONGODB_REPLICA_SET === 'true';
     
-    let session = null;
+    let session: mongoose.ClientSession | null = null;
     if (useTransactions) {
       session = await mongoose.startSession();
       session.startTransaction();
