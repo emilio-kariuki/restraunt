@@ -1243,3 +1243,4 @@
 {"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T23:32:32.799Z"}
 {"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-02T23:32:32.800Z"}
 {"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T23:32:32.800Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T23:32:33.966Z"}

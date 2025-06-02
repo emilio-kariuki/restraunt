@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChefHat, Plus, Edit, Trash2, DollarSign, Clock, Star, Eye, EyeOff } from 'lucide-react';
+import { ChefHat, Plus, Edit, Trash2, RefreshCw, Eye, EyeOff, DollarSign } from 'lucide-react';
 import { MenuItem } from '../../types/admin';
 
 interface MenuManagementProps {
@@ -10,6 +10,7 @@ interface MenuManagementProps {
   onAddItem: () => void;
   onEditItem: (item: MenuItem) => void;
   onDeleteItem: (id: string) => void;
+  onRefresh?: () => void; // Add optional refresh prop
 }
 
 export default function MenuManagement({ 
@@ -17,7 +18,8 @@ export default function MenuManagement({
   isLoading, 
   onAddItem, 
   onEditItem, 
-  onDeleteItem 
+  onDeleteItem,
+  onRefresh 
 }: MenuManagementProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -65,13 +67,25 @@ export default function MenuManagement({
           </h2>
           <p className="text-gray-600 mt-2">Manage your restaurant's menu items and pricing</p>
         </div>
-        <button
-          onClick={onAddItem}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg flex items-center space-x-2 transform hover:scale-105"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Add Menu Item</span>
-        </button>
+        <div className="flex space-x-3">
+          {onRefresh && (
+            <button
+              onClick={onRefresh}
+              disabled={isLoading}
+              className="bg-gray-100 text-gray-700 px-4 py-3 rounded-2xl hover:bg-gray-200 transition-all duration-200 flex items-center space-x-2 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
+              <span>Refresh</span>
+            </button>
+          )}
+          <button
+            onClick={onAddItem}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg flex items-center space-x-2 transform hover:scale-105"
+          >
+            <Plus className="w-5 h-5" />
+            <span>Add Menu Item</span>
+          </button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -151,9 +165,9 @@ export default function MenuManagement({
                   </div>
                   <div className="flex items-center space-x-2">
                     {item.available ? (
-                      <Eye className="w-5 h-5 text-green-500"  />
+                      <Eye className="w-5 h-5 text-green-500" />
                     ) : (
-                      <EyeOff className="w-5 h-5 text-red-500" />
+                      <EyeOff className="w-5 h-5 text-red-500"  />
                     )}
                   </div>
                 </div>
@@ -209,25 +223,6 @@ export default function MenuManagement({
                       {(Array.isArray(item.allergens) ? item.allergens : [item.allergens]).length > 2 && (
                         <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-lg">
                           +{(Array.isArray(item.allergens) ? item.allergens : [item.allergens]).length - 2} more
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Customizations */}
-                {item.customizations && item.customizations.length > 0 && (
-                  <div className="mb-4">
-                    <p className="text-xs text-purple-600 font-medium mb-1">Customizations:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {item.customizations.slice(0, 2).map(custom => (
-                        <span key={custom.id} className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-lg">
-                          {custom.name}
-                        </span>
-                      ))}
-                      {item.customizations.length > 2 && (
-                        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-lg">
-                          +{item.customizations.length - 2} more
                         </span>
                       )}
                     </div>

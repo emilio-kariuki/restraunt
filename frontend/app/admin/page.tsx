@@ -36,6 +36,7 @@ export default function AdminPage() {
   
   // Form states
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [isLoadingMenu, setIsLoadingMenu] = useState(false);
   const [menuItemForm, setMenuItemForm] = useState<MenuItemForm>({
     name: '',
     description: '',
@@ -66,18 +67,56 @@ export default function AdminPage() {
     setError
   } = useAdminData(activeTab, authToken, isAuthenticated);
 
-   const loadMenuItems = async () => {
+  // Enhanced loadMenuItems function
+  const loadMenuItems = async (forceRefresh: boolean = false) => {
     try {
-      if (restaurant?._id) {
-        const response = await apiService.menu.getMenu(restaurant._id);
-        setMenuItems(response.items || []);
+      if (!restaurant?._id) {
+        console.log('Restaurant ID not available, skipping menu load');
+        return;
       }
-    } catch (error) {
+
+      if (isLoadingMenu && !forceRefresh) {
+        console.log('Menu already loading, skipping');
+        return;
+      }
+
+      setIsLoadingMenu(true);
+      console.log('Loading menu items for restaurant:', restaurant._id);
+      
+      const response = await apiService.menu.getMenu(restaurant._id);
+      
+      // Handle different response structures
+      let items: MenuItem[] = [];
+      if (response?.success && Array.isArray(response.items)) {
+        items = response.items;
+      } else if (response?.data && Array.isArray(response.data)) {
+        items = response.data;
+      } else if (Array.isArray(response)) {
+        items = response;
+      } else if (response?.menu && Array.isArray(response.menu)) {
+        items = response.menu;
+      } else if (response?.items && Array.isArray(response.items)) {
+        items = response.items;
+      }
+
+      setMenuItems(items);
+      console.log(`Successfully loaded ${items.length} menu items`);
+
+    } catch (error: any) {
       console.error('Error loading menu items:', error);
-      setNotification({
-        type: 'error',
-        message: 'Failed to load menu items'
-      });
+      
+      // Only show error if it's not a 404 (no menu items yet)
+      if (error.response?.status !== 404) {
+        setNotification({
+          type: 'error',
+          message: error.message || 'Failed to load menu items'
+        });
+      }
+      
+      // Set empty array on error
+      setMenuItems([]);
+    } finally {
+      setIsLoadingMenu(false);
     }
   };
 
@@ -89,14 +128,31 @@ export default function AdminPage() {
     }
   }, [notification]);
 
-  // Auth check and initialization
+  // Auth check and initialization - REMOVED loadMenuItems from here
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (token) {
       setAuthToken(token);
       setIsAuthenticated(true);
+      // Don't load menu items here - restaurant data isn't available yet
     }
   }, []);
+
+  // Load menu items when restaurant data becomes available
+  useEffect(() => {
+    if (restaurant?._id && isAuthenticated) {
+      console.log('Restaurant data available, loading menu items');
+      loadMenuItems();
+    }
+  }, [restaurant?._id, isAuthenticated]);
+
+  // Load menu items when switching to menu tab (with restaurant check)
+  useEffect(() => {
+    if (activeTab === 'menu' && restaurant?._id && isAuthenticated) {
+      console.log('Menu tab activated, ensuring menu items are loaded');
+      loadMenuItems();
+    }
+  }, [activeTab, restaurant?._id, isAuthenticated]);
 
   const handleLoginSuccess = (token: string) => {
     setAuthToken(token);
@@ -108,6 +164,7 @@ export default function AdminPage() {
     localStorage.removeItem('adminToken');
     setAuthToken(null);
     setIsAuthenticated(false);
+    setMenuItems([]); // Clear menu items on logout
     setNotification({ type: 'success', message: 'Logged out successfully' });
   };
 
@@ -221,8 +278,8 @@ export default function AdminPage() {
       setEditingMenuItem(null);
       setShowMenuItemModal(false);
       
-      // Refresh menu items
-      await loadMenuItems();
+      // Force refresh menu items
+      await loadMenuItems(true);
 
     } catch (error: any) {
       console.error('Error saving menu item:', error);
@@ -262,7 +319,8 @@ export default function AdminPage() {
         type: 'success',
         message: 'Menu item deleted successfully'
       });
-      await loadMenuItems();
+      // Force refresh after deletion
+      await loadMenuItems(true);
     } catch (error: any) {
       console.error('Error deleting menu item:', error);
       setNotification({
@@ -503,10 +561,11 @@ export default function AdminPage() {
         {activeTab === 'menu' && (
           <MenuManagement
             menuItems={menuItems}
-            isLoading={isLoading}
+            isLoading={isLoadingMenu || isDataLoading}
             onAddItem={() => setShowMenuItemModal(true)}
             onEditItem={handleEditMenuItem}
             onDeleteItem={handleDeleteMenuItem}
+            onRefresh={() => loadMenuItems(true)} // Add manual refresh
           />
         )}
 
