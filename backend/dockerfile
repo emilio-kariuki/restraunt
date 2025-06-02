@@ -1,4 +1,4 @@
-FROM node:20.19.2
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
@@ -6,25 +6,19 @@ WORKDIR /app
 # Set environment variables
 ENV MONGO_INITDB_ROOT_USERNAME=root
 ENV MONGO_INITDB_ROOT_PASSWORD=ecoville
-ENV NODE_ENV=production
 
-# Copy package files first
+# Copy package.json and package-lock.json
 COPY package*.json pnpm-lock.yaml ./
 
-# Install pnpm
-RUN npm install -g pnpm@latest
+RUN npm install -g pnpm
 
-# Install dependencies
 RUN pnpm install
 
-# Copy source code and config files
+# Copy the rest of the application code
 COPY . .
-
-# Build TypeScript
-RUN npm run build
 
 # Expose port
 EXPOSE 9001
 
-# Command to run the compiled application
+# Command to run the application
 CMD ["pnpm", "start"]
