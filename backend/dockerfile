@@ -27,4 +27,4 @@ RUN pnpm build
 EXPOSE 9001
 
 # Command to run the compiled application
-CMD ["pnpm", "start"]
+CMD ["npm",'run', "start"]
