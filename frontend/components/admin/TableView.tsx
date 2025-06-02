@@ -19,6 +19,7 @@ interface Table {
 
 interface TableViewProps {
   table: Table;
+    restrauntId: string;
   onClose: () => void;
   onEdit: () => void;
   onDelete: () => void;
@@ -28,6 +29,7 @@ interface TableViewProps {
 
 export default function TableView({ 
   table, 
+  restrauntId,
   onClose, 
   onEdit, 
   onDelete, 
@@ -60,7 +62,7 @@ export default function TableView({
   };
 
   const copyTableUrl = () => {
-    const tableUrl = `${window.location.origin}/table/${table.tableNumber}`;
+    const tableUrl = `${window.location.origin}/table/${restrauntId}/${table.tableNumber}`;
     navigator.clipboard.writeText(tableUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

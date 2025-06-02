@@ -280,6 +280,7 @@ export default function TableManagement({
       {showTableView && selectedTable && (
         <TableView
           table={selectedTable}
+          restrauntId={restaurant?._id || ''}
           onClose={() => {
             setShowTableView(false);
             setSelectedTable(null);
