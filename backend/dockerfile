@@ -12,7 +12,7 @@ ENV NODE_ENV=production
 COPY package.json pnpm-lock.yaml ./
 
 # Clear any existing cache and install dependencies
-RUN pnpm store prune
+
 RUN pnpm install --frozen-lockfile --prod=false
 
 # RUN pnpm build
