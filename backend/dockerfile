@@ -27,4 +27,4 @@ RUN pnpm build
 EXPOSE 9001
 
 # Command to run the compiled application
-CMD ["node", "dist/server.js"]
+CMD ["pnpm", "start"]
