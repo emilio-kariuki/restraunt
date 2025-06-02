@@ -5,11 +5,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
 import logger from "./utils/logger";
-import {
-  generalLimiter,
-  authLimiter,
-  orderLimiter,
-} from "./middleware/rateLimiter";
+// import {
+//   generalLimiter,
+//   authLimiter,
+//   orderLimiter,
+// } from "./middleware/rateLimiter";
 
 // Import routes
 import authRoutes from "./routes/auth";
@@ -62,7 +62,7 @@ app.use(express.static("public"));
 // API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/menu", menuRoutes);
-app.use("/api/orders", orderLimiter, orderRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/tables", tableRoutes);
 app.use("/api/services", serviceRoutes); // Add this line
