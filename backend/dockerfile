@@ -7,13 +7,12 @@ WORKDIR /app
 ENV MONGO_INITDB_ROOT_USERNAME=root
 ENV MONGO_INITDB_ROOT_PASSWORD=ecoville
 ENV NODE_ENV=production
-
 # Copy package.json and package-lock.json
-COPY package.json pnpm-lock.yaml ./
+COPY package*.json pnpm-lock.yaml ./
 
-# Clear any existing cache and install dependencies
+RUN npm install -g pnpm
 
-RUN pnpm install --frozen-lockfile --prod=false
+RUN pnpm install
 
 # RUN pnpm build
 
