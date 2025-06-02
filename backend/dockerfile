@@ -14,6 +14,10 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
+RUN pnpm add bcryptjs
+RUN pnpm add jsonwebtoken
+RUN pnpm add -D ts-node ts-node-dev @types/bcryptjs @types/jsonwebtoken
+
 # RUN pnpm build
 
 # Copy the rest of the application code
