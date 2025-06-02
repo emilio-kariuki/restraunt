@@ -20,6 +20,8 @@ RUN pnpm add -D ts-node ts-node-dev @types/bcryptjs @types/jsonwebtoken
 
 # RUN pnpm build
 
+RUN pnpm run build
+
 # Copy the rest of the application code
 COPY . .
 

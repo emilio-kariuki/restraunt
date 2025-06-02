@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { SuperAdminController } from '../controllers/superAdminController';
+import { SuperAdminController } from '../controllers/superadminController';
 import { authenticate, authorize } from '../middleware/auth';
 
 const router: Router = Router();
