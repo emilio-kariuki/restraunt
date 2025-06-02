@@ -1238,3 +1238,8 @@
 {"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-02T23:29:21.169Z"}
 {"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T23:29:21.169Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T23:29:22.413Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T23:32:32.432Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T23:32:32.799Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T23:32:32.799Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-02T23:32:32.800Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T23:32:32.800Z"}
