@@ -1,7 +1,7 @@
 // backend/src/server.ts - Fixed CORS and API configuration
 import express, { Request, Response, Express } from "express";
 import cors from "cors";
-import helmet from "helmet";
+// import helmet from "helmet";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
 import logger from "./utils/logger";
