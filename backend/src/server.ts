@@ -33,10 +33,10 @@ const PORT = process.env.PORT || 6000;
 connectDB();
 
 // Security middleware
-app.use(helmet({
-  crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: false,
-}));
+// app.use(helmet({
+//   crossOriginEmbedderPolicy: false,
+//   contentSecurityPolicy: false,
+// }));
 
 // CORS configuration - Fixed to allow frontend
 app.use(cors({
