@@ -13,7 +13,7 @@ import {
   ArrowLeft, CreditCard, ShoppingBag, AlertCircle, 
   CheckCircle2, Loader2, User, Phone, Mail, 
   MessageSquare, Shield, Clock, DollarSign, MapPin,
-  Receipt, Utensils, Star, Trash2, Edit3
+  Receipt, Utensils, Star
 } from 'lucide-react';
 import { apiService } from '../../../../../lib/api';
 
@@ -95,6 +95,7 @@ function CheckoutForm({ cart, total }: { cart: CartItem[], total: number }) {
         items: cart.map(item => ({
           menuItemId: item.menuItemId || item.id,
           quantity: item.quantity,
+          // spiceLevel: 'mild', // Ensure spiceLevel is always a valid enum value
           customizations: []
         })),
         customerName: formData.customerName,

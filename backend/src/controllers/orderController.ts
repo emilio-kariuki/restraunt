@@ -5,6 +5,7 @@ import { StripeService } from '../services/stripeService';
 import { TwilioService } from '../services/twilioService';
 import logger from '../utils/logger';
 import mongoose from 'mongoose';
+import restraunt from '../models/restraunt';
 
 interface AuthRequest extends Request {
   user?: any;
@@ -387,6 +388,115 @@ export class OrderController {
       res.json({ stats: stats[0] || {} });
     } catch (error) {
       logger.error('Get order stats error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  static async requestSpecialService(req: Request, res: Response): Promise<void> {
+    try {
+      const { orderId } = req.params;
+      const { serviceType, message, priority } = req.body;
+
+      if (!orderId) {
+        res.status(400).json({ error: 'Order ID is required' });
+        return;
+      }
+
+      if (!serviceType) {
+        res.status(400).json({ error: 'Service type is required' });
+        return;
+      }
+
+      const order = await Order.findById(orderId);
+      if (!order) {
+        res.status(404).json({ error: 'Order not found' });
+        return;
+      }
+
+      const orderNumber = order._id.toString().slice(-6);
+
+      // Update order based on service type
+      switch (serviceType) {
+        case 'packing':
+          order.packingRequested = true;
+          await TwilioService.sendPackingRequest(
+            order.restaurantId,
+            order.tableId,
+            order.customerName,
+            orderNumber
+          );
+          break;
+
+        case 'split_payment':
+          order.splitPayment = true;
+          await TwilioService.sendSplitPaymentRequest(
+            order.restaurantId,
+            order.tableId,
+            order.customerName,
+            orderNumber
+          );
+          break;
+
+        case 'server_call':
+          await TwilioService.sendServerCallRequest(
+            order.restaurantId,
+            order.tableId,
+            order.customerName
+          );
+          break;
+
+        case 'special_instructions':
+          if (message) {
+            order.specialInstructions = message;
+            // Send special instructions to staff
+            const restaurants = await restraunt.findById(order.restaurantId);
+            if (restaurants) {
+              await TwilioService.sendCustomNotification(
+                restaurants.phone,
+                `Special instructions for Table ${order.tableId} (Order #${orderNumber}): ${message}`
+              );
+            }
+          }
+          break;
+
+        default:
+          res.status(400).json({ error: 'Invalid service type' });
+          return;
+      }
+
+      await order.save();
+
+      res.json({
+        message: 'Service requested successfully',
+        order,
+        serviceType,
+        notificationSent: TwilioService.isConfigured()
+      });
+    } catch (error) {
+      logger.error('Request special service error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  static async updateOrderPhase(req: Request, res: Response): Promise<void> {
+    try {
+      const { orderId } = req.params;
+      const { phase } = req.body;
+
+      const order = await Order.findByIdAndUpdate(
+        orderId,
+        { currentPhase: phase, updatedAt: new Date() },
+        { new: true }
+      );
+
+      if (!order) {
+        res.status(404).json({ error: 'Order not found' });
+        return;
+      }
+
+      res.json({ order });
+    } catch (error) {
+      logger.error('Update order phase error:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   }

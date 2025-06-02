@@ -18,6 +18,10 @@ import orderRoutes from "./routes/order";
 import restaurantRoutes from "./routes/restraunt";
 import webhookRoutes from "./routes/webhooks";
 import tableRoutes from "./routes/table";
+import reviewsRoutes from "./routes/review";
+import chatRoutes from './routes/chat';
+import superadminRoutes from './routes/superadmin';
+import serviceRoutes from './routes/service';
 
 // Load environment variables
 dotenv.config();
@@ -39,7 +43,7 @@ app.use(cors({
     origin: '*',
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"],
     allowedHeaders: "*",
-    // credentials: true
+    credentials: true
 }));
 
 // Rate limiting
@@ -56,11 +60,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // API routes
-app.use("/api/auth", authLimiter, authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderLimiter, orderRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/tables", tableRoutes);
+app.use("/api/services", serviceRoutes); // Add this line
+app.use('/api/reviews', reviewsRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/superadmin', superadminRoutes); // Add this line
 
 // Health check endpoint
 app.get("/api/health", (req: Request, res: Response) => {

@@ -443,3 +443,716 @@
 {"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:12:52.732Z"}
 {"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:12:52.732Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:12:54.012Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:33:01.697Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:33:02.395Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:33:02.400Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:33:02.400Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:33:02.400Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:33:03.276Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:33:03.741Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:33:03.742Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:33:03.742Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:33:03.742Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:33:04.055Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:33:04.385Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:33:04.386Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:33:04.387Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:33:04.387Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:33:04.696Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:33:05.168Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:33:05.170Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:33:05.170Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:33:05.170Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:33:06.487Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:33:07.815Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:33:08.131Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:33:08.133Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:33:08.133Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:33:08.133Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:33:09.446Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:33:37.603Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:35:20.253Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:35:20.257Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:35:20.257Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:35:20.257Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:35:21.448Z"}
+{"code":21408,"level":"error","message":"Failed to send SMS: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +25479625XXXX","moreInfo":"https://www.twilio.com/docs/errors/21408","stack":"Error: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +25479625XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:38:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T19:38:02.675Z"}
+{"level":"info","message":"Payment intent created: pi_3RVHhnPlqsDxHLJB1gT0MRKP for order: 683cac18582e37b350ef753e","timestamp":"2025-06-01T19:38:03.862Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVHhnPlqsDxHLJB1gT0MRKP","timestamp":"2025-06-01T19:38:06.541Z"}
+{"code":21408,"level":"error","message":"Failed to send SMS: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +25479625XXXX","moreInfo":"https://www.twilio.com/docs/errors/21408","stack":"Error: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +25479625XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendPaymentConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:47:12)\n    at confirmPayment (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:183:11)","status":400,"timestamp":"2025-06-01T19:38:07.619Z"}
+{"level":"info","message":"SMS sent successfully: SM77472ea8250a97a27dc29394b9259a1f to +13108894304","timestamp":"2025-06-01T19:40:49.502Z"}
+{"level":"info","message":"Payment intent created: pi_3RVHkUPlqsDxHLJB1r9d8akQ for order: 683cacc0582e37b350ef756e","timestamp":"2025-06-01T19:40:50.699Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVHkUPlqsDxHLJB1r9d8akQ","timestamp":"2025-06-01T19:40:53.386Z"}
+{"level":"info","message":"SMS sent successfully: SM6324cb59c0487e853124541f54ce678e to +13108894304","timestamp":"2025-06-01T19:40:54.481Z"}
+{"level":"info","message":"SMS sent successfully: SM14004a56858040c836b173f06382074e to +13108894304","timestamp":"2025-06-01T19:42:24.649Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:42:42.423Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:42:43.816Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:42:43.817Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:42:43.818Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:42:43.818Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:42:43.848Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:42:44.142Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:42:44.143Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:42:44.144Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:42:44.144Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:42:44.641Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:42:45.055Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:42:45.058Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:42:45.058Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:42:45.059Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:42:46.227Z"}
+{"code":21408,"level":"error","message":"Failed to send SMS: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +25479625XXXX","moreInfo":"https://www.twilio.com/docs/errors/21408","stack":"Error: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +25479625XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:63:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-01T19:42:55.001Z"}
+{"level":"info","message":"SMS sent successfully: SM6ade9602ed608621626d4c969a8b12ab to +13108894304 message: 🍽️ Order #ef756e is ready! Your delicious meal is waiting for you at Table T001. Enjoy!","timestamp":"2025-06-01T19:43:05.640Z"}
+{"code":21608,"level":"error","message":"Failed to send SMS: The number +25479625XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +25479625XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","moreInfo":"https://www.twilio.com/docs/errors/21608","stack":"Error: The number +25479625XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +25479625XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:72:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T19:47:27.736Z"}
+{"code":21608,"level":"error","message":"Failed to send SMS: The number +25479625XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +25479625XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","moreInfo":"https://www.twilio.com/docs/errors/21608","stack":"Error: The number +25479625XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +25479625XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:72:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T19:47:56.683Z"}
+{"code":21608,"level":"error","message":"Failed to send SMS: The number +25479625XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +25479625XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","moreInfo":"https://www.twilio.com/docs/errors/21608","stack":"Error: The number +25479625XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +25479625XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:72:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T19:48:04.725Z"}
+{"code":21266,"level":"error","message":"Failed to send SMS: 'To' and 'From' number cannot be the same: +1833460XXXX","moreInfo":"https://www.twilio.com/docs/errors/21266","stack":"Error: 'To' and 'From' number cannot be the same: +1833460XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:38:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T19:52:05.358Z"}
+{"level":"info","message":"Payment intent created: pi_3RVHvOPlqsDxHLJB0vuLGl0l for order: 683caf63e477cf6a1c828d1b","timestamp":"2025-06-01T19:52:06.485Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVHvOPlqsDxHLJB0vuLGl0l","timestamp":"2025-06-01T19:52:08.997Z"}
+{"code":21266,"level":"error","message":"Failed to send SMS: 'To' and 'From' number cannot be the same: +1833460XXXX","moreInfo":"https://www.twilio.com/docs/errors/21266","stack":"Error: 'To' and 'From' number cannot be the same: +1833460XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendPaymentConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:47:12)\n    at confirmPayment (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:183:11)","status":400,"timestamp":"2025-06-01T19:52:09.561Z"}
+{"code":21266,"level":"error","message":"Failed to send SMS: 'To' and 'From' number cannot be the same: +1833460XXXX","moreInfo":"https://www.twilio.com/docs/errors/21266","stack":"Error: 'To' and 'From' number cannot be the same: +1833460XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:63:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-01T19:53:06.909Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T19:57:05.724Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T19:57:07.681Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T19:57:07.684Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T19:57:07.684Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T19:57:07.684Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T19:57:08.916Z"}
+{"code":21661,"level":"error","message":"Failed to send SMS: 'From' number +13108894304 is not SMS-capable","moreInfo":"https://www.twilio.com/docs/errors/21661","stack":"Error: 'From' number +13108894304 is not SMS-capable\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderReady (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:72:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:273:13)","status":400,"timestamp":"2025-06-01T19:57:12.005Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T20:02:12.574Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T20:02:14.658Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T20:02:14.662Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T20:02:14.662Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T20:02:14.662Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T20:02:15.924Z"}
+{"code":21211,"level":"error","message":"Failed to send SMS: Invalid 'To' Phone Number: +131089XXXX","moreInfo":"https://www.twilio.com/docs/errors/21211","stack":"Error: Invalid 'To' Phone Number: +131089XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:38:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T20:02:20.127Z"}
+{"level":"info","message":"Payment intent created: pi_3RVI5JPlqsDxHLJB1mubVtRq for order: 683cb1ca1e39d928f8c00958","timestamp":"2025-06-01T20:02:21.336Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVI5JPlqsDxHLJB1mubVtRq","timestamp":"2025-06-01T20:02:23.741Z"}
+{"code":21211,"level":"error","message":"Failed to send SMS: Invalid 'To' Phone Number: +131089XXXX","moreInfo":"https://www.twilio.com/docs/errors/21211","stack":"Error: Invalid 'To' Phone Number: +131089XXXX\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendPaymentConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:47:12)\n    at confirmPayment (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:183:11)","status":400,"timestamp":"2025-06-01T20:02:24.786Z"}
+{"level":"info","message":"SMS sent successfully: SM09ada8c8f99148a089b4dd806957a5e9 to +13108894304 message: Hi test nanr! Your order #c009b7 has been received at Bella Vista Restaurant. We'll notify you when it's ready. Thank you!","timestamp":"2025-06-01T20:04:10.687Z"}
+{"level":"info","message":"Payment intent created: pi_3RVI75PlqsDxHLJB0AEqb6QE for order: 683cb2391e39d928f8c009b7","timestamp":"2025-06-01T20:04:11.810Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVI75PlqsDxHLJB0AEqb6QE","timestamp":"2025-06-01T20:04:14.270Z"}
+{"level":"info","message":"SMS sent successfully: SMf50b5ce96b63428afc9f24e6f425a3f3 to +13108894304 message: Payment confirmed! Your order #c009b7 for $6.47 has been paid successfully. We're preparing your order now.","timestamp":"2025-06-01T20:04:15.454Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-01T20:11:53.606Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-01T20:12:15.368Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-01T20:12:15.372Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-01T20:12:15.372Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-01T20:12:15.373Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-01T20:12:16.574Z"}
+{"code":21608,"level":"error","message":"Failed to send SMS: The number +1805300XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +1805300XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","moreInfo":"https://www.twilio.com/docs/errors/21608","stack":"Error: The number +1805300XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +1805300XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:38:12)\n    at createOrder (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:89:9)","status":400,"timestamp":"2025-06-01T20:14:50.453Z"}
+{"level":"info","message":"Payment intent created: pi_3RVIHPPlqsDxHLJB17VCSw9K for order: 683cb4b960d5b325b62d87bb","timestamp":"2025-06-01T20:14:51.477Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVIHPPlqsDxHLJB17VCSw9K","timestamp":"2025-06-01T20:14:54.115Z"}
+{"code":21608,"level":"error","message":"Failed to send SMS: The number +1805300XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +1805300XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","moreInfo":"https://www.twilio.com/docs/errors/21608","stack":"Error: The number +1805300XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +1805300XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendPaymentConfirmation (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:47:12)\n    at confirmPayment (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:183:11)","status":400,"timestamp":"2025-06-01T20:14:55.320Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T16:17:10.101Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T16:17:10.104Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T16:17:10.104Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T16:17:10.104Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T16:17:11.364Z"}
+{"code":21608,"level":"error","message":"Failed to send SMS: The number +1805300XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +1805300XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers","moreInfo":"https://www.twilio.com/docs/errors/21608","stack":"Error: The number +1805300XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +1805300XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers\n    at success (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/twilio@4.23.0/node_modules/twilio/lib/base/Version.js:79:23)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.sendSMS (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:18:22)\n    at Function.sendOrderPreparing (/Users/emilio/projects/restraunt/backend/src/services/twilioService.ts:63:12)\n    at updateOrderStatus (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:267:13)","status":400,"timestamp":"2025-06-02T16:20:48.941Z"}
+{"level":"info","message":"SMS sent successfully: SM42ce58b7395c68e9d2e0814107f2fdcd to +13108894304 message: Good news! Order #c009b7 is now being prepared by our chefs. Estimated ready time: 15-20 minutes.","timestamp":"2025-06-02T16:21:15.805Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T17:31:32.216Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T17:31:32.271Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T17:31:32.271Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T17:31:32.271Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T17:31:32.271Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T17:31:33.508Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:32:12.468Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:40:11.033Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:40:23.459Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:40:35.824Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:40:55.948Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:37.454Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:47.408Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:47.410Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:51.394Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:51.397Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:56.529Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:56.532Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:59.266Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:41:59.267Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:42:17.524Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/reviews/674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T17:42:17.527Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T17:46:28.767Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T17:55:12.726Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T17:55:12.752Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T17:55:12.753Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T17:55:12.753Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T17:55:12.753Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T17:55:14.039Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T17:55:15.959Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T17:55:16.249Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T17:55:16.275Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T17:55:16.276Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T17:55:16.277Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T17:55:16.277Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T17:55:18.060Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T17:55:21.645Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T17:55:23.157Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T17:55:23.214Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T17:55:23.214Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T17:55:23.214Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T17:55:23.214Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T17:55:24.586Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T18:17:01.649Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T18:18:59.569Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T18:18:59.758Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T18:18:59.758Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T18:18:59.758Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T18:18:59.759Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T18:19:01.059Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T18:44:51.150Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T18:44:53.290Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T18:44:53.458Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T18:44:53.458Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T18:44:53.458Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T18:44:53.458Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T18:44:54.738Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/restaurants/stats","timestamp":"2025-06-02T18:59:12.556Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:00:01.371Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:00:01.987Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:00:02.097Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:00:02.097Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:00:02.097Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:00:02.098Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:00:03.406Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:00:03.605Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:00:03.915Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:00:03.979Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:00:03.980Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:00:03.980Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:00:03.980Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:00:05.246Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:00:08.428Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:00:46.101Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:00:46.205Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:00:46.205Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:00:46.206Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:00:46.206Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:00:47.581Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:00:48.698Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:00:48.956Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:00:49.008Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:00:49.008Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:00:49.008Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:00:49.008Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:00:50.336Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:02:45.091Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:02:45.624Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:02:45.736Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:02:45.736Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:02:45.736Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:02:45.736Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:02:47.097Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:03:23.106Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:03:23.591Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:03:23.702Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:03:23.702Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:03:23.702Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:03:23.702Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:03:24.987Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:03:47.195Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:03:48.996Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:03:49.097Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:03:49.098Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:03:49.098Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:03:49.098Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:03:50.262Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:03:57.023Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:03:57.292Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:03:57.373Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:03:57.373Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:03:57.373Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:03:57.373Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:03:58.530Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:04:15.095Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:04:15.581Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:04:15.681Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:04:15.681Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:04:15.681Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:04:15.681Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:04:17.011Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:13:08.705Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:13:09.305Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:13:09.417Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:13:09.417Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:13:09.417Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:13:09.417Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:13:10.595Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:13:17.107Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:13:17.784Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:13:17.867Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:13:17.867Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:13:17.867Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:13:17.867Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:13:19.258Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:13:31.171Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:13:31.612Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:13:31.716Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:13:31.716Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:13:31.716Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:13:31.716Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:13:32.935Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:14:03.914Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:14:04.408Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:14:04.513Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:14:04.514Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:14:04.514Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:14:04.514Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:14:05.679Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:14:23.746Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:14:24.182Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:14:24.283Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:14:24.283Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:14:24.283Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:14:24.283Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:14:25.537Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:14:37.427Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:14:38.094Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:14:38.197Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:14:38.197Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:14:38.197Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:14:38.197Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:14:39.482Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:14:40.715Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:14:40.983Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:14:41.037Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:14:41.038Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:14:41.038Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:14:41.038Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:14:42.208Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/dashboard/stats","timestamp":"2025-06-02T19:37:38.962Z"}
+{"kind":"ObjectId","level":"error","message":"Get order error: Cast to ObjectId failed for value \"recent\" (type string) at path \"_id\" for model \"Order\"","path":"_id","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"recent\" (type string) at path \"_id\" for model \"Order\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._findOne (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2533:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getOrderById (/Users/emilio/projects/restraunt/backend/src/controllers/orderController.ts:342:21)","stringValue":"\"recent\"","timestamp":"2025-06-02T19:37:38.984Z","value":"recent","valueType":"string"}
+{"level":"warn","message":"404 - Route not found: GET /api/superadmin/restaurants?","timestamp":"2025-06-02T19:46:29.172Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/superadmin/users?","timestamp":"2025-06-02T19:46:29.179Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/superadmin/stats","timestamp":"2025-06-02T19:46:29.183Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/superadmin/restaurants?","timestamp":"2025-06-02T19:46:47.531Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/superadmin/users?","timestamp":"2025-06-02T19:46:47.535Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/superadmin/stats","timestamp":"2025-06-02T19:46:47.536Z"}
+{"level":"warn","message":"404 - Route not found: POST /api/superadmin/restaurants","timestamp":"2025-06-02T19:48:03.835Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:51:53.602Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:58:23.005Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:58:23.066Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:58:23.066Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:58:23.066Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:58:23.066Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:58:24.242Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:58:29.529Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:58:29.825Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:58:29.881Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:58:29.881Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:58:29.881Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:58:29.882Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:58:29.960Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:58:30.750Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:58:30.808Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:58:30.808Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:58:30.808Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:58:30.808Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:58:31.985Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:58:46.933Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:58:47.382Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:58:47.487Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:58:47.488Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:58:47.488Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:58:47.488Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:58:48.648Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:58:57.590Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:58:58.111Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:58:58.201Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:58:58.201Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:58:58.201Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:58:58.201Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:58:59.378Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:59:00.119Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:59:10.253Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:59:10.331Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:59:10.332Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:59:10.332Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:59:10.332Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:59:11.636Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:59:23.030Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:59:23.465Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:59:23.559Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:59:23.559Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:59:23.560Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:59:23.560Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:59:24.686Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:59:27.730Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:59:28.002Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:59:28.058Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:59:28.059Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:59:28.059Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:59:28.059Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:59:29.346Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:59:32.389Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:59:32.704Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:59:32.766Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:59:32.767Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:59:32.767Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:59:32.767Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:59:34.243Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:59:40.120Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:59:40.390Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:59:40.528Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:59:40.528Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:59:40.529Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:59:40.529Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:59:41.675Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T19:59:43.440Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T19:59:43.695Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T19:59:43.749Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T19:59:43.749Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T19:59:43.749Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T19:59:43.749Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T19:59:45.014Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:09.034Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:09.492Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:09.602Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:09.602Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:09.602Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:09.602Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:10.912Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:19.967Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:20.390Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:20.486Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:20.486Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:20.486Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:20.486Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:20.566Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:20.821Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:20.872Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:20.873Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:20.873Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:20.873Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:21.323Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:21.656Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:21.710Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:21.710Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:21.710Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:21.710Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:21.766Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:22.030Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:22.085Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:22.085Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:22.085Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:22.085Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:23.201Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:25.736Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:26.017Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:26.078Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:26.078Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:26.078Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:26.079Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:27.282Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:27.588Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:27.851Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:27.908Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:27.908Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:27.908Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:27.908Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:29.153Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:29.227Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:29.495Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:29.591Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:29.591Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:29.592Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:29.592Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:30.538Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:30.829Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:30.890Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:30.891Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:30.891Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:30.891Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:31.751Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:32.029Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:32.086Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:32.086Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:32.086Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:32.086Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:33.304Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:33.430Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:33.953Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:34.026Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:34.027Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:34.027Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:34.027Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:35.240Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:37.945Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:38.213Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:38.276Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:38.276Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:38.277Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:38.277Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:39.583Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:00:46.088Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:00:46.709Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:00:46.766Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:00:46.767Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:00:46.767Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:00:46.767Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:00:47.976Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:01:46.503Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:01:47.003Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:01:47.117Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:01:47.118Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:01:47.118Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:01:47.118Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:01:48.243Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:02:22.481Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:02:22.961Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:02:23.070Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:02:23.070Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:02:23.070Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:02:23.070Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:02:24.279Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/auth/verify","timestamp":"2025-06-02T20:06:56.011Z"}
+{"level":"warn","message":"404 - Route not found: GET /api/auth/verify","timestamp":"2025-06-02T20:07:47.460Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:08:30.489Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:08:31.134Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:08:31.266Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:08:31.266Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:08:31.266Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:08:31.266Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:08:32.730Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:19:24.300Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:19:24.487Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:19:24.487Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:19:24.488Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:19:24.488Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:19:25.825Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:31:39.430Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:31:45.766Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:31:45.903Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:31:45.903Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:31:45.903Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:31:45.904Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:31:47.091Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:31:50.755Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:31:51.108Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:31:51.196Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:31:51.196Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:31:51.196Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:31:51.196Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:31:52.334Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:32:19.442Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:32:19.920Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:32:20.015Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:32:20.016Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:32:20.016Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:32:20.016Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:32:21.238Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:32:22.880Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:32:23.222Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:32:23.278Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:32:23.278Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:32:23.279Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:32:23.279Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:32:24.501Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:32:27.310Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:32:28.065Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:32:28.120Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:32:28.120Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:32:28.121Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:32:28.121Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:32:29.311Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:32:31.890Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:32:32.173Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:32:32.231Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:32:32.231Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:32:32.231Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:32:32.232Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:32:32.327Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:32:32.628Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:32:32.697Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:32:32.697Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:32:32.697Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:32:32.697Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:32:33.794Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:43:20.279Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:43:20.867Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:43:20.975Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:43:20.975Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:43:20.975Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:43:20.975Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:43:22.179Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:43:24.133Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:43:24.403Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:43:24.457Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:43:24.457Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:43:24.458Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:43:24.458Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:43:25.566Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:43:33.878Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:43:34.345Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:43:34.465Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:43:34.465Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:43:34.466Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:43:34.466Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:43:35.616Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:43:36.892Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:43:37.162Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:43:37.215Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:43:37.215Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:43:37.215Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:43:37.215Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:43:38.439Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:43:52.903Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:43:53.384Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:43:53.493Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:43:53.493Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:43:53.493Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:43:53.493Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:43:54.635Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:44:03.839Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:44:04.276Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:44:04.375Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:44:04.375Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:44:04.375Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:44:04.375Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:44:05.488Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T20:44:05.717Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T20:44:06.026Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T20:44:06.081Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T20:44:06.081Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T20:44:06.082Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T20:44:06.082Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T20:44:07.299Z"}
+{"level":"warn","message":"404 - Route not found: POST /api/services/request","timestamp":"2025-06-02T21:01:56.840Z"}
+{"level":"warn","message":"404 - Route not found: POST /api/services/request","timestamp":"2025-06-02T21:02:08.496Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:07:57.898Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:07:58.439Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:07:58.604Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:07:58.605Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:07:58.605Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:07:58.605Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:07:59.871Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:08:00.262Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:08:00.572Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:08:00.626Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:08:00.627Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:08:00.627Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:08:00.627Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:08:01.820Z"}
+{"level":"info","message":"1 special requests created for table T002","timestamp":"2025-06-02T21:10:12.434Z"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:12:49.298Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:12:49.914Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:13:01.583Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:13:02.085Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:13:21.436Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:13:21.956Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:13:24.906Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:13:25.319Z","value":"undefined","valueType":"string"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:14:25.476Z"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:14:27.406Z"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:14:34.451Z"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:16:19.319Z"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:19:26.798Z"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:19:32.481Z"}
+{"_message":"Order validation failed","errors":{"items.0.spiceLevel":{"kind":"enum","message":"`null` is not a valid enum value for path `spiceLevel`.","name":"ValidatorError","path":"spiceLevel","properties":{"enumValues":["mild","medium","hot"],"message":"`null` is not a valid enum value for path `spiceLevel`.","path":"spiceLevel","type":"enum","value":null},"value":null}},"level":"error","message":"Create order error: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.","stack":"ValidationError: Order validation failed: items.0.spiceLevel: `null` is not a valid enum value for path `spiceLevel`.\n    at model.Document.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3219:32)\n    at EmbeddedDocument.Subdocument.invalidate (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/types/subdocument.js:229:12)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/document.js:3012:17\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1368:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-06-02T21:19:49.399Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:20:10.391Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:20:13.419Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:20:13.553Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:20:13.553Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:20:13.553Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:20:13.553Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:20:13.608Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:20:13.920Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:20:13.980Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:20:13.980Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:20:13.980Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:20:13.980Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:20:15.219Z"}
+{"level":"warn","message":"Twilio client not initialized. Skipping SMS.","timestamp":"2025-06-02T21:20:16.672Z"}
+{"level":"info","message":"Payment intent created: pi_3RVfmHPlqsDxHLJB1EuRFFvw for order: 683e15901be6303127365a25","timestamp":"2025-06-02T21:20:17.805Z"}
+{"level":"info","message":"Payment intent status: succeeded for pi_3RVfmHPlqsDxHLJB1EuRFFvw","timestamp":"2025-06-02T21:20:20.259Z"}
+{"level":"warn","message":"Twilio client not initialized. Skipping SMS.","timestamp":"2025-06-02T21:20:20.471Z"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:33:56.834Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:33:57.235Z","value":"undefined","valueType":"string"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:36:29.366Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:36:30.076Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:36:30.206Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:36:30.206Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:36:30.206Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:36:30.206Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:36:31.198Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:36:31.467Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:36:31.525Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:36:31.525Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:36:31.525Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:36:31.526Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:36:32.706Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:36:42.145Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:36:42.609Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:36:42.706Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:36:42.706Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:36:42.706Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:36:42.707Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:36:43.815Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:36:45.301Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:36:45.565Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:36:45.624Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:36:45.624Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:36:45.624Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:36:45.624Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:36:46.755Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:38:14.910Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:38:15.460Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:38:15.581Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:38:15.582Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:38:15.582Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:38:15.582Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:38:16.775Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:38:17.964Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:38:18.267Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:38:18.325Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:38:18.325Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:38:18.325Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:38:18.325Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:38:19.516Z"}
+{"level":"info","message":"Table T002 updated successfully","timestamp":"2025-06-02T21:39:07.977Z"}
+{"level":"info","message":"Table T002 updated successfully","timestamp":"2025-06-02T21:39:14.304Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:43:37.613Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:43:38.291Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:43:38.412Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:43:38.412Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:43:38.413Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:43:38.413Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:43:39.598Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:44:15.247Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:44:15.747Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:44:15.874Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:44:15.874Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:44:15.875Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:44:15.875Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:44:17.100Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:44:31.627Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:44:32.206Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:44:32.317Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:44:32.317Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:44:32.317Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:44:32.317Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:44:33.544Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:44:47.006Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:44:47.439Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:44:47.691Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:44:47.691Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:44:47.691Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:44:47.691Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:44:48.902Z"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:47:41.405Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:47:41.917Z","value":"undefined","valueType":"string"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:48:02.601Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-02T21:48:04.976Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-02T21:48:05.174Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-02T21:48:05.174Z"}
+{"level":"info","message":"🌐 CORS enabled for: http://localhost:3000","timestamp":"2025-06-02T21:48:05.174Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-02T21:48:05.174Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-02T21:48:06.325Z"}
+{"level":"info","message":"Table T009 added to restaurant 674a1b2c3d4e5f6789012345","timestamp":"2025-06-02T21:48:55.631Z"}
+{"level":"info","message":"Table T009 updated successfully","timestamp":"2025-06-02T21:49:04.269Z"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:50:06.491Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:50:07.044Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:51:22.147Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:51:22.697Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:51:41.738Z","value":"undefined","valueType":"string"}
+{"kind":"ObjectId","level":"error","message":"Error fetching service requests: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"","path":"restaurantId","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"restaurantId\" for model \"Service\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._find (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2263:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at getServiceRequests (/Users/emilio/projects/restraunt/backend/src/controllers/serviceController.ts:32:24)","stringValue":"\"undefined\"","timestamp":"2025-06-02T21:51:42.303Z","value":"undefined","valueType":"string"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-02T21:53:31.851Z"}

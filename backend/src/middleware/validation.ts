@@ -45,5 +45,14 @@ export const schemas = {
       category: Joi.string().required(),
       image: Joi.string().optional(),
       allergens: Joi.array().items(Joi.string()).optional()
+    }),
+  
+    createReview: Joi.object({
+      customerName: Joi.string().required().min(2).max(50),
+      email: Joi.string().email().optional(),
+      rating: Joi.number().min(1).max(5).required(),
+      comment: Joi.string().required().min(10).max(500),
+      tableNumber: Joi.string().optional(),
+      orderId: Joi.string().optional()
     })
   };
