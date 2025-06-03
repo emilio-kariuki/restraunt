@@ -18,15 +18,40 @@ interface MenuItem {
     category: string;
     image?: string;
     allergens?: string[];
+    allergenNotes?: string;
+    dietaryInfo?: string[];
     isVegetarian?: boolean;
     isSpicy?: boolean;
     isPopular?: boolean;
     preparationTime?: number;
+    customizations?: Array<{
+        id: string;
+        name: string;
+        type: 'radio' | 'checkbox' | 'select';
+        options: Array<{
+            name: string;
+            price: number;
+        }>;
+        required: boolean;
+        maxSelections?: number;
+    }>;
 }
 
 interface CartItem extends MenuItem {
     quantity: number;
-    customizations?: string[];
+    selectedCustomizations?: Array<{
+        customizationId: string;
+        customizationName: string;
+        selectedOptions: Array<{
+            name: string;
+            price: number;
+        }>;
+    }>;
+    allergenPreferences?: {
+        avoidAllergens: string[];
+        specialInstructions: string;
+    };
+    dietaryPreferences?: string[];
 }
 
 interface Restaurant {
@@ -52,6 +77,7 @@ export default function MenuPage() {
     const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
     const [favorites, setFavorites] = useState<string[]>([]);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [showAllergenModal, setShowAllergenModal] = useState<MenuItem | null>(null);
 
     useEffect(() => {
         loadMenu();
@@ -104,20 +130,50 @@ export default function MenuPage() {
         return items;
     };
 
-    const addToCart = (item: MenuItem) => {
-        const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    // Enhanced addToCart function
+    const addToCart = (item: MenuItem, allergenPreferences?: any, customizations?: any) => {
+        const existingItemIndex = cart.findIndex(cartItem => 
+            cartItem.id === item.id && 
+            JSON.stringify(cartItem.selectedCustomizations) === JSON.stringify(customizations) &&
+            JSON.stringify(cartItem.allergenPreferences) === JSON.stringify(allergenPreferences)
+        );
         
-        if (existingItem) {
-            setCart(cart.map(cartItem => 
-                cartItem.id === item.id 
+        if (existingItemIndex !== -1) {
+            // Update quantity for existing item with same customizations
+            setCart(cart.map((cartItem, index) => 
+                index === existingItemIndex 
                     ? { ...cartItem, quantity: cartItem.quantity + 1 }
                     : cartItem
             ));
         } else {
-            setCart([...cart, { ...item, quantity: 1 }]);
+            // Add new item to cart
+            const cartItem: CartItem = {
+                ...item,
+                quantity: 1,
+                selectedCustomizations: customizations || [],
+                allergenPreferences: allergenPreferences || { avoidAllergens: [], specialInstructions: '' },
+                dietaryPreferences: allergenPreferences?.dietaryPreferences || []
+            };
+            setCart([...cart, cartItem]);
         }
 
-        setNotification({ type: 'success', message: `${item.name} added to cart` });
+        setNotification({ 
+            type: 'success', 
+            message: allergenPreferences?.avoidAllergens?.length > 0 
+                ? `${item.name} added with allergen preferences` 
+                : `${item.name} added to cart` 
+        });
+    };
+
+    // Enhanced addToCart handler that opens allergen modal
+    const handleAddToCart = (item: MenuItem) => {
+        // Always show allergen modal for better safety
+        setShowAllergenModal(item);
+    };
+
+    // Quick add without allergen preferences (for simple items)
+    const quickAddToCart = (item: MenuItem) => {
+        addToCart(item);
     };
 
     const updateQuantity = (itemId: string, delta: number) => {
@@ -144,8 +200,15 @@ export default function MenuPage() {
         localStorage.setItem('favorites', JSON.stringify(newFavorites));
     };
 
+    // Update the cart total calculation to include customizations
     const getTotalAmount = () => {
-        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        return cart.reduce((total, item) => {
+            const customizationPrice = item.selectedCustomizations?.reduce((sum, custom) => {
+                return sum + custom.selectedOptions.reduce((optSum: number, option: any) => optSum + option.price, 0);
+            }, 0) || 0;
+            
+            return total + ((item.price + customizationPrice) * item.quantity);
+        }, 0);
     };
 
     const getTotalItems = () => {
@@ -424,13 +487,33 @@ export default function MenuPage() {
                                                 </button>
                                             </div>
                                         ) : (
-                                            <button
-                                                onClick={() => addToCart(item)}
-                                                className="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 sm:px-4 py-2 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 shadow-lg hover:shadow-xl transform hover:scale-105"
-                                            >
-                                                <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
-                                                <span className="font-medium text-sm">Add</span>
-                                            </button>
+                                            <div className="flex space-x-1">
+                                                {/* Quick Add (simple) */}
+                                                {(!item.allergens || item.allergens.length === 0) && 
+                                                 (!item.customizations || item.customizations.length === 0) && (
+                                                    <button
+                                                        onClick={() => quickAddToCart(item)}
+                                                        className="bg-gray-100 text-gray-600 px-2 py-2 rounded-lg hover:bg-gray-200 transition-all duration-200 flex items-center"
+                                                        title="Quick add"
+                                                    >
+                                                        <Plus className="w-3 h-3" />
+                                                    </button>
+                                                )}
+                                                
+                                                {/* Main Add Button */}
+                                                <button
+                                                    onClick={() => handleAddToCart(item)}
+                                                    className="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 sm:px-4 py-2 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 shadow-lg hover:shadow-xl transform hover:scale-105"
+                                                >
+                                                    {item.allergens && item.allergens.length > 0 && (
+                                                        <AlertCircle className="w-3 h-3 text-orange-200" />
+                                                    )}
+                                                    <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
+                                                    <span className="font-medium text-sm">
+                                                        {item.customizations && item.customizations.length > 0 ? 'Customize' : 'Add'}
+                                                    </span>
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
                                 </div>
@@ -534,7 +617,7 @@ export default function MenuPage() {
                                                     </div>
                                                 ) : (
                                                     <button
-                                                        onClick={() => addToCart(item)}
+                                                        onClick={() => handleAddToCart(item)}
                                                         className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl hover:from-green-600 hover:to-green-700 transition-all duration-200 flex items-center space-x-1 sm:space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
                                                     >
                                                         <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -741,6 +824,337 @@ export default function MenuPage() {
                     </div>
                 </div>
             )}
+
+            {/* Add Allergen Selection Modal */}
+            {showAllergenModal && (
+                <AllergenSelectionModal
+                    item={showAllergenModal}
+                    onConfirm={(item, allergenPreferences, customizations) => {
+                        addToCart(item, allergenPreferences, customizations);
+                        setShowAllergenModal(null);
+                    }}
+                    onClose={() => setShowAllergenModal(null)}
+                />
+            )}
+        </div>
+    );
+}
+
+// Add this component before the main component
+interface AllergenSelectionModalProps {
+    item: MenuItem;
+    onConfirm: (item: MenuItem, allergenPreferences: any, customizations: any) => void;
+    onClose: () => void;
+}
+
+function AllergenSelectionModal({ item, onConfirm, onClose }: AllergenSelectionModalProps) {
+    const [avoidAllergens, setAvoidAllergens] = useState<string[]>([]);
+    const [specialInstructions, setSpecialInstructions] = useState('');
+    const [selectedCustomizations, setSelectedCustomizations] = useState<any[]>([]);
+    const [dietaryPreferences, setDietaryPreferences] = useState<string[]>([]);
+
+    const commonAllergens = [
+        'Dairy', 'Eggs', 'Fish', 'Shellfish', 'Tree Nuts', 'Peanuts', 
+        'Wheat/Gluten', 'Soy', 'Sesame', 'Sulfites'
+    ];
+
+    const dietaryOptions = [
+        'Vegetarian', 'Vegan', 'Gluten-Free', 'Dairy-Free', 
+        'Nut-Free', 'Low-Sodium', 'Keto', 'Halal', 'Kosher'
+    ];
+
+    const toggleAllergen = (allergen: string) => {
+        setAvoidAllergens(prev => 
+            prev.includes(allergen) 
+                ? prev.filter(a => a !== allergen)
+                : [...prev, allergen]
+        );
+    };
+
+    const toggleDietaryPreference = (preference: string) => {
+        setDietaryPreferences(prev => 
+            prev.includes(preference) 
+                ? prev.filter(p => p !== preference)
+                : [...prev, preference]
+        );
+    };
+
+    const handleCustomizationChange = (customizationId: string, customizationName: string, option: any, checked: boolean) => {
+        setSelectedCustomizations(prev => {
+            const existing = prev.find(c => c.customizationId === customizationId);
+            
+            if (!existing) {
+                return [...prev, {
+                    customizationId,
+                    customizationName,
+                    selectedOptions: checked ? [option] : []
+                }];
+            }
+
+            return prev.map(c => {
+                if (c.customizationId === customizationId) {
+                    const customization = item.customizations?.find(custom => custom.id === customizationId);
+                    
+                    if (customization?.type === 'radio') {
+                        return {
+                            ...c,
+                            selectedOptions: checked ? [option] : []
+                        };
+                    } else {
+                        return {
+                            ...c,
+                            selectedOptions: checked 
+                                ? [...c.selectedOptions, option]
+                                : c.selectedOptions.filter((opt: any) => opt.name !== option.name)
+                        };
+                    }
+                }
+                return c;
+            });
+        });
+    };
+
+    const getTotalPrice = () => {
+        const customizationPrice = selectedCustomizations.reduce((total, custom) => {
+            return total + custom.selectedOptions.reduce((sum: number, option: any) => sum + option.price, 0);
+        }, 0);
+        return item.price + customizationPrice;
+    };
+
+    const handleConfirm = () => {
+        onConfirm(item, {
+            avoidAllergens,
+            specialInstructions: specialInstructions.trim(),
+            dietaryPreferences
+        }, selectedCustomizations);
+        onClose();
+    };
+
+    // Check if item contains avoided allergens
+    const hasAvoidedAllergens = item.allergens?.some(allergen => 
+        avoidAllergens.some(avoided => 
+            allergen.toLowerCase().includes(avoided.toLowerCase()) ||
+            avoided.toLowerCase().includes(allergen.toLowerCase())
+        )
+    );
+
+    return (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+            <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl transform transition-all">
+                {/* Header */}
+                <div className="sticky top-0 bg-gradient-to-r from-green-500 to-green-600 text-white p-4 sm:p-6 z-10">
+                    <div className="flex items-start justify-between">
+                        <div className="flex-1 min-w-0">
+                            <h3 className="text-xl sm:text-2xl font-bold mb-2 line-clamp-2">{item.name}</h3>
+                            <p className="text-green-100 text-sm sm:text-base">${getTotalPrice().toFixed(2)}</p>
+                        </div>
+                        <button
+                            onClick={onClose}
+                            className="p-2 hover:bg-white/20 rounded-xl transition-colors flex-shrink-0 ml-4"
+                        >
+                            <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="overflow-y-auto max-h-[calc(90vh-100px)]">
+                    <div className="p-4 sm:p-6 space-y-6">
+                        {/* Item Description */}
+                        <div>
+                            <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{item.description}</p>
+                        </div>
+
+                        {/* Current Allergens Warning */}
+                        {item.allergens && item.allergens.length > 0 && (
+                            <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
+                                <div className="flex items-start space-x-3">
+                                    <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                                    <div>
+                                        <h4 className="font-medium text-orange-800 mb-2">This item contains:</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {item.allergens.map(allergen => (
+                                                <span key={allergen} className="bg-orange-200 text-orange-800 text-xs px-2 py-1 rounded-lg font-medium">
+                                                    {allergen}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        {item.allergenNotes && (
+                                            <p className="text-orange-700 text-sm mt-2">{item.allergenNotes}</p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Allergen Avoidance Section */}
+                        <div className="border border-gray-200 rounded-xl p-4">
+                            <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
+                                Allergens to Avoid
+                            </h4>
+                            <div className="grid grid-cols-2 gap-2">
+                                {commonAllergens.map(allergen => (
+                                    <label key={allergen} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={avoidAllergens.includes(allergen)}
+                                            onChange={() => toggleAllergen(allergen)}
+                                            className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                                        />
+                                        <span className="text-sm text-gray-700">{allergen}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Allergen Conflict Warning */}
+                        {hasAvoidedAllergens && (
+                            <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                                <div className="flex items-start space-x-3">
+                                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                                    <div>
+                                        <h4 className="font-medium text-red-800 mb-2">⚠️ Allergen Conflict Detected</h4>
+                                        <p className="text-red-700 text-sm">
+                                            This item contains allergens you want to avoid. Please add special instructions 
+                                            below or choose a different item.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Dietary Preferences */}
+                        <div className="border border-gray-200 rounded-xl p-4">
+                            <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                <Leaf className="w-5 h-5 text-green-500 mr-2" />
+                                Dietary Preferences
+                            </h4>
+                            <div className="grid grid-cols-2 gap-2">
+                                {dietaryOptions.map(preference => (
+                                    <label key={preference} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={dietaryPreferences.includes(preference)}
+                                            onChange={() => toggleDietaryPreference(preference)}
+                                            className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                                        />
+                                        <span className="text-sm text-gray-700">{preference}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Customizations */}
+                        {item.customizations && item.customizations.length > 0 && (
+                            <div className="border border-gray-200 rounded-xl p-4">
+                                <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                    <Utensils className="w-5 h-5 text-blue-500 mr-2" />
+                                    Customizations
+                                </h4>
+                                <div className="space-y-4">
+                                    {item.customizations.map(customization => (
+                                        <div key={customization.id}>
+                                            <h5 className="font-medium text-gray-800 mb-2">
+                                                {customization.name}
+                                                {customization.required && <span className="text-red-500 ml-1">*</span>}
+                                            </h5>
+                                            <div className="space-y-2">
+                                                {customization.options.map(option => (
+                                                    <label key={option.name} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                                        <input
+                                                            type={customization.type === 'radio' ? 'radio' : 'checkbox'}
+                                                            name={`customization-${customization.id}`}
+                                                            checked={selectedCustomizations
+                                                                .find(c => c.customizationId === customization.id)
+                                                                ?.selectedOptions.some((opt: any) => opt.name === option.name) || false}
+                                                            onChange={(e) => handleCustomizationChange(
+                                                                customization.id, 
+                                                                customization.name, 
+                                                                option, 
+                                                                e.target.checked
+                                                            )}
+                                                            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                                        />
+                                                        <div className="flex-1 flex justify-between items-center">
+                                                            <span className="text-sm text-gray-700">{option.name}</span>
+                                                            {option.price > 0 && (
+                                                                <span className="text-sm text-green-600 font-medium">
+                                                                    +${option.price.toFixed(2)}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </label>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Special Instructions */}
+                        <div className="border border-gray-200 rounded-xl p-4">
+                            <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                <Info className="w-5 h-5 text-purple-500 mr-2" />
+                                Special Instructions
+                            </h4>
+                            <textarea
+                                value={specialInstructions}
+                                onChange={(e) => setSpecialInstructions(e.target.value)}
+                                placeholder="Any special requests, modifications, or allergen concerns? (e.g., 'No nuts in the sauce', 'Extra spicy', 'On the side')"
+                                className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                                rows={3}
+                                maxLength={200}
+                            />
+                            <div className="flex justify-between items-center mt-2">
+                                <p className="text-xs text-gray-500">
+                                    Our kitchen will do their best to accommodate your requests
+                                </p>
+                                <span className="text-xs text-gray-400">
+                                    {specialInstructions.length}/200
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                        <span>Total:</span>
+                        <span className="text-green-600">${getTotalPrice().toFixed(2)}</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                        <button
+                            onClick={onClose}
+                            className="py-3 px-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleConfirm}
+                            disabled={hasAvoidedAllergens && !specialInstructions.trim()}
+                            className={`py-3 px-4 rounded-xl font-medium transition-all ${
+                                hasAvoidedAllergens && !specialInstructions.trim()
+                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    : 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 shadow-lg'
+                            }`}
+                        >
+                            {hasAvoidedAllergens && !specialInstructions.trim() 
+                                ? 'Add Instructions Required' 
+                                : 'Add to Cart'
+                            }
+                        </button>
+                    </div>
+                    
+                    {hasAvoidedAllergens && !specialInstructions.trim() && (
+                        <p className="text-red-600 text-xs text-center">
+                            Please add special instructions when allergens conflict
+                        </p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

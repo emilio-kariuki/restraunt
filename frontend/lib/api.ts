@@ -1,7 +1,8 @@
 // frontend/lib/api.ts - Updated API client with proper axios implementation
 import axios, { AxiosInstance, AxiosError } from 'axios';
 
-const API_BASE = 'https://ecoville.online/restraunt/api';
+// const API_BASE = 'https://ecoville.online/restraunt/api';
+const API_BASE = 'http://localhost:';
 // const API_BASE = 'https://hgn8hf4t-6000.uks1.devtunnels.ms/api';
 
 // Create axios instance with default config
@@ -113,6 +114,21 @@ export const apiService = {
     getOrder: async (orderId: string) => {
       const response = await apiClient.get(`/orders/${orderId}`);
       return response.data;
+    },
+    getOrderById: async (orderId: string) => {
+      const response = await fetch(`${API_BASE}/api/orders/${orderId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || errorData.error || 'Failed to fetch order');
+      }
+
+      return response.json();
     },
     getOrders: async (filters?: { 
       status?: string | string[]; 
