@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { BarChart, DollarSign, Package, Clock, Download, Calendar } from 'lucide-react';
-import { Order } from '../../types/admin';
-import { formatDate } from '../../utils/adminUtils';
+import { BarChart, DollarSign, Package, Clock, Download, Calendar, Users, MapPin } from 'lucide-react';
+import { Order, Restaurant } from '../../types/admin';
+import { formatDate, getTableStatusColor } from '../../utils/adminUtils';
 
 interface ReportsSectionProps {
   orders: Order[];
+  restaurant: Restaurant | null; // Add restaurant prop
   isLoading: boolean;
 }
 
-export default function ReportsSection({ orders, isLoading }: ReportsSectionProps) {
+export default function ReportsSection({ orders, restaurant, isLoading }: ReportsSectionProps) {
   const [dateRange, setDateRange] = useState({
     startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     endDate: new Date().toISOString().split('T')[0]
@@ -54,6 +55,30 @@ export default function ReportsSection({ orders, isLoading }: ReportsSectionProp
     .sort((a, b) => b.quantity - a.quantity)
     .slice(0, 5);
 
+  // Add table status calculations
+  const getTableStats = () => {
+    if (!restaurant?.tables) return null;
+
+    const totalTables = restaurant.tables.length;
+    const statusCounts = restaurant.tables.reduce((acc, table) => {
+      acc[table.status] = (acc[table.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const totalCapacity = restaurant.tables.reduce((sum, table) => sum + table.capacity, 0);
+    const utilizationRate = totalTables > 0 ? 
+      ((statusCounts.occupied || 0) / totalTables * 100).toFixed(1) : '0';
+
+    return {
+      totalTables,
+      totalCapacity,
+      statusCounts,
+      utilizationRate
+    };
+  };
+
+  const tableStats = getTableStats();
+
   return (
     <div className="space-y-8 text-black">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
@@ -93,7 +118,7 @@ export default function ReportsSection({ orders, isLoading }: ReportsSectionProp
       ) : (
         <>
           {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
@@ -137,6 +162,19 @@ export default function ReportsSection({ orders, isLoading }: ReportsSectionProp
                 <Clock className="w-10 h-10 text-orange-200" />
               </div>
             </div>
+
+            {/* Table Utilization Card */}
+            {tableStats && (
+              <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-2xl p-6 text-white">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-indigo-100 text-sm font-medium">Table Utilization</p>
+                    <p className="text-3xl font-bold">{tableStats.utilizationRate}%</p>
+                  </div>
+                  <Users className="w-10 h-10 text-indigo-200" />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Charts Row */}
@@ -175,6 +213,72 @@ export default function ReportsSection({ orders, isLoading }: ReportsSectionProp
               </div>
             </div>
           </div>
+
+          {/* Table Status Distribution */}
+          {tableStats && (
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Table Status Distribution</h3>
+              <div className="space-y-4">
+                {Object.entries(tableStats.statusCounts).map(([status, count]) => (
+                  <div key={status} className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <div className={`w-4 h-4 rounded-full mr-3 ${
+                        status === 'available' ? 'bg-green-500' :
+                        status === 'occupied' ? 'bg-red-500' :
+                        status === 'reserved' ? 'bg-blue-500' :
+                        status === 'cleaning' ? 'bg-yellow-500' :
+                        'bg-gray-500'
+                      }`}></div>
+                      <span className="text-gray-600 capitalize">{status}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-bold text-gray-900">{count}</span>
+                      <span className="text-sm text-gray-500 ml-1">
+                        ({((count / tableStats.totalTables) * 100).toFixed(1)}%)
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Table Summary */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">{tableStats.totalTables}</p>
+                    <p className="text-sm text-gray-600">Total Tables</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">{tableStats.totalCapacity}</p>
+                    <p className="text-sm text-gray-600">Total Seats</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Table Details */}
+          {tableStats && restaurant?.tables && (
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Individual Table Status</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {restaurant.tables.map((table) => (
+                  <div key={table.tableNumber} className="border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-gray-900">Table {table.tableNumber}</h4>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTableStatusColor(table.status)}`}>
+                        {table.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Users className="w-4 h-4 mr-1" />
+                      <span>{table.capacity} seats</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Popular Items */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
@@ -227,11 +331,6 @@ export default function ReportsSection({ orders, isLoading }: ReportsSectionProp
                       </span>
                     </div>
                     <p className="text-gray-700 italic">"{order.specialInstructions}"</p>
-                    {order.paymentPreferences && (
-                      <p className="text-sm text-blue-600 mt-2">
-                        Payment: {order.paymentPreferences}
-                      </p>
-                    )}
                   </div>
                 ))}
             </div>

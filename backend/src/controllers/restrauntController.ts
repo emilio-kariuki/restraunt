@@ -300,7 +300,7 @@ export class RestaurantController {
         };
       }
 
-      // Update settings
+      // Update settings including tax rate
       if (settings) {
         restaurant.settings = {
           ...restaurant.settings,
@@ -312,11 +312,19 @@ export class RestaurantController {
           requirePhoneForOrders: settings.requirePhoneForOrders ?? restaurant.settings.requirePhoneForOrders,
           enableOrderNotifications: settings.enableOrderNotifications ?? restaurant.settings.enableOrderNotifications,
           maxWaitTime: settings.maxWaitTime ?? restaurant.settings.maxWaitTime,
+          taxRate: settings.taxRate ?? restaurant.settings.taxRate, // Add tax rate update
           operatingHours: settings.operatingHours ?? restaurant.settings.operatingHours
         };
       }
 
       await restaurant.save();
+
+      // Broadcast settings update to all connected clients (if using WebSocket)
+      // You can implement this based on your WebSocket setup
+      logger.info(`Restaurant settings updated for ${restaurant._id}`, {
+        restaurantId: restaurant._id,
+        updatedFields: Object.keys(req.body)
+      });
 
       res.json({
         message: 'Restaurant updated successfully',

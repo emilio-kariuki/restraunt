@@ -588,6 +588,7 @@ export default function AdminPage() {
         {activeTab === 'reports' && (
           <ReportsSection 
             orders={orders}
+            restaurant={restaurant} // Add this prop
             isLoading={isLoading}
           />
         )}

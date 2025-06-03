@@ -58,6 +58,7 @@ const restaurantSchema = new Schema<IRestaurant>({
     autoConfirmOrders: { type: Boolean, default: false },
     requirePhoneForOrders: { type: Boolean, default: true },
     enableOrderNotifications: { type: Boolean, default: true },
+    taxRate: { type: Number, default: 0.08, min: 0, max: 1 }, // Add tax rate with validation
     operatingHours: {
       monday: { open: String, close: String, closed: { type: Boolean, default: false } },
       tuesday: { open: String, close: String, closed: { type: Boolean, default: false } },

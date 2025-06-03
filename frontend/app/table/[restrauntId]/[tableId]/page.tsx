@@ -12,6 +12,7 @@ import {
   QrCode, Share2,
   Info, Headphones
 } from 'lucide-react';
+import { apiService } from '../../../../lib/api';
 
 interface Restaurant {
   id: string;
@@ -63,29 +64,45 @@ export default function TableLandingPage() {
   const loadTableData = async () => {
     try {
       setError(null);
-      // Mock data for demonstration - replace with actual API calls
-      setRestaurant({
-        id: restaurantId,
-        name: "Bella Vista Restaurant",
-        address: "123 Main Street, Downtown",
-        phone: "+1 (555) 123-4567",
-        isOpen: true,
-        operatingHours: {},
-        acceptsCash: true,
-        allowsSplitPayment: true,
-        averageRating: 4.6,
-        totalReviews: 284
-      });
+      setIsLoading(true);
       
-      setTable({
-        number: tableId,
-        capacity: 4,
-        status: "occupied",
-        available: false,
-        currentPhase: "seated"
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load table data');
+      // Validate parameters first
+      if (!restaurantId || !tableId) {
+        throw new Error('Restaurant ID and Table ID are required');
+      }
+      
+      // Fetch actual table and restaurant data from API
+      const tableData = await apiService.tables.getTableInfo(restaurantId, tableId);
+      
+      if (tableData.restaurant && tableData.table) {
+        // Set restaurant data using actual API response
+        setRestaurant({
+          id: tableData.restaurant._id || tableData.restaurant.id,
+          name: tableData.restaurant.name,
+          address: tableData.restaurant.address,
+          phone: tableData.restaurant.phone,
+          isOpen: tableData.restaurant.isOpen,
+          operatingHours: tableData.restaurant.operatingHours,
+          acceptsCash: tableData.restaurant.settings?.allowCashPayment ?? true,
+          allowsSplitPayment: tableData.restaurant.settings?.allowSplitPayment ?? true,
+          averageRating: 4.6, // This should come from reviews API
+          totalReviews: 284
+        });
+        
+        // Set table data using actual API response
+        setTable({
+          number: tableData.table.tableNumber || tableData.table.number,
+          capacity: tableData.table.capacity,
+          status: tableData.table.status,
+          available: tableData.table.status === 'available',
+          currentPhase: tableData.table.currentPhase || "seated"
+        });
+      } else {
+        throw new Error('Table or restaurant not found');
+      }
+    } catch (err: any) {
+      console.error('Error loading table data:', err);
+      setError(err.response?.data?.error || err.message || 'Failed to load table data');
     } finally {
       setIsLoading(false);
     }
@@ -134,6 +151,51 @@ export default function TableLandingPage() {
     );
   };
 
+  const getTableStatusColor = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'available':
+        return 'bg-green-100 text-green-700';
+      case 'occupied':
+        return 'bg-blue-100 text-blue-700';
+      case 'reserved':
+        return 'bg-yellow-100 text-yellow-700';
+      case 'cleaning':
+        return 'bg-gray-100 text-gray-700';
+      default:
+        return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  const getTableStatusText = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'available':
+        return 'Available';
+      case 'occupied':
+        return 'In Use';
+      case 'reserved':
+        return 'Reserved';
+      case 'cleaning':
+        return 'Being Cleaned';
+      default:
+        return 'Unknown';
+    }
+  };
+
+  const getWelcomeMessage = () => {
+    if (!table) return "Welcome to your table!";
+    
+    switch (table.status?.toLowerCase()) {
+      case 'occupied':
+        return "Welcome to your table!";
+      case 'available':
+        return "This table is ready for you!";
+      case 'reserved':
+        return "Your reservation is confirmed!";
+      default:
+        return "Welcome to your table!";
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -142,7 +204,7 @@ export default function TableLandingPage() {
             <Utensils className="w-8 h-8 text-gray-400" />
           </div>
           <h2 className="text-lg font-semibold text-gray-900 mb-2">Getting your table ready</h2>
-          <p className="text-gray-500 text-sm">Please wait a moment...</p>
+          <p className="text-gray-500 text-sm">Loading table information...</p>
           <div className="mt-4 w-full bg-gray-200 rounded-full h-1">
             <div className="bg-blue-500 h-1 rounded-full animate-pulse" style={{ width: '60%' }}></div>
           </div>
@@ -158,13 +220,33 @@ export default function TableLandingPage() {
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="w-8 h-8 text-red-500" />
           </div>
-          <h1 className="text-xl font-bold text-gray-900 mb-2">Oops! Something went wrong</h1>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">Table Not Found</h1>
           <p className="text-gray-600 mb-6">{error}</p>
           <button 
             onClick={loadTableData}
             className="bg-blue-500 text-white px-6 py-3 rounded-2xl hover:bg-blue-600 transition-colors font-medium"
           >
             Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!restaurant || !table) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-3xl p-8 shadow-lg text-center max-w-md w-full">
+          <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="w-8 h-8 text-yellow-500" />
+          </div>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">Table Information Unavailable</h1>
+          <p className="text-gray-600 mb-6">We couldn't load the table information. Please try again.</p>
+          <button 
+            onClick={loadTableData}
+            className="bg-blue-500 text-white px-6 py-3 rounded-2xl hover:bg-blue-600 transition-colors font-medium"
+          >
+            Reload
           </button>
         </div>
       </div>
@@ -179,7 +261,7 @@ export default function TableLandingPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-gray-700">Table {tableId} Active</span>
+              <span className="text-sm font-medium text-gray-700">Table {table.number} Active</span>
             </div>
             <div className="text-sm text-gray-500">
               {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -196,25 +278,25 @@ export default function TableLandingPage() {
           <div className="relative">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
-                <h1 className="text-xl font-bold text-gray-900 mb-1">{restaurant?.name}</h1>
+                <h1 className="text-xl font-bold text-gray-900 mb-1">{restaurant.name}</h1>
                 <div className="flex items-center space-x-1 mb-2">
-                  {renderStars(Math.round(restaurant?.averageRating || 0))}
+                  {renderStars(Math.round(restaurant.averageRating || 0))}
                   <span className="text-xs text-gray-500 ml-1">
-                    {restaurant?.averageRating?.toFixed(1)} ({restaurant?.totalReviews})
+                    {restaurant.averageRating?.toFixed(1)} ({restaurant.totalReviews})
                   </span>
                 </div>
                 <div className="flex items-center text-xs text-gray-600">
                   <MapPin className="w-3 h-3 mr-1" />
-                  <span>{restaurant?.address}</span>
+                  <span>{restaurant.address}</span>
                 </div>
               </div>
               <div className="flex flex-col items-end">
                 <div className={`px-2 py-1 rounded-full text-xs font-medium mb-2 ${
-                  restaurant?.isOpen 
+                  restaurant.isOpen 
                     ? 'bg-green-100 text-green-700' 
                     : 'bg-red-100 text-red-700'
                 }`}>
-                  {restaurant?.isOpen ? 'Open' : 'Closed'}
+                  {restaurant.isOpen ? 'Open' : 'Closed'}
                 </div>
                 <QrCode className="w-6 h-6 text-gray-400" />
               </div>
@@ -222,16 +304,17 @@ export default function TableLandingPage() {
             
             <div className="flex items-center justify-between pt-4 border-t border-gray-100">
               <div className="text-center">
-                <div className="text-lg font-bold text-gray-900">#{tableId}</div>
+                <div className="text-lg font-bold text-gray-900">#{table.number}</div>
                 <div className="text-xs text-gray-500">Table</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-gray-900">{table?.capacity}</div>
+                <div className="text-lg font-bold text-gray-900">{table.capacity}</div>
                 <div className="text-xs text-gray-500">Seats</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">4.6</div>
-                <div className="text-xs text-gray-500">Rating</div>
+                <div className={`text-sm font-bold px-2 py-1 rounded-full ${getTableStatusColor(table.status)}`}>
+                  {getTableStatusText(table.status)}
+                </div>
               </div>
             </div>
           </div>
@@ -244,7 +327,7 @@ export default function TableLandingPage() {
               <Users className="w-5 h-5 text-blue-600" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900">Welcome to your table!</h3>
+              <h3 className="font-semibold text-gray-900">{getWelcomeMessage()}</h3>
               <p className="text-sm text-gray-600">Ready to start your dining experience?</p>
             </div>
             <div className="text-2xl">🍽️</div>
@@ -382,11 +465,13 @@ export default function TableLandingPage() {
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-gray-300">Call Restaurant</span>
-              <span className="font-medium">{restaurant?.phone}</span>
+              <span className="font-medium">{restaurant.phone}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-gray-300">Hours</span>
-              <span className="font-medium">Open until 10:00 PM</span>
+              <span className="font-medium">
+                {restaurant.isOpen ? 'Currently Open' : 'Currently Closed'}
+              </span>
             </div>
           </div>
           

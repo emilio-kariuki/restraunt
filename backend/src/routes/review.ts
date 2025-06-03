@@ -6,7 +6,7 @@ const router: Router = Router();
 
 // Public routes
 router.get('/:restaurantId', ReviewController.getReviews);
-router.post('/:restaurantId', validate(schemas.createReview), ReviewController.createReview);
+router.post('/:restaurantId', ReviewController.createReview);
 router.put('/:restaurantId/:reviewId/helpful', ReviewController.markHelpful);
 
 export default router;

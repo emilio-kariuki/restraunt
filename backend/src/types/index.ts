@@ -20,6 +20,7 @@ export interface ITable {
 }
 
 export interface IRestaurantSettings {
+  isOpen: any;
   acceptsReservations: boolean;
   allowCashPayment: boolean;
   allowSplitPayment: boolean;
@@ -29,7 +30,8 @@ export interface IRestaurantSettings {
   requirePhoneForOrders: boolean;
   enableOrderNotifications: boolean;
   enableServerCall: boolean;
-  maxWaitTime?: number; // Add this property
+  maxWaitTime?: number;
+  taxRate: number; // Add tax rate
   operatingHours: {
     [key: string]: {
       open: string;
@@ -37,7 +39,6 @@ export interface IRestaurantSettings {
       closed?: boolean;
     };
   };
-  taxRate?: number;
   currency?: string;
   timezone?: string;
   enablePackingService?: boolean;

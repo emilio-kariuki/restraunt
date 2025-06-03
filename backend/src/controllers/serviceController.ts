@@ -18,6 +18,12 @@ export class ServiceController {
       const { restaurantId } = req.params;
       const { status } = req.query;
       
+      // Validate restaurantId
+      if (!restaurantId || restaurantId === 'undefined') {
+        res.status(400).json({ error: 'Valid restaurant ID is required' });
+        return;
+      }
+      
       // Verify user has access to this restaurant
       if (req.user.restaurantId !== restaurantId && req.user.role !== 'admin') {
         res.status(403).json({ error: 'Access denied' });

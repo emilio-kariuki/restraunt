@@ -105,7 +105,7 @@ function CheckoutForm({ cart, total }: { cart: CartItem[], total: number }) {
       };
 
       const orderResponse = await apiService.orders.createOrder(restaurantId, orderData);
-      const createdOrderId = orderResponse.order._id;
+      const createdOrderId = orderResponse.order.id;
       setOrderId(createdOrderId);
 
       // Step 2: Create payment intent

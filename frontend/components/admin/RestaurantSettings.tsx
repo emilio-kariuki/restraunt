@@ -7,7 +7,7 @@ import {
   Camera, Facebook, Instagram, Twitter, Star,
   Bell, Users, CreditCard, CheckCircle, Loader2,
   Trash2, AlertTriangle, BarChart3, Database,
-  QrCode
+  QrCode, Percent
 } from 'lucide-react';
 import { RestaurantProfile } from '../../types/admin';
 import { apiService } from '../../lib/api';
@@ -56,7 +56,8 @@ export default function RestaurantSettings({
     maxWaitTime: 15,
     autoConfirmOrders: false,
     requirePhoneForOrders: true,
-    enableOrderNotifications: true
+    enableOrderNotifications: true,
+    taxRate: 0.08 // Add tax rate state
   });
 
   const [operatingHours, setOperatingHours] = useState({
@@ -94,7 +95,8 @@ export default function RestaurantSettings({
           maxWaitTime: restaurant.settings.maxWaitTime ?? 15,
           autoConfirmOrders: restaurant.settings.autoConfirmOrders ?? false,
           requirePhoneForOrders: restaurant.settings.requirePhoneForOrders ?? true,
-          enableOrderNotifications: restaurant.settings.enableOrderNotifications ?? true
+          enableOrderNotifications: restaurant.settings.enableOrderNotifications ?? true,
+          taxRate: restaurant.settings.taxRate ?? 0.08 // Load tax rate
         });
       }
 
@@ -146,6 +148,12 @@ export default function RestaurantSettings({
       await apiService.restaurants.updateRestaurantSettings(updateData);
       onNotification('success', 'Restaurant profile updated successfully!');
       onUpdate();
+      
+      // Update local storage if needed for consistent UI updates
+      if (typeof window !== 'undefined') {
+        const event = new CustomEvent('restaurantUpdated', { detail: updateData });
+        window.dispatchEvent(event);
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to update profile';
       onNotification('error', message);
@@ -157,6 +165,13 @@ export default function RestaurantSettings({
   const handleSaveSettings = async () => {
     setIsSaving(true);
     try {
+      // Validate tax rate
+      if (settings.taxRate < 0 || settings.taxRate > 1) {
+        onNotification('error', 'Tax rate must be between 0% and 100%');
+        setIsSaving(false);
+        return;
+      }
+
       // Convert operating hours format for backend
       const backendOperatingHours = Object.keys(operatingHours).reduce((acc, day) => {
         const dayData = operatingHours[day as keyof typeof operatingHours];
@@ -178,6 +193,12 @@ export default function RestaurantSettings({
       await apiService.restaurants.updateRestaurantSettings(settingsData);
       onNotification('success', 'Restaurant settings updated successfully!');
       onUpdate();
+      
+      // Broadcast settings update
+      if (typeof window !== 'undefined') {
+        const event = new CustomEvent('restaurantSettingsUpdated', { detail: settings });
+        window.dispatchEvent(event);
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to update settings';
       onNotification('error', message);
@@ -507,6 +528,33 @@ export default function RestaurantSettings({
                       className="w-5 h-5 text-blue-600 rounded"
                     />
                   </label>
+                </div>
+
+                {/* Tax Rate Setting */}
+                <div className="p-4 border border-gray-200 rounded-xl">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <Percent className="w-4 h-4 mr-2" />
+                    Tax Rate
+                  </label>
+                  <div className="space-y-2">
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="0.01"
+                      value={(settings.taxRate * 100).toFixed(2)}
+                      onChange={(e) => setSettings({ 
+                        ...settings, 
+                        taxRate: Math.min(1, Math.max(0, parseFloat(e.target.value) / 100)) || 0 
+                      })}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="8.00"
+                    />
+                    <p className="text-sm text-gray-600">
+                      Current rate: {(settings.taxRate * 100).toFixed(2)}% 
+                      (e.g., $10.00 + tax = ${(10 * (1 + settings.taxRate)).toFixed(2)})
+                    </p>
+                  </div>
                 </div>
               </div>
 

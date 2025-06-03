@@ -85,9 +85,10 @@ export class TwilioService {
   static async sendOrderReady(
     customerPhone: string,
     orderNumber: string,
-    tableId: string
+    tableId?: string
   ): Promise<boolean> {
-    const message = `Your order #${orderNumber} is ready! Your server will bring it to table ${tableId} shortly. Enjoy your meal!`;
+    const tableInfo = tableId ? ` Your server will bring it to table ${tableId} shortly.` : ' Your server will bring it to you shortly.';
+    const message = `Your order #${orderNumber} is ready!${tableInfo} Enjoy your meal!`;
     return this.sendSMS(customerPhone, message);
   }
 

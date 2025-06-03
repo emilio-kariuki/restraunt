@@ -26,14 +26,56 @@ export interface MenuItem {
 
 export interface Order {
   _id: string;
+  restaurantId: string;
   tableId: string;
-  items: any[];
+  items: OrderItem[];
+  subtotal: number;
+  tax: number;
   total: number;
-  status: string;
-  customerName?: string;
-  createdAt: string;
+  status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'served' | 'completed' | 'cancelled';
+  paymentStatus: 'pending' | 'processing' | 'completed' | 'failed';
+  estimatedPrepTime?: number;
+  orderTime: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
   specialInstructions?: string;
-  paymentPreferences?: string;
+  createdAt: string;
+  updatedAt: string;
+  
+  // Allergen-related fields
+  hasAllergenConcerns?: boolean;
+  orderAllergenSummary?: {
+    hasAllergenConcerns: boolean;
+    avoidedAllergens: string[];
+    dietaryPreferences: string[];
+    specialInstructionsCount: number;
+  };
+}
+
+export interface OrderItem {
+  menuItemId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  category?: string;
+  description?: string;
+  originalAllergens?: string[];
+  selectedCustomizations?: Array<{
+    customizationId: string;
+    customizationName: string;
+    selectedOptions: Array<{
+      name: string;
+      price: number;
+    }>;
+  }>;
+  allergenPreferences?: {
+    avoidAllergens: string[];
+    specialInstructions: string;
+    dietaryPreferences: string[];
+  };
+  customizations?: any[];
+  specialInstructions?: string;
 }
 
 export interface Restaurant {
@@ -129,6 +171,7 @@ export interface RestaurantSettings {
   autoConfirmOrders: boolean;
   requirePhoneForOrders: boolean;
   enableOrderNotifications: boolean;
+  taxRate: number; // Add tax rate
   operatingHours: {
     [key: string]: {
       isOpen: boolean;

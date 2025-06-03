@@ -11,7 +11,12 @@ export const useAdminData = (activeTab: string, authToken: string | null, isAuth
 
   const loadOrders = async () => {
     try {
-      const data = await apiService.orders.getOrders();
+      // Remove restaurantId from filters since it's handled by authentication
+      const data = await apiService.orders.getOrders({
+        limit: 100, // Increased limit for admin
+        sortBy: 'orderTime',
+        sortOrder: 'desc'
+      });
       setOrders(data.orders || []);
     } catch (error) {
       throw error;

@@ -13,7 +13,7 @@ router.get('/:restaurantId/categories', MenuController.getMenuCategories);
 router.post('/', 
   authenticate, 
   // authorize('admin', 'staff', 'superadmin'), 
-  validate(schemas.createMenuItem), 
+  // validate(schemas.createMenuItem), 
   MenuController.createMenuItem
 );
 

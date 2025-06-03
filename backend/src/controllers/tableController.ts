@@ -9,13 +9,17 @@ export class TableController {
     try {
       const { restaurantId, tableId } = req.params;
 
+      console.log('Fetching table info for restaurant:', restaurantId, 'table:', tableId);
+
       const restaurant = await Restaurant.findById(restaurantId);
+      console.log('Restaurant found:', restaurant);
       if (!restaurant) {
         res.status(404).json({ error: 'Restaurant not found' });
         return;
       }
 
       const table = restaurant.tables.find(t => t.tableNumber === tableId);
+      console.log('Table:', table);
       if (!table) {
         res.status(404).json({ error: 'Table not found' });
         return;
