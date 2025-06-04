@@ -1647,3 +1647,48 @@
 {"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:20:02.583Z"}
 {"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:20:02.583Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:20:03.791Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:38:04.411Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:38:04.889Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:38:04.890Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:38:04.890Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:38:04.890Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:38:06.033Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:52:33.550Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:52:33.952Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:52:33.952Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:52:33.953Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:52:33.953Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:52:35.170Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:52:51.386Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:52:51.751Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:52:51.751Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:52:51.751Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:52:51.751Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:52:52.897Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:53:00.119Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:53:00.545Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:53:00.545Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:53:00.546Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:53:00.546Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:53:01.692Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:55:38.806Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:55:39.163Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:55:39.163Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:55:39.164Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:55:39.164Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:55:40.844Z"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:56:17.084Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:56:17.471Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:56:17.472Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:56:17.472Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:56:17.472Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:56:18.657Z"}
+{"kind":"ObjectId","level":"error","message":"Get menu error: Cast to ObjectId failed for value \"export\" (type string) at path \"_id\" for model \"Restaurant\"","path":"_id","reason":{},"stack":"CastError: Cast to ObjectId failed for value \"export\" (type string) at path \"_id\" for model \"Restaurant\"\n    at ObjectId.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schema/objectid.js:250:11)\n    at ObjectId.SchemaType.applySetters (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1219:12)\n    at ObjectId.SchemaType.castForQuery (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/schematype.js:1633:15)\n    at cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/cast.js:389:32)\n    at model.Query.Query.cast (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4927:12)\n    at model.Query.Query._castConditions (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2237:10)\n    at model.Query._findOne (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:2533:8)\n    at model.Query.exec (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongoose@7.8.7/node_modules/mongoose/lib/query.js:4447:28)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async getMenu (/Users/emilio/projects/restraunt/backend/src/controllers/menuController.ts:148:26)","stringValue":"\"export\"","timestamp":"2025-06-03T21:57:06.597Z","value":"export","valueType":"string"}
+{"level":"warn","message":"Twilio configuration incomplete. SMS services will be disabled.","timestamp":"2025-06-03T21:59:24.968Z"}
+{"level":"info","message":"🚀 Server running on port 9001","timestamp":"2025-06-03T21:59:25.374Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-03T21:59:25.374Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-03T21:59:25.374Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9001/api/health","timestamp":"2025-06-03T21:59:25.374Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-03T21:59:26.554Z"}
+{"level":"info","message":"Menu exported for restaurant 674a1b2c3d4e5f6789012345 in csv format","timestamp":"2025-06-03T21:59:32.211Z"}
+{"level":"info","message":"Bulk upload completed for restaurant 674a1b2c3d4e5f6789012345: 3 successful, 0 failed, 20 skipped","timestamp":"2025-06-03T22:00:14.539Z"}

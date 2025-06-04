@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import MenuItem from '../models/menuitem';
 import Restaurant from '../models/restraunt';
 import logger from '../utils/logger';
+import * as csv from 'csv-parse';
+import * as XLSX from 'xlsx';
 
 interface AuthRequest extends Request {
   user?: {
@@ -10,6 +12,130 @@ interface AuthRequest extends Request {
     role: string;
     restaurantId?: string;
   };
+  file?: Express.Multer.File;
+}
+
+// Helper function to parse CSV files
+async function parseCSVFile(buffer: Buffer, mapping?: any): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    const results: any[] = [];
+    const parser = csv.parse({
+      columns: true,
+      skip_empty_lines: true,
+      trim: true
+    });
+
+    parser.on('readable', function() {
+      let record: any;
+      while (record = parser.read()) {
+        // Apply column mapping if provided
+        if (mapping) {
+          const mappedRecord: any = {};
+          Object.keys(mapping).forEach(key => {
+            if (mapping[key] && record[mapping[key]]) {
+              mappedRecord[key] = record[mapping[key]];
+            }
+          });
+          results.push(mappedRecord);
+        } else {
+          // Convert string values to appropriate types
+          const processedRecord = {
+            name: record.name || record.Name,
+            description: record.description || record.Description,
+            price: parseFloat(record.price || record.Price) || 0,
+            category: record.category || record.Category,
+            allergens: record.allergens ? record.allergens.split(',').map((a: string) => a.trim()) : [],
+            allergenNotes: record.allergenNotes || record['Allergen Notes'] || '',
+            dietaryInfo: record.dietaryInfo ? record.dietaryInfo.split(',').map((d: string) => d.trim()) : [],
+            available: record.available !== 'false' && record.available !== '0',
+            isVegetarian: record.isVegetarian === 'true' || record.isVegetarian === '1',
+            isSpicy: record.isSpicy === 'true' || record.isSpicy === '1',
+            preparationTime: parseInt(record.preparationTime) || undefined,
+            calories: parseInt(record.calories) || undefined
+          };
+          results.push(processedRecord);
+        }
+      }
+    });
+
+    parser.on('error', (err) => {
+      reject(err);
+    });
+
+    parser.on('end', () => {
+      resolve(results);
+    });
+
+    parser.write(buffer);
+    parser.end();
+  });
+}
+
+// Helper function to parse Excel files
+async function parseExcelFile(buffer: Buffer, mapping?: any): Promise<any[]> {
+  try {
+    const workbook = XLSX.read(buffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+    return jsonData.map((record: any) => {
+      if (mapping) {
+        const mappedRecord: any = {};
+        Object.keys(mapping).forEach(key => {
+          if (mapping[key] && record[mapping[key]]) {
+            mappedRecord[key] = record[mapping[key]];
+          }
+        });
+        return mappedRecord;
+      } else {
+        return {
+          name: record.name || record.Name,
+          description: record.description || record.Description,
+          price: parseFloat(record.price || record.Price) || 0,
+          category: record.category || record.Category,
+          allergens: record.allergens ? String(record.allergens).split(',').map((a: string) => a.trim()) : [],
+          allergenNotes: record.allergenNotes || record['Allergen Notes'] || '',
+          dietaryInfo: record.dietaryInfo ? String(record.dietaryInfo).split(',').map((d: string) => d.trim()) : [],
+          available: record.available !== 'false' && record.available !== '0',
+          isVegetarian: record.isVegetarian === 'true' || record.isVegetarian === '1',
+          isSpicy: record.isSpicy === 'true' || record.isSpicy === '1',
+          preparationTime: parseInt(record.preparationTime) || undefined,
+          calories: parseInt(record.calories) || undefined
+        };
+      }
+    });
+  } catch (error) {
+    throw new Error(`Excel parsing error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// Helper function to convert data to CSV
+function convertToCSV(data: any[]): string {
+  if (!data || data.length === 0) {
+    return '';
+  }
+
+  const headers = Object.keys(data[0]);
+  const escapeCsvValue = (value: any): string => {
+    if (value === null || value === undefined) return '';
+    
+    const stringValue = String(value);
+    // If value contains comma, newline, or quote, wrap in quotes and escape internal quotes
+    if (stringValue.includes(',') || stringValue.includes('\n') || stringValue.includes('"')) {
+      return `"${stringValue.replace(/"/g, '""')}"`;
+    }
+    return stringValue;
+  };
+
+  const csvContent = [
+    headers.join(','),
+    ...data.map(row => 
+      headers.map(header => escapeCsvValue(row[header])).join(',')
+    )
+  ].join('\n');
+
+  return csvContent;
 }
 
 export class MenuController {
@@ -610,6 +736,606 @@ export class MenuController {
       res.status(500).json({ 
         success: false, 
         error: 'Internal server error' 
+      });
+    }
+  }
+
+  // Bulk upload menu items
+  static async bulkUploadMenu(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { items, options } = req.body;
+
+      if (!Array.isArray(items) || items.length === 0) {
+        res.status(400).json({
+          success: false,
+          error: 'Items array is required and cannot be empty'
+        });
+        return;
+      }
+
+      // Determine restaurant ID
+      let targetRestaurantId = options?.restaurantId || req.user?.restaurantId;
+
+      if (!targetRestaurantId && req.user) {
+        const userRestaurant = await Restaurant.findOne({ ownerId: req.user._id });
+        if (userRestaurant) {
+          targetRestaurantId = userRestaurant._id.toString();
+        }
+      }
+
+      if (!targetRestaurantId) {
+        res.status(400).json({
+          success: false,
+          error: 'Restaurant ID required'
+        });
+        return;
+      }
+
+      // Validate restaurant exists and user has access
+      const restaurant = await Restaurant.findById(targetRestaurantId);
+      if (!restaurant) {
+        res.status(404).json({
+          success: false,
+          error: 'Restaurant not found'
+        });
+        return;
+      }
+
+      if (req.user?.role !== 'superadmin' && 
+          restaurant.ownerId?.toString() !== req.user?._id?.toString() && 
+          req.user?.restaurantId !== targetRestaurantId) {
+        res.status(403).json({
+          success: false,
+          error: 'Not authorized'
+        });
+        return;
+      }
+
+      const results = {
+        total: items.length,
+        successful: 0,
+        failed: 0,
+        skipped: 0,
+        errors: [] as string[],
+        created: [] as any[],
+        updated: [] as any[]
+      };
+
+      // If validate only, just check the items without saving
+      if (options?.validateOnly) {
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          try {
+            // Validate required fields
+            if (!item.name?.trim()) {
+              results.errors.push(`Item ${i + 1}: Name is required`);
+              results.failed++;
+              continue;
+            }
+            if (!item.description?.trim()) {
+              results.errors.push(`Item ${i + 1}: Description is required`);
+              results.failed++;
+              continue;
+            }
+            if (typeof item.price !== 'number' || item.price < 0) {
+              results.errors.push(`Item ${i + 1}: Valid price is required`);
+              results.failed++;
+              continue;
+            }
+            if (!item.category?.trim()) {
+              results.errors.push(`Item ${i + 1}: Category is required`);
+              results.failed++;
+              continue;
+            }
+            results.successful++;
+          } catch (error) {
+            results.errors.push(`Item ${i + 1}: ${error instanceof Error ? error.message : 'Validation error'}`);
+            results.failed++;
+          }
+        }
+
+        res.json({
+          success: true,
+          message: 'Validation completed',
+          results
+        });
+        return;
+      }
+
+      // Process each item
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        try {
+          // Check if item already exists
+          const existingItem = await MenuItem.findOne({
+            restaurantId: targetRestaurantId,
+            name: { $regex: new RegExp(`^${item.name.trim()}$`, 'i') }
+          });
+
+          if (existingItem) {
+            if (options?.skipDuplicates) {
+              results.skipped++;
+              continue;
+            } else if (options?.overwrite) {
+              // Update existing item
+              const updatedItem = await MenuItem.findByIdAndUpdate(
+                existingItem._id,
+                {
+                  ...item,
+                  restaurantId: targetRestaurantId,
+                  updatedAt: new Date()
+                },
+                { new: true, runValidators: true }
+              );
+              results.updated.push(updatedItem);
+              results.successful++;
+              continue;
+            } else {
+              results.errors.push(`Item ${i + 1}: "${item.name}" already exists`);
+              results.failed++;
+              continue;
+            }
+          }
+
+          // Create new item
+          const menuItem = new MenuItem({
+            ...item,
+            restaurantId: targetRestaurantId,
+            name: item.name.trim(),
+            description: item.description.trim(),
+            category: item.category.trim().toLowerCase(),
+            available: item.available !== false,
+            allergens: Array.isArray(item.allergens) ? item.allergens.filter(Boolean) : [],
+            allergenNotes: item.allergenNotes?.trim() || '',
+            dietaryInfo: Array.isArray(item.dietaryInfo) ? item.dietaryInfo.filter(Boolean) : [],
+            customizations: item.customizations || [],
+            isVegetarian: Boolean(item.isVegetarian),
+            isSpicy: Boolean(item.isSpicy)
+          });
+
+          const savedItem = await menuItem.save();
+          results.created.push(savedItem);
+          results.successful++;
+
+        } catch (error) {
+          results.errors.push(`Item ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          results.failed++;
+        }
+      }
+
+      logger.info(`Bulk upload completed for restaurant ${targetRestaurantId}: ${results.successful} successful, ${results.failed} failed, ${results.skipped} skipped`);
+
+      res.json({
+        success: results.failed === 0 || results.successful > 0,
+        message: `Bulk upload completed: ${results.successful} successful, ${results.failed} failed, ${results.skipped} skipped`,
+        results
+      });
+
+    } catch (error) {
+      logger.error('Bulk upload menu error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Internal server error'
+      });
+    }
+  }
+
+  // Upload menu from file (CSV/Excel)
+  static async uploadMenuFromFile(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      if (!req.file) {
+        res.status(400).json({
+          success: false,
+          error: 'File is required'
+        });
+        return;
+      }
+
+      const file = req.file;
+      const options = {
+        restaurantId: req.body.restaurantId,
+        overwrite: req.body.overwrite === 'true',
+        skipDuplicates: req.body.skipDuplicates !== 'false',
+        validateOnly: req.body.validateOnly === 'true',
+        mapping: req.body.mapping ? JSON.parse(req.body.mapping) : undefined
+      };
+
+      let menuItems: any[] = [];
+
+      // Parse file based on type
+      if (file.mimetype === 'text/csv') {
+        menuItems = await parseCSVFile(file.buffer, options.mapping);
+      } else if (file.mimetype.includes('excel') || file.mimetype.includes('spreadsheet')) {
+        menuItems = await parseExcelFile(file.buffer, options.mapping);
+      } else if (file.mimetype === 'application/json') {
+        menuItems = JSON.parse(file.buffer.toString());
+      } else {
+        res.status(400).json({
+          success: false,
+          error: 'Unsupported file format'
+        });
+        return;
+      }
+
+      // Process the parsed items using the existing bulk upload logic
+      req.body = { items: menuItems, options };
+      await MenuController.bulkUploadMenu(req, res);
+
+    } catch (error) {
+      logger.error('Upload menu from file error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'File processing failed'
+      });
+    }
+  }
+
+  // Get bulk upload template
+  static async getBulkUploadTemplate(req: Request, res: Response): Promise<void> {
+    try {
+      const format = req.query.format as string || 'csv';
+      
+      const templateData = [
+        {
+          name: 'Margherita Pizza',
+          description: 'Classic pizza with tomato sauce, mozzarella, and fresh basil',
+          price: 12.99,
+          category: 'pizza',
+          allergens: 'Gluten, Dairy',
+          allergenNotes: 'Contains wheat flour and dairy products',
+          dietaryInfo: 'Vegetarian',
+          available: true,
+          isVegetarian: true,
+          isSpicy: false,
+          preparationTime: 15,
+          calories: 320
+        },
+        {
+          name: 'Caesar Salad',
+          description: 'Fresh romaine lettuce with caesar dressing, croutons, and parmesan',
+          price: 8.99,
+          category: 'salads',
+          allergens: 'Dairy, Eggs',
+          allergenNotes: 'Contains dairy and egg products',
+          dietaryInfo: 'Vegetarian',
+          available: true,
+          isVegetarian: true,
+          isSpicy: false,
+          preparationTime: 8,
+          calories: 250
+        }
+      ];
+
+      if (format === 'csv') {
+        const csv = convertToCSV(templateData);
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', 'attachment; filename=menu-template.csv');
+        res.send(csv);
+      } else if (format === 'json') {
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Disposition', 'attachment; filename=menu-template.json');
+        res.json(templateData);
+      } else {
+        res.status(400).json({
+          success: false,
+          error: 'Unsupported format'
+        });
+      }
+
+    } catch (error) {
+      logger.error('Get bulk upload template error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Template generation failed'
+      });
+    }
+  }
+
+  // Validate bulk menu items
+  static async validateBulkMenu(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { items } = req.body;
+
+      if (!Array.isArray(items) || items.length === 0) {
+        res.status(400).json({
+          success: false,
+          error: 'Items array is required'
+        });
+        return;
+      }
+
+      const validationResults = {
+        total: items.length,
+        valid: 0,
+        invalid: 0,
+        errors: [] as string[]
+      };
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        
+        if (!item.name?.trim()) {
+          validationResults.errors.push(`Item ${i + 1}: Name is required`);
+          validationResults.invalid++;
+          continue;
+        }
+        
+        if (!item.description?.trim()) {
+          validationResults.errors.push(`Item ${i + 1}: Description is required`);
+          validationResults.invalid++;
+          continue;
+        }
+        
+        if (typeof item.price !== 'number' || item.price < 0) {
+          validationResults.errors.push(`Item ${i + 1}: Valid price is required`);
+          validationResults.invalid++;
+          continue;
+        }
+        
+        if (!item.category?.trim()) {
+          validationResults.errors.push(`Item ${i + 1}: Category is required`);
+          validationResults.invalid++;
+          continue;
+        }
+
+        validationResults.valid++;
+      }
+
+      res.json({
+        success: true,
+        message: 'Validation completed',
+        results: validationResults
+      });
+
+    } catch (error) {
+      logger.error('Validate bulk menu error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Validation failed'
+      });
+    }
+  }
+
+  // Bulk update menu items
+  static async bulkUpdateMenu(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { updates } = req.body;
+
+      if (!Array.isArray(updates) || updates.length === 0) {
+        res.status(400).json({
+          success: false,
+          error: 'Updates array is required'
+        });
+        return;
+      }
+
+      const results = {
+        total: updates.length,
+        successful: 0,
+        failed: 0,
+        errors: [] as string[]
+      };
+
+      for (let i = 0; i < updates.length; i++) {
+        const { id, updates: itemUpdates } = updates[i];
+        
+        try {
+          if (!id) {
+            results.errors.push(`Update ${i + 1}: Item ID is required`);
+            results.failed++;
+            continue;
+          }
+
+          const existingItem = await MenuItem.findById(id);
+          if (!existingItem) {
+            results.errors.push(`Update ${i + 1}: Item not found`);
+            results.failed++;
+            continue;
+          }
+
+          // Check permissions
+          const restaurant = await Restaurant.findById(existingItem.restaurantId);
+          if (!restaurant) {
+            results.errors.push(`Update ${i + 1}: Restaurant not found`);
+            results.failed++;
+            continue;
+          }
+
+          if (req.user?.role !== 'superadmin' && 
+              restaurant.ownerId?.toString() !== req.user?._id?.toString() && 
+              req.user?.restaurantId !== existingItem.restaurantId) {
+            results.errors.push(`Update ${i + 1}: Not authorized`);
+            results.failed++;
+            continue;
+          }
+
+          // Prepare clean updates
+          const cleanUpdates: any = { updatedAt: new Date() };
+          
+          if (itemUpdates.name !== undefined) cleanUpdates.name = itemUpdates.name.trim();
+          if (itemUpdates.description !== undefined) cleanUpdates.description = itemUpdates.description.trim();
+          if (itemUpdates.price !== undefined) cleanUpdates.price = itemUpdates.price;
+          if (itemUpdates.category !== undefined) cleanUpdates.category = itemUpdates.category.trim().toLowerCase();
+          if (itemUpdates.available !== undefined) cleanUpdates.available = Boolean(itemUpdates.available);
+          if (itemUpdates.allergens !== undefined) cleanUpdates.allergens = itemUpdates.allergens;
+          if (itemUpdates.dietaryInfo !== undefined) cleanUpdates.dietaryInfo = itemUpdates.dietaryInfo;
+
+          await MenuItem.findByIdAndUpdate(id, cleanUpdates, { runValidators: true });
+          results.successful++;
+
+        } catch (error) {
+          results.errors.push(`Update ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          results.failed++;
+        }
+      }
+
+      res.json({
+        success: results.failed === 0,
+        message: `Bulk update completed: ${results.successful} successful, ${results.failed} failed`,
+        results
+      });
+
+    } catch (error) {
+      logger.error('Bulk update menu error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Internal server error'
+      });
+    }
+  }
+
+  // Bulk delete menu items
+  static async bulkDeleteMenu(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { itemIds } = req.body;
+
+      if (!Array.isArray(itemIds) || itemIds.length === 0) {
+        res.status(400).json({
+          success: false,
+          error: 'Item IDs array is required'
+        });
+        return;
+      }
+
+      const results = {
+        total: itemIds.length,
+        successful: 0,
+        failed: 0,
+        errors: [] as string[]
+      };
+
+      for (let i = 0; i < itemIds.length; i++) {
+        const id = itemIds[i];
+        
+        try {
+          const existingItem = await MenuItem.findById(id);
+          if (!existingItem) {
+            results.errors.push(`Item ${i + 1}: Not found`);
+            results.failed++;
+            continue;
+          }
+
+          // Check permissions
+          const restaurant = await Restaurant.findById(existingItem.restaurantId);
+          if (!restaurant) {
+            results.errors.push(`Item ${i + 1}: Restaurant not found`);
+            results.failed++;
+            continue;
+          }
+
+          if (req.user?.role !== 'superadmin' && 
+              restaurant.ownerId?.toString() !== req.user?._id?.toString() && 
+              req.user?.restaurantId !== existingItem.restaurantId) {
+            results.errors.push(`Item ${i + 1}: Not authorized`);
+            results.failed++;
+            continue;
+          }
+
+          await MenuItem.findByIdAndDelete(id);
+          results.successful++;
+
+        } catch (error) {
+          results.errors.push(`Item ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          results.failed++;
+        }
+      }
+
+      res.json({
+        success: results.failed === 0,
+        message: `Bulk delete completed: ${results.successful} successful, ${results.failed} failed`,
+        results
+      });
+
+    } catch (error) {
+      logger.error('Bulk delete menu error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Internal server error'
+      });
+    }
+  }
+
+  // Export menu items (CSV/JSON/Excel)
+  static async exportMenu(req: Request, res: Response): Promise<void> {
+    try {
+      const { format = 'csv', restaurantId } = req.query;
+
+      if (!restaurantId) {
+        res.status(400).json({
+          success: false,
+          error: 'Restaurant ID is required'
+        });
+        return;
+      }
+
+      // Fetch all menu items for the restaurant
+      const menuItems = await MenuItem.find({ 
+        restaurantId: restaurantId as string 
+      }).sort({ category: 1, name: 1 });
+
+      if (menuItems.length === 0) {
+        res.status(404).json({
+          success: false,
+          error: 'No menu items found'
+        });
+        return;
+      }
+
+      // Transform data for export
+      const exportData = menuItems.map(item => ({
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        category: item.category,
+        allergens: Array.isArray(item.allergens) ? item.allergens.join(', ') : '',
+        allergenNotes: item.allergenNotes || '',
+        dietaryInfo: Array.isArray(item.dietaryInfo) ? item.dietaryInfo.join(', ') : '',
+        available: item.available,
+        isVegetarian: item.isVegetarian || false,
+        isSpicy: item.isSpicy || false,
+        preparationTime: item.preparationTime || '',
+        calories: item.calories || '',
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt
+      }));
+
+      const timestamp = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+
+      if (format === 'csv') {
+        const csv = convertToCSV(exportData);
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', `attachment; filename=menu-export-${timestamp}.csv`);
+        res.send(csv);
+      } else if (format === 'json') {
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Disposition', `attachment; filename=menu-export-${timestamp}.json`);
+        res.json(exportData);
+      } else if (format === 'excel') {
+        // For Excel export, we'll use the XLSX library
+        const XLSX = require('xlsx');
+        const worksheet = XLSX.utils.json_to_sheet(exportData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Menu Items');
+        
+        const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+        
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', `attachment; filename=menu-export-${timestamp}.xlsx`);
+        res.send(buffer);
+      } else {
+        res.status(400).json({
+          success: false,
+          error: 'Unsupported export format. Use csv, json, or excel.'
+        });
+      }
+
+      logger.info(`Menu exported for restaurant ${restaurantId} in ${format} format`);
+
+    } catch (error) {
+      logger.error('Export menu error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Export failed'
       });
     }
   }
