@@ -60,6 +60,18 @@ export default function OrdersManagement({
     };
   };
 
+  // Debug: Log order data to see what we're receiving
+  console.log('Orders received in OrdersManagement:', orders.length > 0 ? {
+    firstOrder: orders[0],
+    hasAllergenData: orders[0]?.items?.some(item => 
+      item.allergenPreferences && (
+        item.allergenPreferences.avoidAllergens?.length > 0 ||
+        item.allergenPreferences.dietaryPreferences?.length > 0 ||
+        item.allergenPreferences.specialInstructions
+      )
+    )
+  } : 'No orders');
+
   return (
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
@@ -197,27 +209,72 @@ export default function OrdersManagement({
                       return (
                         <div 
                           key={index} 
-                          className={`flex justify-between text-sm p-3 rounded-lg ${
-                            itemHasAllergens ? 'bg-orange-50 border border-orange-200' : 'bg-gray-50'
+                          className={`p-3 rounded-lg border ${
+                            itemHasAllergens ? 'bg-orange-50 border-orange-200' : 'bg-gray-50 border-gray-200'
                           }`}
                         >
-                          <div className="flex items-center gap-2">
-                            <span className="text-gray-800">{item.quantity}x {item.name}</span>
-                            {itemHasAllergens && (
-                              <div className="flex gap-1">
-                                {(item.allergenPreferences?.avoidAllergens?.length ?? 0) > 0 && (
-                                  <AlertTriangle className="w-3 h-3 text-orange-500" />
-                                )}
-                                {(item.allergenPreferences?.dietaryPreferences?.length ?? 0) > 0 && (
-                                  <Utensils className="w-3 h-3 text-green-500"  />
-                                )}
-                                {item.allergenPreferences?.specialInstructions?.trim() && (
-                                  <FileText className="w-3 h-3 text-blue-500"  />
-                                )}
-                              </div>
-                            )}
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-gray-800 font-medium">{item.quantity}x {item.name}</span>
+                              {itemHasAllergens && (
+                                <div className="flex gap-1">
+                                  {(item.allergenPreferences?.avoidAllergens?.length ?? 0) > 0 && (
+                                    <AlertTriangle className="w-3 h-3 text-orange-500" title="Allergen avoidance" />
+                                  )}
+                                  {(item.allergenPreferences?.dietaryPreferences?.length ?? 0) > 0 && (
+                                    <Utensils className="w-3 h-3 text-green-500" title="Dietary preferences" />
+                                  )}
+                                  {item.allergenPreferences?.specialInstructions?.trim() && (
+                                    <FileText className="w-3 h-3 text-blue-500" title="Special instructions" />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                            <span className="font-semibold text-gray-900">${(item.price * item.quantity).toFixed(2)}</span>
                           </div>
-                          <span className="font-semibold text-gray-900">${(item.price * item.quantity).toFixed(2)}</span>
+                          
+                          {/* Show customizations */}
+                          {item.selectedCustomizations && item.selectedCustomizations.length > 0 && (
+                            <div className="mb-2">
+                              <div className="flex flex-wrap gap-1">
+                                {item.selectedCustomizations.map((custom, customIndex) => (
+                                  <span key={customIndex} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                                    {custom.customizationName}: {custom.selectedOptions.map(opt => opt.name).join(', ')}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Show detailed allergen preferences for this item */}
+                          {itemHasAllergens && (
+                            <div className="text-xs space-y-1">
+                              {(item.allergenPreferences?.avoidAllergens?.length ?? 0) > 0 && (
+                                <div className="flex items-center gap-2">
+                                  <AlertTriangle className="w-3 h-3 text-red-500" />
+                                  <span className="text-red-700 font-medium">
+                                    Avoid: {item.allergenPreferences?.avoidAllergens?.join(', ')}
+                                  </span>
+                                </div>
+                              )}
+                              {(item.allergenPreferences?.dietaryPreferences?.length ?? 0) > 0 && (
+                                <div className="flex items-center gap-2">
+                                  <Utensils className="w-3 h-3 text-green-500" />
+                                  <span className="text-green-700 font-medium">
+                                    Diet: {item.allergenPreferences?.dietaryPreferences?.join(', ')}
+                                  </span>
+                                </div>
+                              )}
+                              {item.allergenPreferences?.specialInstructions?.trim() && (
+                                <div className="flex items-center gap-2">
+                                  <FileText className="w-3 h-3 text-blue-500" />
+                                  <span className="text-blue-700 font-medium">
+                                    Note: {item.allergenPreferences.specialInstructions}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
                       );
                     })}

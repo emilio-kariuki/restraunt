@@ -190,6 +190,14 @@ export class OrderController {
           specialInstructions: item.specialInstructions || allergenPreferences.specialInstructions || ''
         };
 
+        // Debug log to see what allergen data is being processed
+        console.log(`Processing item ${menuItem.name}:`, {
+          allergenPreferences,
+          hasAllergenConcerns: allergenPreferences.avoidAllergens.length > 0 || 
+                               allergenPreferences.dietaryPreferences.length > 0 || 
+                               allergenPreferences.specialInstructions.length > 0
+        });
+
         processedItems.push(processedItem);
       }
 
@@ -380,32 +388,55 @@ export class OrderController {
       const sampleOrders = await Order.find({}).limit(3).select('restaurantId').lean();
       
 
-      // Simplified aggregation pipeline that avoids the $substr issue
-      const pipeline = [
-        { $match: query },
-        { $sort: { [sortBy as string]: sortOrder === 'desc' ? -1 as const : 1 as const } },
-        { $skip: (Number(page) - 1) * Number(limit) },
-        { $limit: Number(limit) },
-        {
-          $addFields: {
-            hasAllergenConcerns: '$orderAllergenSummary.hasAllergenConcerns'
-            // Remove the problematic orderNumber field for now
-          }
-        }
-      ];
+      // Use find() instead of aggregation to get full document structure
+      const sortOptions: any = {};
+      sortOptions[sortBy as string] = sortOrder === 'desc' ? -1 : 1;
 
       const [orders, total] = await Promise.all([
-        Order.aggregate(pipeline),
+        Order.find(query)
+          .sort(sortOptions)
+          .skip((Number(page) - 1) * Number(limit))
+          .limit(Number(limit))
+          .lean(),
         Order.countDocuments(query)
       ]);
 
-      // Add orderNumber in JavaScript instead of MongoDB aggregation
+      // Add orderNumber and ensure proper allergen data structure
       const ordersWithNumbers = orders.map(order => ({
         ...order,
-        orderNumber: order._id.toString().slice(-6)
+        orderNumber: order._id.toString().slice(-6),
+        hasAllergenConcerns: order.orderAllergenSummary?.hasAllergenConcerns || false,
+        allergenSummary: order.orderAllergenSummary,
+        // Ensure items have proper allergen structure
+        items: order.items.map(item => ({
+          ...item,
+          allergenPreferences: {
+            avoidAllergens: item.allergenPreferences?.avoidAllergens?.filter(a => a?.trim()) || [],
+            specialInstructions: item.allergenPreferences?.specialInstructions?.trim() || '',
+            dietaryPreferences: item.allergenPreferences?.dietaryPreferences?.filter(p => p?.trim()) || []
+          },
+          originalAllergens: item.originalAllergens || [],
+          selectedCustomizations: item.selectedCustomizations || []
+        }))
       }));
 
       console.log(`Found ${ordersWithNumbers.length} orders out of ${total} total for restaurant ${restaurantId}`);
+      
+      // Debug: Log first order's allergen data if any orders exist
+      if (ordersWithNumbers.length > 0) {
+        const firstOrder = ordersWithNumbers[0];
+        console.log('First order allergen data:', {
+          hasAllergenConcerns: firstOrder.hasAllergenConcerns,
+          orderAllergenSummary: firstOrder.orderAllergenSummary,
+          itemsWithAllergens: firstOrder.items.filter(item => 
+            item.allergenPreferences && (
+              item.allergenPreferences.avoidAllergens.length > 0 ||
+              item.allergenPreferences.dietaryPreferences.length > 0 ||
+              item.allergenPreferences.specialInstructions
+            )
+          ).length
+        });
+      }
 
       res.json({
         success: true,

@@ -1,6 +1,8 @@
 import twilio from 'twilio';
 import logger from '../utils/logger';
 import Restaurant from '../models/restraunt';
+import dotenv from 'dotenv';
+dotenv.config();
 
 interface TwilioConfig {
   accountSid: string;

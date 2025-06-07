@@ -22,11 +22,28 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 interface CartItem {
   id: string;
-  menuItemId: string;
+  menuItemId?: string;
   name: string;
   price: number;
   quantity: number;
   description?: string;
+  category?: string;
+  allergens?: string[];
+  allergenNotes?: string;
+  dietaryInfo?: string[];
+  selectedCustomizations?: Array<{
+    customizationId: string;
+    customizationName: string;
+    selectedOptions: Array<{
+      name: string;
+      price: number;
+    }>;
+  }>;
+  allergenPreferences?: {
+    avoidAllergens: string[];
+    specialInstructions: string;
+    dietaryPreferences: string[];
+  };
 }
 
 interface OrderFormData {
@@ -90,19 +107,37 @@ function CheckoutForm({ cart, total }: { cart: CartItem[], total: number }) {
 
     try {
       // Step 1: Create order
+      console.log('Cart items being sent to order:', cart.map(item => ({
+        name: item.name,
+        allergenPreferences: item.allergenPreferences,
+        hasAllergenData: item.allergenPreferences && (
+          item.allergenPreferences.avoidAllergens?.length > 0 ||
+          item.allergenPreferences.dietaryPreferences?.length > 0 ||
+          item.allergenPreferences.specialInstructions
+        )
+      })));
+
       const orderData = {
         tableId,
         items: cart.map(item => ({
           menuItemId: item.menuItemId || item.id,
           quantity: item.quantity,
-          // spiceLevel: 'mild', // Ensure spiceLevel is always a valid enum value
-          customizations: []
+          selectedCustomizations: item.selectedCustomizations || [],
+          allergenPreferences: item.allergenPreferences || {
+            avoidAllergens: [],
+            specialInstructions: '',
+            dietaryPreferences: []
+          },
+          customizations: item.selectedCustomizations?.map(custom => custom.customizationName).join(', ') || '',
+          specialInstructions: item.allergenPreferences?.specialInstructions || ''
         })),
         customerName: formData.customerName,
         customerPhone: formData.customerPhone.replace(/\s/g, ''),
         customerEmail: formData.customerEmail || undefined,
         specialInstructions: formData.specialInstructions || undefined
       };
+
+      console.log('Order data being sent to API:', orderData);
 
       const orderResponse = await apiService.orders.createOrder(restaurantId, orderData);
       const createdOrderId = orderResponse.order.id;

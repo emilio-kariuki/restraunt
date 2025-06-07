@@ -1,8 +1,8 @@
 // frontend/lib/api.ts - Updated API client with proper axios implementation
 import axios, { AxiosInstance, AxiosError } from "axios";
 
-const API_BASE = 'https://ecoville.online/restraunt/api';
-// const API_BASE = "http://localhost:9001/api";
+// const API_BASE = 'https://ecoville.online/restraunt/api';
+const API_BASE = "http://localhost:9001/api";
 // const API_BASE = 'https://hgn8hf4t-6000.uks1.devtunnels.ms/api';
 
 // Create axios instance with default config
@@ -476,6 +476,317 @@ export const apiService = {
       const response = await apiClient.get(`/menu/${restaurantId}/stats`);
       return response.data;
     },
+
+    // Bulk upload menu items
+    bulkUploadMenu: async (menuItems: Array<{
+      name: string;
+      description: string;
+      price: number;
+      category: string;
+      allergens?: string[];
+      allergenNotes?: string;
+      dietaryInfo?: string[];
+      available?: boolean;
+      customizations?: Array<{
+        id: string;
+        name: string;
+        type: "radio" | "checkbox" | "select";
+        options: Array<{
+          name: string;
+          price: number;
+        }>;
+        required: boolean;
+        maxSelections?: number;
+      }>;
+      isVegetarian?: boolean;
+      isSpicy?: boolean;
+      preparationTime?: number;
+      calories?: number;
+    }>, options?: {
+      restaurantId?: string;
+      overwrite?: boolean; // Whether to overwrite existing items with same name
+      skipDuplicates?: boolean; // Whether to skip items that already exist
+      validateOnly?: boolean; // Only validate without saving
+    }) => {
+      try {
+        if (!Array.isArray(menuItems) || menuItems.length === 0) {
+          throw new Error('Menu items array is required and cannot be empty');
+        }
+
+        // Validate each item before sending
+        const validatedItems = menuItems.map((item, index) => {
+          if (!item.name?.trim()) {
+            throw new Error(`Item ${index + 1}: Name is required`);
+          }
+          if (!item.description?.trim()) {
+            throw new Error(`Item ${index + 1}: Description is required`);
+          }
+          if (typeof item.price !== 'number' || item.price < 0) {
+            throw new Error(`Item ${index + 1}: Valid price is required`);
+          }
+          if (!item.category?.trim()) {
+            throw new Error(`Item ${index + 1}: Category is required`);
+          }
+
+          return {
+            name: item.name.trim(),
+            description: item.description.trim(),
+            price: parseFloat(item.price.toString()),
+            category: item.category.trim().toLowerCase(),
+            allergens: Array.isArray(item.allergens) ? item.allergens.filter(a => a?.trim()) : [],
+            allergenNotes: item.allergenNotes?.trim() || '',
+            dietaryInfo: Array.isArray(item.dietaryInfo) ? item.dietaryInfo.filter(d => d?.trim()) : [],
+            available: item.available !== false,
+            customizations: item.customizations || [],
+            isVegetarian: Boolean(item.isVegetarian),
+            isSpicy: Boolean(item.isSpicy),
+            preparationTime: item.preparationTime || undefined,
+            calories: item.calories || undefined
+          };
+        });
+
+        const payload = {
+          items: validatedItems,
+          options: {
+            restaurantId: options?.restaurantId,
+            overwrite: options?.overwrite || false,
+            skipDuplicates: options?.skipDuplicates || true,
+            validateOnly: options?.validateOnly || false
+          }
+        };
+
+        const response = await apiClient.post('/menu/bulk-upload', payload);
+
+        if (!response.data?.success) {
+          throw new Error(response.data?.error || 'Bulk upload failed');
+        }
+
+        return response.data;
+      } catch (error) {
+        console.error('Bulk upload menu error:', error);
+        throw error;
+      }
+    },
+
+    // Upload menu from CSV/Excel file
+    uploadMenuFromFile: async (file: File, options?: {
+      restaurantId?: string;
+      overwrite?: boolean;
+      skipDuplicates?: boolean;
+      validateOnly?: boolean;
+      mapping?: {
+        name?: string;
+        description?: string;
+        price?: string;
+        category?: string;
+        allergens?: string;
+        available?: string;
+      };
+    }) => {
+      try {
+        if (!file) {
+          throw new Error('File is required');
+        }
+
+        const allowedTypes = [
+          'text/csv',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'application/json'
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+          throw new Error('File must be CSV, Excel, or JSON format');
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        if (options?.restaurantId) {
+          formData.append('restaurantId', options.restaurantId);
+        }
+        if (options?.overwrite !== undefined) {
+          formData.append('overwrite', String(options.overwrite));
+        }
+        if (options?.skipDuplicates !== undefined) {
+          formData.append('skipDuplicates', String(options.skipDuplicates));
+        }
+        if (options?.validateOnly !== undefined) {
+          formData.append('validateOnly', String(options.validateOnly));
+        }
+        if (options?.mapping) {
+          formData.append('mapping', JSON.stringify(options.mapping));
+        }
+
+        const response = await apiClient.post('/menu/upload-from-file', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          timeout: 60000, // 60 seconds for file processing
+        });
+
+        if (!response.data?.success) {
+          throw new Error(response.data?.error || 'File upload failed');
+        }
+
+        return response.data;
+      } catch (error) {
+        console.error('Upload menu from file error:', error);
+        throw error;
+      }
+    },
+
+    // Get bulk upload template
+    getBulkUploadTemplate: async (format: 'csv' | 'excel' | 'json' = 'csv') => {
+      try {
+        const response = await apiClient.get(`/menu/bulk-upload-template?format=${format}`, {
+          responseType: 'blob'
+        });
+
+        // Create download link
+        const blob = new Blob([response.data]);
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `menu-template.${format === 'excel' ? 'xlsx' : format}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+
+        return { success: true, message: 'Template downloaded successfully' };
+      } catch (error) {
+        console.error('Download template error:', error);
+        throw error;
+      }
+    },
+
+    // Validate bulk menu data before upload
+    validateBulkMenu: async (menuItems: any[]) => {
+      try {
+        const response = await apiClient.post('/menu/validate-bulk', {
+          items: menuItems
+        });
+
+        return response.data;
+      } catch (error) {
+        console.error('Validate bulk menu error:', error);
+        throw error;
+      }
+    },
+
+    // Get bulk upload history
+    getBulkUploadHistory: async (page: number = 1, limit: number = 10) => {
+      try {
+        const response = await apiClient.get(`/menu/bulk-upload-history?page=${page}&limit=${limit}`);
+        return response.data;
+      } catch (error) {
+        console.error('Get bulk upload history error:', error);
+        throw error;
+      }
+    },
+
+    // Export current menu to file
+    exportMenu: async (format: 'csv' | 'excel' | 'json' = 'csv', restaurantId?: string) => {
+      try {
+        if (!restaurantId) {
+          throw new Error('Restaurant ID is required for export');
+        }
+
+        const params = new URLSearchParams();
+        params.append('format', format);
+        params.append('restaurantId', restaurantId);
+
+        const response = await apiClient.get(`/menu/export?${params.toString()}`, {
+          responseType: 'blob'
+        });
+
+        // Create download link
+        const blob = new Blob([response.data]);
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        
+        // Get filename from response headers or create default
+        const contentDisposition = response.headers['content-disposition'];
+        let filename = `menu-export-${new Date().toISOString().split('T')[0]}.${format === 'excel' ? 'xlsx' : format}`;
+        
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+          if (filenameMatch && filenameMatch[1]) {
+            filename = filenameMatch[1].replace(/['"]/g, '');
+          }
+        }
+        
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+
+        return { success: true, message: 'Menu exported successfully' };
+      } catch (error) {
+        console.error('Export menu error:', error);
+        throw error;
+      }
+    },
+
+    // Bulk update menu items
+    bulkUpdateMenu: async (updates: Array<{
+      id: string;
+      updates: Partial<{
+        name: string;
+        description: string;
+        price: number;
+        category: string;
+        available: boolean;
+        allergens: string[];
+        dietaryInfo: string[];
+      }>;
+    }>) => {
+      try {
+        if (!Array.isArray(updates) || updates.length === 0) {
+          throw new Error('Updates array is required');
+        }
+
+        const response = await apiClient.put('/menu/bulk-update', {
+          updates
+        });
+
+        if (!response.data?.success) {
+          throw new Error(response.data?.error || 'Bulk update failed');
+        }
+
+        return response.data;
+      } catch (error) {
+        console.error('Bulk update menu error:', error);
+        throw error;
+      }
+    },
+
+    // Bulk delete menu items
+    bulkDeleteMenu: async (itemIds: string[]) => {
+      try {
+        if (!Array.isArray(itemIds) || itemIds.length === 0) {
+          throw new Error('Item IDs array is required');
+        }
+
+        const response = await apiClient.delete('/menu/bulk-delete', {
+          data: { itemIds }
+        });
+
+        if (!response.data?.success) {
+          throw new Error(response.data?.error || 'Bulk delete failed');
+        }
+
+        return response.data;
+      } catch (error) {
+        console.error('Bulk delete menu error:', error);
+        throw error;
+      }
+    },
+
+    // ... rest of existing menu methods
   },
 
   // Restaurant endpoints

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { apiService } from '../../lib/api';
 import { Restaurant, MenuItemForm, MenuItem, TableForm, RestaurantProfile } from '../../types/admin';
 import MenuItemModal from '../../components/admin/MenuItemModal';
+import BulkMenuUpload from '../../components/admin/BulkMenuUpload';
 
 // Components
 import LoginForm from '../../components/admin/LoginForm';
@@ -19,13 +20,13 @@ import QRModal from '../../components/admin/QRModal';
 import ServiceRequests from '../../components/admin/ServiceRequests';
 import { useAdminData } from '@/hooks/useAdminData';
 import TableModal from '@/components/admin/TableModal';
-import { CheckCircle, AlertCircle, X } from 'lucide-react';
+import { CheckCircle, AlertCircle, X, Download, Utensils, DollarSign, Grid, Plus, Trash2, Edit3 } from 'lucide-react';
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'orders' | 'menu' | 'tables' | 'services' | 'reports' | 'settings'>('dashboard');
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [notification, setNotification] = useState<{ type: 'success' | 'error' | 'info'; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
   // Modal states
@@ -55,6 +56,9 @@ export default function AdminPage() {
   });
   const [showTableModal, setShowTableModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Selected menu items for bulk actions
+  const [selectedMenuItems, setSelectedMenuItems] = useState<string[]>([]);
 
   // Use custom hook for data management
   const {
@@ -182,7 +186,7 @@ export default function AdminPage() {
     }
   };
 
-  const showNotification = (type: 'success' | 'error', message: string) => {
+  const showNotification = (type: 'success' | 'error' | 'info', message: string) => {
     setNotification({ type, message });
   };
 
@@ -506,6 +510,8 @@ export default function AdminPage() {
         <div className={`fixed top-6 right-6 z-50 p-4 rounded-xl shadow-2xl flex items-center backdrop-blur-sm ${
           notification.type === 'success' 
             ? 'bg-green-50/90 border border-green-200 text-green-800' 
+            : notification.type === 'info'
+            ? 'bg-blue-50/90 border border-blue-200 text-blue-800'
             : 'bg-red-50/90 border border-red-200 text-red-800'
         }`}>
           {notification.type === 'success' ? (
@@ -559,14 +565,273 @@ export default function AdminPage() {
         )}
 
         {activeTab === 'menu' && (
-          <MenuManagement
-            menuItems={menuItems}
-            isLoading={isLoadingMenu || isDataLoading}
-            onAddItem={() => setShowMenuItemModal(true)}
-            onEditItem={handleEditMenuItem}
-            onDeleteItem={handleDeleteMenuItem}
-            onRefresh={() => loadMenuItems(true)} // Add manual refresh
-          />
+          <div className="space-y-6">
+            {/* Menu Header with Bulk Upload */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Menu Management</h2>
+                <p className="text-gray-600">Manage your restaurant's menu items</p>
+              </div>
+              <div className="flex space-x-3">
+                {/* Existing Add Menu Item button */}
+                <button
+                  onClick={() => {
+                    setEditingMenuItem(null);
+                    setMenuItemForm({
+                      name: '',
+                      description: '',
+                      price: '',
+                      category: '',
+                      allergens: '',
+                      allergenNotes: '',
+                      dietaryInfo: [],
+                      available: true,
+                      customizations: []
+                    });
+                    setShowMenuItemModal(true);
+                  }}
+                  className="flex items-center px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Menu Item
+                </button>
+
+                {/* New Bulk Upload Component */}
+                <BulkMenuUpload
+                  restaurantId={restaurant?._id || ''}
+                  onUploadComplete={() => {
+                    loadMenuItems(true); // Force refresh menu
+                  }}
+                  onNotification={(type, message) => {
+                    setNotification({ type, message });
+                  }}
+                />
+
+                {/* Export Menu Button */}
+                <button
+                  onClick={async () => {
+                    try {
+                      if (!restaurant?._id) {
+                        setNotification({
+                          type: 'error',
+                          message: 'Restaurant ID not found'
+                        });
+                        return;
+                      }
+                      
+                      await apiService.menu.exportMenu('csv', restaurant._id);
+                      setNotification({
+                        type: 'success',
+                        message: 'Menu exported successfully'
+                      });
+                    } catch (error: any) {
+                      console.error('Export error:', error);
+                      setNotification({
+                        type: 'error',
+                        message: error.message || 'Export failed'
+                      });
+                    }
+                  }}
+                  className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Export Menu
+                </button>
+              </div>
+            </div>
+
+            {/* Menu Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-white rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Total Items</p>
+                    <p className="text-2xl font-bold text-gray-900">{menuItems.length}</p>
+                  </div>
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <Utensils className="w-5 h-5 text-blue-600" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Available</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {menuItems.filter(item => item.available).length}
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Categories</p>
+                    <p className="text-2xl font-bold text-purple-600">
+                      {new Set(menuItems.map(item => item.category)).size}
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <Grid className="w-5 h-5 text-purple-600" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Avg Price</p>
+                    <p className="text-2xl font-bold text-yellow-600">
+                      ${menuItems.length > 0 
+                        ? (menuItems.reduce((sum, item) => sum + item.price, 0) / menuItems.length).toFixed(2)
+                        : '0.00'
+                      }
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-yellow-600" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Menu Items List Header */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
+                {/* Search and filters... */}
+              </div>
+              
+              {/* Bulk Actions */}
+              {selectedMenuItems.length > 0 && (
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600">
+                    {selectedMenuItems.length} selected
+                  </span>
+                  
+                  <button
+                    onClick={async () => {
+                      if (confirm(`Delete ${selectedMenuItems.length} selected items?`)) {
+                        try {
+                          await apiService.menu.bulkDeleteMenu(selectedMenuItems);
+                          setNotification({
+                            type: 'success',
+                            message: `${selectedMenuItems.length} items deleted`
+                          });
+                          setSelectedMenuItems([]);
+                          loadMenuItems(true);
+                        } catch (error: any) {
+                          setNotification({
+                            type: 'error',
+                            message: error.message || 'Bulk delete failed'
+                          });
+                        }
+                      }
+                    }}
+                    className="flex items-center px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+                  >
+                    <Trash2 className="w-4 h-4 mr-1" />
+                    Delete Selected
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      // Toggle availability for selected items
+                      const updates = selectedMenuItems.map(id => ({
+                        id,
+                        updates: { available: !menuItems.find(item => item._id === id)?.available }
+                      }));
+                      
+                      apiService.menu.bulkUpdateMenu(updates).then(() => {
+                        setNotification({
+                          type: 'success',
+                          message: 'Items updated successfully'
+                        });
+                        setSelectedMenuItems([]);
+                        loadMenuItems(true);
+                      }).catch((error: any) => {
+                        setNotification({
+                          type: 'error',
+                          message: error.message || 'Bulk update failed'
+                        });
+                      });
+                    }}
+                    className="flex items-center px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                  >
+                    <Edit3 className="w-4 h-4 mr-1" />
+                    Toggle Availability
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Menu Items List */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              {isLoadingMenu ? (
+                <div className="text-center py-4">
+                  <p className="text-gray-500">Loading menu items...</p>
+                </div>
+              ) : (
+                <div>
+                  {menuItems.length === 0 ? (
+                    <div className="text-center py-4">
+                      <p className="text-gray-500">No menu items found</p>
+                    </div>
+                  ) : (
+                    <div>
+                      {/* Menu Item Example - Repeat this for each item */}
+                      {menuItems.map(item => (
+                        <div key={item._id} className="flex items-center justify-between py-4 border-b border-gray-200">
+                          <div className="flex items-center space-x-4">
+                            {/* Checkbox for selection */}
+                            <input
+                              type="checkbox"
+                              checked={selectedMenuItems.includes(item._id)}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setSelectedMenuItems(prev => [...prev, item._id]);
+                                } else {
+                                  setSelectedMenuItems(prev => prev.filter(id => id !== item._id));
+                                }
+                              }}
+                              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            />
+                            
+                            <div className="flex-1">
+                              <p className="text-lg font-semibold text-gray-900">{item.name}</p>
+                              <p className="text-sm text-gray-600">{item.description}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center space-x-4">
+                            <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+                            
+                            <button
+                              onClick={() => handleEditMenuItem(item)}
+                              className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors text-sm"
+                            >
+                              Edit
+                            </button>
+                            
+                            <button
+                              onClick={() => handleDeleteMenuItem(item._id)}
+                              className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
         )}
 
         {activeTab === 'tables' && (

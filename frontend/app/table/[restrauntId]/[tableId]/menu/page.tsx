@@ -132,6 +132,17 @@ export default function MenuPage() {
 
     // Enhanced addToCart function
     const addToCart = (item: MenuItem, allergenPreferences?: any, customizations?: any) => {
+        console.log('Adding item to cart:', {
+            itemName: item.name,
+            allergenPreferences,
+            customizations,
+            hasAllergenData: allergenPreferences && (
+                allergenPreferences.avoidAllergens?.length > 0 ||
+                allergenPreferences.dietaryPreferences?.length > 0 ||
+                allergenPreferences.specialInstructions
+            )
+        });
+
         const existingItemIndex = cart.findIndex(cartItem => 
             cartItem.id === item.id && 
             JSON.stringify(cartItem.selectedCustomizations) === JSON.stringify(customizations) &&
@@ -151,9 +162,11 @@ export default function MenuPage() {
                 ...item,
                 quantity: 1,
                 selectedCustomizations: customizations || [],
-                allergenPreferences: allergenPreferences || { avoidAllergens: [], specialInstructions: '' },
+                allergenPreferences: allergenPreferences || { avoidAllergens: [], specialInstructions: '', dietaryPreferences: [] },
                 dietaryPreferences: allergenPreferences?.dietaryPreferences || []
             };
+            
+            console.log('Created cart item:', cartItem);
             setCart([...cart, cartItem]);
         }
 

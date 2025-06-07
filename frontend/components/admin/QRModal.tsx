@@ -1,8 +1,9 @@
 'use client';
 
-import { X, Download, Copy, Share } from 'lucide-react';
-import { useState } from 'react';
+import { X, Download, Copy, Share, AlertCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { Restaurant } from '../../types/admin';
+import { apiService } from '../../lib/api';
 
 interface QRModalProps {
   selectedTable: string;
@@ -18,8 +19,28 @@ export default function QRModal({
   onDownload 
 }: QRModalProps) {
   const [copied, setCopied] = useState(false);
+  const [qrCode, setQrCode] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   
   const tableUrl = `${window.location.origin}/table/${restaurant._id}/${selectedTable}`;
+  
+  useEffect(() => {
+    const fetchQRCode = async () => {
+      try {
+        setLoading(true);
+        const response = await apiService.restaurants.getTableQR(selectedTable, restaurant._id);
+        setQrCode(response.qrCode);
+      } catch (error: any) {
+        console.error('Failed to fetch QR code:', error);
+        setError('Failed to generate QR code');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQRCode();
+  }, [selectedTable, restaurant._id]);
   
   const copyToClipboard = async () => {
     try {
@@ -32,8 +53,19 @@ export default function QRModal({
   };
 
   const downloadQR = () => {
-    // In a real implementation, you would generate and download the QR code
-    // For now, we'll just call the parent's onDownload function
+    if (!qrCode) {
+      alert('QR code not available for download');
+      return;
+    }
+    
+    // Create a download link for the QR code
+    const link = document.createElement('a');
+    link.href = qrCode;
+    link.download = `table-${selectedTable}-qr.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
     onDownload();
   };
 
@@ -53,21 +85,48 @@ export default function QRModal({
         </div>
         
         <div className="p-6 text-center">
-          {/* QR Code Placeholder */}
-          <div className="w-64 h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-32 h-32 bg-white border border-gray-300 rounded-lg mb-4 mx-auto flex items-center justify-center">
-                <div className="grid grid-cols-8 gap-1">
-                  {[...Array(64)].map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-1 h-1 ${Math.random() > 0.5 ? 'bg-black' : 'bg-white'}`}
-                    />
-                  ))}
-                </div>
+          {/* QR Code Display */}
+          <div className="w-64 h-64 bg-gray-100 border-2 border-gray-300 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+            {loading ? (
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p className="text-sm text-gray-600">Generating QR Code...</p>
               </div>
-              <p className="text-sm text-gray-600">QR Code Preview</p>
-            </div>
+            ) : error ? (
+              <div className="text-center">
+                <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+                <p className="text-sm text-red-600">{error}</p>
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="mt-2 text-blue-600 text-sm hover:underline"
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : qrCode ? (
+              <div className="text-center">
+                <img 
+                  src={qrCode} 
+                  alt={`QR Code for Table ${selectedTable}`}
+                  className="w-56 h-56 mx-auto rounded-lg border border-gray-200 bg-white p-4"
+                />
+                <p className="text-sm text-gray-600 mt-3">Scan to access menu</p>
+              </div>
+            ) : (
+              <div className="text-center">
+                <div className="w-32 h-32 bg-white border border-gray-300 rounded-lg mb-4 mx-auto flex items-center justify-center">
+                  <div className="grid grid-cols-8 gap-1">
+                    {[...Array(64)].map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-1 h-1 ${Math.random() > 0.5 ? 'bg-black' : 'bg-white'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">QR Code Preview</p>
+              </div>
+            )}
           </div>
           
           <div className="space-y-4">
@@ -96,7 +155,12 @@ export default function QRModal({
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={downloadQR}
-                className="bg-blue-600 text-white py-3 px-4 rounded-xl hover:bg-blue-700 transition-all font-semibold flex items-center justify-center"
+                disabled={!qrCode || loading}
+                className={`py-3 px-4 rounded-xl transition-all font-semibold flex items-center justify-center ${
+                  qrCode && !loading
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
                 <Download className="w-5 h-5 mr-2" />
                 Download QR
