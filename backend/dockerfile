@@ -18,7 +18,7 @@ RUN pnpm install
 COPY . .
 
 # Expose port
-EXPOSE 9001
+EXPOSE 9003
 
 # Command to run the application
 CMD ["pnpm", "start"]
