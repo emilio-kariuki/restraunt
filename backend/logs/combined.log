@@ -1828,3 +1828,10 @@
 {"level":"warn","message":"404 - Route not found: GET /api/","timestamp":"2025-06-11T17:18:04.702Z"}
 {"level":"warn","message":"404 - Route not found: GET /api","timestamp":"2025-06-11T17:18:08.230Z"}
 {"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-11T17:18:16.116Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-11T17:20:43.984Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-11T17:20:44.451Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-11T17:20:44.451Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-11T17:20:44.452Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-11T17:20:44.452Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-11T17:20:45.556Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-11T17:20:46.348Z"}
