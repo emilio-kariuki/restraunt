@@ -219,13 +219,13 @@ export default function OrdersManagement({
                               {itemHasAllergens && (
                                 <div className="flex gap-1">
                                   {(item.allergenPreferences?.avoidAllergens?.length ?? 0) > 0 && (
-                                    <AlertTriangle className="w-3 h-3 text-orange-500" title="Allergen avoidance" />
+                                    <AlertTriangle className="w-3 h-3 text-orange-500"  />
                                   )}
                                   {(item.allergenPreferences?.dietaryPreferences?.length ?? 0) > 0 && (
-                                    <Utensils className="w-3 h-3 text-green-500" title="Dietary preferences" />
+                                    <Utensils className="w-3 h-3 text-green-500"  />
                                   )}
                                   {item.allergenPreferences?.specialInstructions?.trim() && (
-                                    <FileText className="w-3 h-3 text-blue-500" title="Special instructions" />
+                                    <FileText className="w-3 h-3 text-blue-500"  />
                                   )}
                                 </div>
                               )}
