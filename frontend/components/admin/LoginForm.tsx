@@ -79,8 +79,7 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
         <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
           <p className="text-sm font-semibold text-blue-800 mb-3">Demo Credentials:</p>
           <div className="space-y-2 text-sm text-blue-700">
-            <p><strong>Admin:</strong> admin@bellavista.com / admin123</p>
-            <p><strong>Kitchen:</strong> kitchen@bellavista.com / kitchen123</p>
+            <p><strong>Admin:</strong> superadmin@restaurant.com / SuperAdmin123!</p>
           </div>
         </div>
       </div>

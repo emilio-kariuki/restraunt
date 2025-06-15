@@ -24,52 +24,68 @@ export default function Notification({ type, message, onClose, duration = 5000 }
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
+        return (
+          <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center">
+            <CheckCircle className="w-5 h-5 text-green-600" />
+          </div>
+        );
       case 'error':
-        return <XCircle className="w-5 h-5 text-red-600" />;
+        return (
+          <div className="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center">
+            <XCircle className="w-5 h-5 text-red-600" />
+          </div>
+        );
       case 'warning':
-        return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+        return (
+          <div className="w-8 h-8 bg-yellow-100 rounded-xl flex items-center justify-center">
+            <AlertTriangle className="w-5 h-5 text-yellow-600" />
+          </div>
+        );
       case 'info':
-        return <Info className="w-5 h-5 text-blue-600" />;
+        return (
+          <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center">
+            <Info className="w-5 h-5 text-blue-600" />
+          </div>
+        );
     }
   };
 
   const getStyles = () => {
     switch (type) {
       case 'success':
-        return 'bg-green-50 border-green-200 text-green-800 shadow-green-100';
+        return 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-300 text-green-900 shadow-xl shadow-green-100/50';
       case 'error':
-        return 'bg-red-50 border-red-200 text-red-800 shadow-red-100';
+        return 'bg-gradient-to-r from-red-50 to-rose-50 border-red-300 text-red-900 shadow-xl shadow-red-100/50';
       case 'warning':
-        return 'bg-amber-50 border-amber-200 text-amber-800 shadow-amber-100';
+        return 'bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-300 text-amber-900 shadow-xl shadow-amber-100/50';
       case 'info':
-        return 'bg-blue-50 border-blue-200 text-blue-800 shadow-blue-100';
+        return 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-300 text-blue-900 shadow-xl shadow-blue-100/50';
     }
   };
 
   return (
-    <div className={`fixed top-4 right-4 z-50 animate-slide-up animate-fade-in`}>
-      <div className={`p-4 rounded-2xl border-2 shadow-2xl max-w-sm backdrop-blur-sm ${getStyles()} transform transition-all duration-300 ease-in-out hover:scale-105`}>
-        <div className="flex items-start space-x-3">
-          <div className="flex-shrink-0 mt-0.5">
+    <div className={`fixed top-6 right-6 z-50 animate-bounce-in`}>
+      <div className={`p-5 rounded-2xl border-2 shadow-2xl max-w-sm backdrop-blur-md ${getStyles()} transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-3xl`}>
+        <div className="flex items-start space-x-4">
+          <div className="flex-shrink-0">
             {getIcon()}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm leading-relaxed break-words">{message}</p>
+            <p className="font-bold text-base leading-relaxed break-words">{message}</p>
           </div>
           <button
             onClick={onClose}
-            className="flex-shrink-0 ml-2 p-1 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-white/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-300"
+            className="flex-shrink-0 p-2 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-white/70 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-300 transform hover:scale-110"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
         
-        {/* Progress bar for auto-dismiss */}
+        {/* Enhanced progress bar for auto-dismiss */}
         {duration > 0 && (
-          <div className="mt-3 w-full bg-white/30 rounded-full h-1 overflow-hidden">
+          <div className="mt-4 w-full bg-white/40 rounded-full h-2 overflow-hidden shadow-inner">
             <div 
-              className="h-full bg-current opacity-60 rounded-full transition-all ease-linear"
+              className="h-full bg-current opacity-80 rounded-full transition-all ease-linear shadow-sm"
               style={{
                 width: '100%',
                 animation: `shrink ${duration}ms linear forwards`

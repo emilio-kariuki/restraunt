@@ -1835,3 +1835,70 @@
 {"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-11T17:20:44.452Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-11T17:20:45.556Z"}
 {"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-11T17:20:46.348Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T22:18:41.181Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T22:18:41.583Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T22:18:41.583Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T22:18:41.583Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T22:18:41.583Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T22:18:42.708Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-15T22:18:52.552Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T22:20:05.812Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T22:20:06.185Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T22:20:06.186Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T22:20:06.186Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T22:20:06.186Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T22:20:07.431Z"}
+{"body":"{\"email\": \"superadmin@restaurant.com\", \"password\": \"SuperAdmin123\\!\"}","expose":true,"level":"error","message":"Unhandled error: Bad escaped character in JSON at position 66","stack":"SyntaxError: Bad escaped character in JSON at position 66\n    at JSON.parse (<anonymous>)\n    at parse (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/body-parser@1.20.3/node_modules/body-parser/lib/types/json.js:92:19)\n    at /Users/emilio/projects/restraunt/backend/node_modules/.pnpm/body-parser@1.20.3/node_modules/body-parser/lib/read.js:128:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:206:9)\n    at invokeCallback (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/raw-body@2.5.2/node_modules/raw-body/index.js:238:16)\n    at done (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/raw-body@2.5.2/node_modules/raw-body/index.js:227:7)\n    at IncomingMessage.onEnd (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/raw-body@2.5.2/node_modules/raw-body/index.js:287:7)\n    at IncomingMessage.emit (node:events:524:28)\n    at IncomingMessage.emit (node:domain:489:12)\n    at endReadableNT (node:internal/streams/readable:1698:12)","status":400,"statusCode":400,"timestamp":"2025-06-15T22:22:15.644Z","type":"entity.parse.failed"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:22:34.589Z"}
+{"level":"error","message":"Login error: Cannot read properties of null (reading '_id')","stack":"TypeError: Cannot read properties of null (reading '_id')\n    at login (/Users/emilio/projects/restraunt/backend/src/controllers/authController.ts:124:45)","timestamp":"2025-06-15T22:22:34.591Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:23:02.830Z"}
+{"level":"error","message":"Login error: Cannot read properties of null (reading '_id')","stack":"TypeError: Cannot read properties of null (reading '_id')\n    at login (/Users/emilio/projects/restraunt/backend/src/controllers/authController.ts:124:45)","timestamp":"2025-06-15T22:23:02.831Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:23:36.735Z"}
+{"level":"error","message":"Login error: Cannot read properties of null (reading '_id')","stack":"TypeError: Cannot read properties of null (reading '_id')\n    at login (/Users/emilio/projects/restraunt/backend/src/controllers/authController.ts:124:45)","timestamp":"2025-06-15T22:23:36.736Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:26:05.607Z"}
+{"level":"error","message":"Login error: Cannot read properties of null (reading '_id')","stack":"TypeError: Cannot read properties of null (reading '_id')\n    at login (/Users/emilio/projects/restraunt/backend/src/controllers/authController.ts:124:45)","timestamp":"2025-06-15T22:26:05.608Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T22:26:28.024Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T22:26:28.530Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T22:26:28.531Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T22:26:28.531Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T22:26:28.531Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T22:26:29.790Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:26:32.201Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-15T22:27:00.542Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T22:31:15.714Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T22:31:16.206Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T22:31:16.206Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T22:31:16.206Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T22:31:16.206Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T22:31:17.370Z"}
+{"level":"info","message":"Payment intent created: pi_3RaP5PPlqsDxHLJB1oTxW0T3 for order: 684f4919e4227cfc1cddbe2d","timestamp":"2025-06-15T22:31:35.610Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-15T22:32:46.505Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T22:45:00.428Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T22:45:00.868Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T22:45:00.868Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T22:45:00.868Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T22:45:00.868Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T22:45:02.020Z"}
+{"level":"info","message":"Shutting down gracefully...","timestamp":"2025-06-15T22:52:48.214Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T22:52:53.544Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T22:52:53.910Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T22:52:53.910Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T22:52:53.910Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T22:52:53.910Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T22:52:55.131Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:54:56.757Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:56:49.879Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:57:44.262Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T22:58:39.762Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-15T23:00:08.253Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-15T23:00:08.622Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-15T23:00:08.622Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-15T23:00:08.622Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-15T23:00:08.622Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-15T23:00:09.827Z"}
+{"level":"error","message":"Login error: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{},"setName":null,"stale":false,"type":"Single"},"stack":"MongoServerSelectionError: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)\n    at Timeout._onTimeout (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/sdam/topology.ts:567:30)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)","timestamp":"2025-06-15T23:01:19.526Z"}
+{"level":"error","message":"Login error: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{},"setName":null,"stale":false,"type":"Single"},"stack":"MongoServerSelectionError: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)\n    at Timeout._onTimeout (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/sdam/topology.ts:567:30)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)","timestamp":"2025-06-15T23:01:19.534Z"}
+{"level":"error","message":"Login error: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{},"setName":null,"stale":false,"type":"Single"},"stack":"MongoServerSelectionError: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)\n    at Timeout._onTimeout (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/sdam/topology.ts:567:30)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)","timestamp":"2025-06-15T23:01:19.536Z"}
+{"level":"error","message":"Login error: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{},"setName":null,"stale":false,"type":"Single"},"stack":"MongoServerSelectionError: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61398)\n    at Timeout._onTimeout (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/sdam/topology.ts:567:30)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)","timestamp":"2025-06-15T23:01:19.537Z"}
+{"level":"error","message":"Login error: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61518)","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{},"setName":null,"stale":false,"type":"Single"},"stack":"MongoServerSelectionError: connect ENETUNREACH 84.247.174.84:6004 - Local (0.0.0.0:61518)\n    at Timeout._onTimeout (/Users/emilio/projects/restraunt/backend/node_modules/.pnpm/mongodb@5.9.2/node_modules/mongodb/src/sdam/topology.ts:567:30)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)","timestamp":"2025-06-15T23:01:38.552Z"}
+{"level":"info","message":"User logged in: superadmin@restaurant.com","timestamp":"2025-06-15T23:01:42.559Z"}
