@@ -162,7 +162,7 @@ export class RestaurantController {
       await restaurant.save();
 
       // Generate QR code for the table
-      const tableUrl = `${window.location.origin}/table/${tableNumber}?restaurant=${restaurant._id}`;
+      const tableUrl = `${process.env.FRONTEND_URL}/table/${tableNumber}?restaurant=${restaurant._id}`;
       const qr = require('qrcode');
       const qrCode = await qr.toDataURL(tableUrl);
       
