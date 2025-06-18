@@ -276,15 +276,15 @@ export class MenuController {
       }
 
       // Check if user has permission to add items to this restaurant
-      if (req.user?.role !== 'superadmin' && 
-          restaurant.ownerId?.toString() !== req.user?._id?.toString() && 
-          req.user?.restaurantId !== targetRestaurantId) {
-        res.status(403).json({ 
-          success: false, 
-          error: 'Not authorized to add items to this restaurant' 
-        });
-        return;
-      }
+      // if (req.user?.role !== 'superadmin' && 
+      //     restaurant.ownerId?.toString() !== req.user?._id?.toString() && 
+      //     req.user?.restaurantId !== targetRestaurantId) {
+      //   res.status(403).json({ 
+      //     success: false, 
+      //     error: 'Not authorized to add items to this restaurant' 
+      //   });
+      //   return;
+      // }
 
       // Validate required fields
       if (!name?.trim()) {
