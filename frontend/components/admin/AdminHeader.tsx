@@ -15,7 +15,7 @@ export default function AdminHeader({ activeTab, setActiveTab, onLogout }: Admin
     { id: 'menu', label: 'Menu', icon: MenuIcon },
     { id: 'tables', label: 'Tables', icon: QrCode },
     { id: 'reports', label: 'Reports', icon: Download },
-    { id: 'services', label: 'Services', icon: Table },
+    // { id: 'services', label: 'Services', icon: Table },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
