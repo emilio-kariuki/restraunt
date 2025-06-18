@@ -2,8 +2,8 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
 
 // const API_BASE = 'http://84.247.174.84:9003/api';
-// const API_BASE = 'https://ecoville.online/restraunt/api';
-const API_BASE = "http://localhost:9003/api";
+const API_BASE = 'https://ecoville.online/restraunt/api';
+// const API_BASE = "http://localhost:9003/api";
 // const API_BASE = 'https://hgn8hf4t-6000.uks1.devtunnels.ms/api';
 
 // Create axios instance with default config
