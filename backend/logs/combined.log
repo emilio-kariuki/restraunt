@@ -1928,3 +1928,20 @@
 {"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-18T22:35:35.727Z"}
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-18T22:35:36.973Z"}
 {"level":"info","message":"Table 5 added to restaurant 674a1b2c3d4e5f6789012345","timestamp":"2025-06-18T22:35:41.687Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-20T21:03:15.295Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-20T21:03:15.697Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-20T21:03:15.697Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-20T21:03:15.697Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-20T21:03:15.698Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-20T21:03:16.969Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-20T21:04:01.733Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-20T21:04:02.099Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-20T21:04:02.100Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-20T21:04:02.100Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-20T21:04:02.100Z"}
+{"level":"info","message":"Twilio service initialized successfully","timestamp":"2025-06-20T21:04:13.403Z"}
+{"level":"info","message":"🚀 Server running on port 9003","timestamp":"2025-06-20T21:04:13.821Z"}
+{"level":"info","message":"📅 Environment: development","timestamp":"2025-06-20T21:04:13.821Z"}
+{"level":"info","message":"🌐 CORS enabled for: https://restraunt-lake.vercel.app","timestamp":"2025-06-20T21:04:13.821Z"}
+{"level":"info","message":"📊 API Health Check: http://localhost:9003/api/health","timestamp":"2025-06-20T21:04:13.821Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-06-20T21:04:15.099Z"}
